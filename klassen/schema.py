@@ -104,14 +104,18 @@ class Prieze:
             'hydro': self.hydro,
             'enk_dubb': self.enk_dubb
         }
-
 class Gebouw:
-    def __init__(self, naam, pos, toevoervan):
+    def __init__(self, naam, pos= None, toevoervan = None, *args, **kwargs):
         self.naam = naam
         self.pos = pos
         self.toevoervan = toevoervan
         self.verdeelborden = []  # lijst voor Verdeelbord-objecten
         self.tellers = []        # lijst voor Teller-objecten
+        self._args = args        # extra positional arguments
+        self._extra_attrs = kwargs  # extra keyword arguments
+        # Set extra attributes as instance variables
+        for key, value in kwargs.items():
+            setattr(self, key, value)
 
     def add_Verdeelbord(self, verdeelbord):
         if not isinstance(verdeelbord, Verdeelbord):
@@ -124,38 +128,59 @@ class Gebouw:
         self.tellers.append(teller)
 
     def as_dict(self):
-        return {
+        # Start with the fixed attributes
+        data = {
             'naam': self.naam,
             'pos': self.pos,
             'toevoervan': self.toevoervan,
-            'verdeelborden': [vb.as_dict() for vb in self.verdeelborden],
-            'tellers': [t.as_dict() for t in self.tellers]
         }
+        # Insert args if present
+        if self._args:
+            data['args'] = self._args
+        # Insert kwargs (extra attributes)
+        data.update(self._extra_attrs)
+        # Now add the object arrays
+        data['verdeelborden'] = [vb.as_dict() for vb in self.verdeelborden]
+        data['tellers'] = [t.as_dict() for t in self.tellers]
+        return data
 
 class Verlichting:
-    def __init__(self, naam, soort, aantal, kabellijst, kabel, lengte, carre, driver=None, transfo=None):
+    def __init__(
+        self, naam, locatie , soort=None, aantal=None, kabellijst=None, kabel=None,
+        lengte=None, carre=None, driver=None, transfo=None,   *args, **kwargs
+    ):
         self.naam = naam
-        self.driver = driver      # Optioneel
-        self.transfo = transfo    # Optioneel
         self.soort = soort
         self.aantal = aantal
         self.kabellijst = kabellijst
         self.kabel = kabel
         self.lengte = lengte
         self.carre = carre
+        self.driver = driver
+        self.transfo = transfo
+        self.locatie = locatie
+        self._args = args
+        self._extra_attrs = kwargs
+        for key, value in kwargs.items():
+            setattr(self, key, value)
 
     def as_dict(self):
-        return {
+        data = {
             'naam': self.naam,
-            'driver': self.driver,
-            'transfo': self.transfo,
             'soort': self.soort,
             'aantal': self.aantal,
             'kabellijst': self.kabellijst,
             'kabel': self.kabel,
             'lengte': self.lengte,
-            'carre': self.carre
+            'carre': self.carre,
+            'driver': self.driver,
+            'transfo': self.transfo,
+            'locatie': self.locatie,
         }
+        if self._args:
+            data['args'] = self._args
+        data.update(self._extra_attrs)
+        return data
 
 
 class VelbusModule:
@@ -221,7 +246,7 @@ class VelbusContact:
         return self.__dict__.copy()
 
 class Differentieel:
-    def __init__(self, naam, amp, polen, millies, type_, kA):
+    def __init__(self, naam, amp=None, polen=None, millies=None, type_=None, kA=None, *args, **kwargs):
         self.naam = naam
         self.amp = amp
         self.polen = polen
@@ -232,8 +257,12 @@ class Differentieel:
         self.ct_objects = []      # List for Contax objects
         self.toestellen = []      # List for Toestel objects
         self.zekeringen = []      # List for Zekering objects
-        self.differentielen = []  # <-- Toegevoegd
-        self.priezen = []  # <-- Toegevoegd
+        self.differentielen = []  # List for Differentieel objects
+        self.priezen = []         # List for Prieze objects
+        self._args = args
+        self._extra_attrs = kwargs
+        for key, value in kwargs.items():
+            setattr(self, key, value)
 
     def add_velbusmodule(self, module):
         if not isinstance(module, VelbusModule):
@@ -266,22 +295,27 @@ class Differentieel:
         self.priezen.append(prieze)
 
     def as_dict(self):
-        return {
+        data = {
             'naam': self.naam,
             'amp': self.amp,
             'polen': self.polen,
             'millies': self.millies,
             'type': self.type,
             'kA': self.kA,
-            'velbusmodules': [mod.as_dict() for mod in self.velbusmodules],
-            'contaxen': [ct.as_dict() for ct in self.ct_objects],
-            'toestellen': [toestel.as_dict() for toestel in self.toestellen],
-            'zekeringen': [zek.as_dict() for zek in self.zekeringen],
-            'priezen': [p.as_dict() for p in self.priezen]  # <-- Toegevoegd
         }
-
+        if self._args:
+            data['args'] = self._args
+        data.update(self._extra_attrs)
+        # Arrays at the bottom
+        data['velbusmodules'] = [mod.as_dict() for mod in self.velbusmodules]
+        data['contaxen'] = [ct.as_dict() for ct in self.ct_objects]
+        data['toestellen'] = [toestel.as_dict() for toestel in self.toestellen]
+        data['zekeringen'] = [zek.as_dict() for zek in self.zekeringen]
+        data['differentielen'] = [diff.as_dict() for diff in self.differentielen]
+        data['priezen'] = [p.as_dict() for p in self.priezen]
+        return data
 class Zekering:
-    def __init__(self, naam, ka, amp, kabelonder, polen):
+    def __init__(self, naam, ka=None, amp=None, kabelonder=None, polen=None, *args, **kwargs):
         self.naam = naam
         self.ka = ka
         self.amp = amp
@@ -291,53 +325,41 @@ class Zekering:
         self.ct_objects = []      # List for CT objects
         self.toestellen = []      # List for Toestel objects
         self.differentielen = []  # List for Differentieel objects
-        self.priezen = []  # <-- Toegevoegd
-        self.verlichtingen = []  # <-- nieuw toegevoegd attribuut
+        self.priezen = []         # List for Prieze objects
+        self.verlichtingen = []   # List for Verlichting objects
+        self._args = args
+        self._extra_attrs = kwargs
+        for key, value in kwargs.items():
+            setattr(self, key, value)
 
     def controleer_verlichting_veiligheid(self):
-        # Verzamel alle verlichting, direct en via VelbusRelay
         verlichtingen = list(self.verlichtingen)
-
         for module in self.velbusmodules:
             for ch in module.subdevices:
                 if isinstance(ch, VelbusRelay):
                     verlichtingen.extend(ch.verlichting)
-
-        # Als er verlichting is en ampère > 16, geef waarschuwing
-        if verlichtingen and self.amp > 16:
+        if verlichtingen and self.amp and self.amp > 16:
             return f" Waarschuwing: verlichting op zekering {self.naam} ({self.amp}A) > 16A!"
         else:
             return f" Zekering {self.naam} oké (verlichting of amp <= 16A)"
 
-
     def maak_automatenlijstlijn(self):
         onderdelen = []
-
-        # Voeg namen van Contax objecten toe
         onderdelen.extend(ct.naam for ct in self.ct_objects)
-
-        # Voeg namen van Priezen toe
         onderdelen.extend(prieze.naam for prieze in self.priezen)
-
-        # Voeg namen van Toestellen toe
         onderdelen.extend(toestel.naam for toestel in self.toestellen)
-
-        # Voeg direct gekoppelde verlichting toe
         onderdelen.extend(v.naam for v in self.verlichtingen)
-
-        # Voeg verlichting toe via velbusmodules (alle relays)
         for mod in self.velbusmodules:
             for ch in mod.subdevices:
                 if isinstance(ch, VelbusRelay):
                     onderdelen.extend(v.naam for v in ch.verlichting)
-
         prefix = f"{self.naam} {self.polen}P {self.amp}A:"
         return f"{prefix} " + ", ".join(onderdelen)
+
     def add_verlichting(self, verlichting):
         if not isinstance(verlichting, Verlichting):
             raise ValueError("Only Verlichting instances can be added")
         self.verlichtingen.append(verlichting)
-
 
     def add_velbusmodule(self, module):
         if not isinstance(module, VelbusModule):
@@ -365,20 +387,24 @@ class Zekering:
         self.priezen.append(prieze)
 
     def as_dict(self):
-        return {
+        data = {
             'naam': self.naam,
             'ka': self.ka,
             'amp': self.amp,
             'kabelonder': self.kabelonder,
             'polen': self.polen,
-            'velbusmodules': [mod.as_dict() for mod in self.velbusmodules],
-            'contaxen': [ct.as_dict() for ct in self.ct_objects],
-            'toestellen': [toestel.as_dict() for toestel in self.toestellen],
-            'differentielen': [diff.as_dict() for diff in self.differentielen],
-            'priezen': [p.as_dict() for p in self.priezen],
-            'verlichtingen': [v.as_dict() for v in self.verlichtingen]  # <-- nieuw toegevoegd
         }
-
+        if self._args:
+            data['args'] = self._args
+        data.update(self._extra_attrs)
+        # Arrays at the bottom
+        data['velbusmodules'] = [mod.as_dict() for mod in self.velbusmodules]
+        data['contaxen'] = [ct.as_dict() for ct in self.ct_objects]
+        data['toestellen'] = [toestel.as_dict() for toestel in self.toestellen]
+        data['differentielen'] = [diff.as_dict() for diff in self.differentielen]
+        data['priezen'] = [p.as_dict() for p in self.priezen]
+        data['verlichtingen'] = [v.as_dict() for v in self.verlichtingen]
+        return data
 
 class Contax:
     def __init__(self, naam, spoel_van):
@@ -406,15 +432,22 @@ class Contax:
         }
 
 class Teller:
-    def __init__(self, ean, amp, toevoerkabel=None, carre=None):
+    def __init__(self, ean= None, amp = None, toevoerkabel=None, carre=None, spanning=None, polen=None, ohm=None, **kwargs):
         self.ean = ean                # EAN-nummer (uniek identificatienummer)
         self.amp = amp                # Stroomsterkte in ampère
         self.toevoerkabel = toevoerkabel  # bv. 'EXVB', 'H07RN-F', ...
         self.carre = carre            # doorsnede in mm²
+        self.spanning = spanning      # spanning in volt (bijv. 230V/400V)
+        self.polen = polen            # aantal polen (bijv. 1P, 3P)
+        self.ohm = ohm                # aardingweerstand in ohm
         self.zekeringen = []
         self.differentielen = []
         self.hoofdschakelaars = []
         self.verdeelborden = []
+        # Store extra attributes
+        self._extra_attrs = kwargs
+        for key, value in kwargs.items():
+            setattr(self, key, value)
 
     def add_zekering(self, zekering):
         if not isinstance(zekering, Zekering):
@@ -439,21 +472,31 @@ class Teller:
               f"Sub-verdeelbord: '{verdeelbord.naam}' (locatie: {verdeelbord.lokatie})")
         self.verdeelborden.append(verdeelbord)
 
+
+
     def as_dict(self):
-        return {
+        # Start with the fixed attributes
+        data = {
             'ean': self.ean,
             'amp': self.amp,
             'toevoerkabel': self.toevoerkabel,
             'carre': self.carre,
-            'zekeringen': [zek.as_dict() for zek in self.zekeringen],
-            'differentielen': [diff.as_dict() for diff in self.differentielen],
-            'hoofdschakelaars': [hos.as_dict() for hos in self.hoofdschakelaars],
-            'verdeelborden': [vb.as_dict() for vb in self.verdeelborden]
+            'spanning': self.spanning,
+            'polen': self.polen,
+            'ohm': self.ohm,
         }
+        # Insert extra attributes from kwargs here
+        data.update(self._extra_attrs)
+        # Add the list attributes at the end
+        data['zekeringen'] = [zek.as_dict() for zek in self.zekeringen]
+        data['differentielen'] = [diff.as_dict() for diff in self.differentielen]
+        data['hoofdschakelaars'] = [hos.as_dict() for hos in self.hoofdschakelaars]
+        data['verdeelborden'] = [vb.as_dict() for vb in self.verdeelborden]
+        return data
 
 
 class Verdeelbord:
-    def __init__(self, naam, lokatie, kA, toevoerkabel=None, carre=None, lengte=None):
+    def __init__(self, naam, lokatie, kA, toevoerkabel=None, carre=None, lengte=None, **kwargs):
         self.naam = naam
         self.lokatie = lokatie
         self.kA = kA
@@ -464,6 +507,10 @@ class Verdeelbord:
         self.differentielen = []
         self.hoofdschakelaars = []
         self.verdeelborden = []
+        # Store extra attributes
+        self._extra_attrs = kwargs
+        for key, value in kwargs.items():
+            setattr(self, key, value)
 
     def add_zekering(self, zekering):
         if not isinstance(zekering, Zekering):
@@ -489,18 +536,22 @@ class Verdeelbord:
         self.verdeelborden.append(verdeelbord)
 
     def as_dict(self):
-        return {
+        data = {
             'naam': self.naam,
             'lokatie': self.lokatie,
             'kA': self.kA,
             'toevoerkabel': self.toevoerkabel,
             'carre': self.carre,
             'lengte': self.lengte,
-            'zekeringen': [zek.as_dict() for zek in self.zekeringen],
-            'differentielen': [diff.as_dict() for diff in self.differentielen],
-            'hoofdschakelaars': [hos.as_dict() for hos in self.hoofdschakelaars],
-            'verdeelborden': [vb.as_dict() for vb in self.verdeelborden]
         }
+        # Add extra attributes
+        data.update(self._extra_attrs)
+        # Add list attributes
+        data['zekeringen'] = [zek.as_dict() for zek in self.zekeringen]
+        data['differentielen'] = [diff.as_dict() for diff in self.differentielen]
+        data['hoofdschakelaars'] = [hos.as_dict() for hos in self.hoofdschakelaars]
+        data['verdeelborden'] = [vb.as_dict() for vb in self.verdeelborden]
+        return data
 
 
 class Hoofdschakelaar:
@@ -556,130 +607,3 @@ class Toestel:
         }
 
 
-# 1. Basiselementen ##########################################################
-def inittester():
-
-    # Priezen
-    prieze1 = Prieze("CEE-poort", 2, "3g2.5", "20x20", 8, hydro="IP44", enk_dubb="enkel")
-    prieze2 = Prieze("CEE-lastafel", 2, "3g2.5", "20x20", 8, hydro="IP44", enk_dubb="enkel")
-
-    # Verlichting
-    lamp1 = Verlichting("Spots Keuken", "LED", 8, "wv5", "5g2.5", 14, "20x20", driver="Meanwell")
-    lamp2 = Verlichting("Spots trap", "LED", 1, "wv6", "5g2.5", 4, "20x20", transfo="tr1 100W")
-    lamp3 = Verlichting("far tuin", "LED", 8, "wv5", "5g2.5", 14, "20x20", driver="Meanwell")
-    lamp4 = Verlichting("rgb strip", "LED", 1, "wv6", "5g2.5", 4, "20x20", transfo="tr1 100W")
-
-    # VelbusContacten
-    ryno1_1 = VelbusContact(1, "Voordeur", "5g6", "Blauw")
-    ryno1_2 = VelbusContact(2, "Tuinpad", "4g1", "Bruin")
-
-    # VelbusRelays
-    rel1_1 = VelbusRelay(1, "nvt", "nvt", "nvt")
-    rel1_2 = VelbusRelay(2, "nvt", "ja", "nvt")
-    rel1_1.add_verlichting(lamp1)
-    rel1_2.add_verlichting(lamp2)
-
-    # Toestellen
-    toestel1 = Toestel("Vaatwasser", "Stopcontact", "3g2.5", "20x20", 5, "bi", kabellijst="wv3")
-    toestel2 = Toestel("Fornuis", "Boite", "3g2.5", "20x20", 5, "bi", kabellijst="ws2")
-    laadpaal1 = Toestel("blitz", "Prieze", "5g2.5", "20x20", 5, "bu", kabellijst="ws1")
-
-    # 2. Modules en Contax #######################################################
-
-    # VelbusModules
-    ryno1 = VelbusModule(1)
-    ryno1.add_channel(ryno1_1)
-    ryno1.add_channel(ryno1_2)
-
-    ryld1 = VelbusModule(2)
-    ryld1.add_channel(rel1_1)
-    ryld1.add_channel(rel1_2)
-
-    # Contax
-    ct1 = Contax("CT5", "klok")
-    ct1.add_velbusmodule(VelbusModule(3))
-
-    # 3. Zekeringen ##############################################################
-
-    Q1007 = Zekering("Q1007", 16, 10, "5g2", 7)
-    Q1007.add_toestel(laadpaal1)
-
-    Q1008 = Zekering("Q1008", 16, 20, "5g2", 7)
-    Q1008.add_verlichting(lamp3)
-
-    Q1009 = Zekering("Q1009", 6, 16, "5g2.5", 3)
-    Q1009.add_velbusmodule(ryno1)
-    Q1009.add_velbusmodule(ryld1)
-    Q1009.add_ct(ct1)
-    Q1009.add_toestel(toestel1)
-    Q1009.add_toestel(toestel2)
-
-    Q1010 = Zekering("Q1010", 6, 16, "5g2.5", 3)
-    Q1010.add_prieze(prieze1)
-    Q1010.add_toestel(toestel1)
-    Q1010.add_prieze(prieze2)
-
-    # 4. Differentielen ##########################################################
-
-    diff1 = Differentieel("Diff1", 40, 4, 300, "A", 6)
-    diff1.add_zekering(Q1009)
-    diff1.add_zekering(Q1008)
-
-    diff2_3 = Differentieel("Diff2_3", 40, 4, 300, "A", 6)
-    diff2 = Differentieel("Diff2", 40, 4, 300, "A", 6)
-    diff2.add_differentieel(diff2_3)
-
-    # 5. Hoofdzekering ###########################################################
-
-    hoofdzekering = Zekering("Hoofdzekering", 6, 16, "5g2.5", 3)
-    hoofdzekering.add_differentieel(diff1)
-
-    # 6. Hoofdschakelaar #########################################################
-
-    hs1 = Hoofdschakelaar("HS1", 4, 63)
-    hs1.add_zekering(Q1009)
-    print(hs1)
-
-    # 7. Verdeelborden ###########################################################
-
-    sk1 = Verdeelbord("Bord SK1", "Kelder", 10)
-    sk1.add_zekering(hoofdzekering)
-    sk1.add_differentieel(diff2)
-
-    sk2 = Verdeelbord("Bord SK2", "Gelijkvloer", 14533)
-    sk2.add_zekering(Q1008)
-    sk2.add_hoofdschakelaar(hs1)
-
-    sk2_1 = Verdeelbord("Bord SK2.1", "Gelijkvloer", 14533, lengte=5)
-    sk2.add_verdeelbord(sk2_1)
-
-    # 8. Gebouw en Teller ########################################################
-
-    teller = Teller("1234567890123", 40, "EXVB", 10)
-    teller.add_verdeelbord(sk2)
-
-    gebouw1 = Gebouw("Woning Janssens", "51.12345, 4.56789", "Netbeheerder")
-    gebouw1.add_teller(teller)
-    gebouw1.add_Verdeelbord(sk1)
-
-
-# 9. Export naar JSON + Clipboard (Windows) ##################################
-
-
-    json_str = json.dumps(gebouw1.as_dict(), indent=2)
-
-    # Kopieer naar clipboard (alleen op Windows)
-
-    if platform.system() == "Windows":
-        subprocess.run('clip', universal_newlines=True, input=json_str)
-        print(" JSON copied to clipboard!")
-
-# Toon in console het gebouw
-#print(json_str)
-#print(Q1008.maak_automatenlijstlijn())
-#print(Q1010.controleer_verlichting_veiligheid())
-#toon_gebouwstructuur(gebouw1) #met de klantnaam
-
-
-
-#toon_automaten_per_bord(gebouw1)

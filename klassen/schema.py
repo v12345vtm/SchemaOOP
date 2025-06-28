@@ -82,28 +82,33 @@ def toon_gebouwstructuur(gebouw):
             print(f"    - Zekering: {zek.naam}")
 
 
-
-
 class Prieze:
-    def __init__(self, naam, aantal, kabel, carre, lengte, hydro=None, enk_dubb=None):
+    def __init__(self, naam, aantal=None, kabel=None, carre=None, lengte=None, kabellijst=None, *args, **kwargs):
         self.naam = naam
         self.aantal = aantal
         self.kabel = kabel
         self.carre = carre
         self.lengte = lengte
-        self.hydro = hydro      # Optioneel
-        self.enk_dubb = enk_dubb  # Optioneel
+        self.kabellijst = kabellijst
+        self._args = args
+        self._extra_attrs = kwargs
+        for key, value in kwargs.items():
+            setattr(self, key, value)
 
     def as_dict(self):
-        return {
+        data = {
             'naam': self.naam,
             'aantal': self.aantal,
             'kabel': self.kabel,
             'carre': self.carre,
             'lengte': self.lengte,
-            'hydro': self.hydro,
-            'enk_dubb': self.enk_dubb
+            'kabellijst': self.kabellijst,
         }
+        if self._args:
+            data['args'] = self._args
+        data.update(self._extra_attrs)
+        return data
+
 class Gebouw:
     def __init__(self, naam, pos= None, toevoervan = None, *args, **kwargs):
         self.naam = naam
@@ -167,6 +172,7 @@ class Verlichting:
     def as_dict(self):
         data = {
             'naam': self.naam,
+            'locatie': self.locatie,
             'soort': self.soort,
             'aantal': self.aantal,
             'kabellijst': self.kabellijst,
@@ -175,15 +181,51 @@ class Verlichting:
             'carre': self.carre,
             'driver': self.driver,
             'transfo': self.transfo,
-            'locatie': self.locatie,
         }
         if self._args:
             data['args'] = self._args
         data.update(self._extra_attrs)
         return data
 
+class DomoModule:
+    def __init__(self, name, num_channels, channeltype, *args, **kwargs):
+        self.name = name
+        self.num_channels = num_channels
+        self.channeltype = channeltype
+        self.channels = [None] * num_channels
+        self._args = args
+        self._extra_attrs = kwargs
+        for key, value in kwargs.items():
+            setattr(self, key, value)
 
-class VelbusModule:
+    def get_num_channels(self):
+        return self.num_channels
+
+    def as_dict(self):
+        data = {
+            'name': self.name,
+            'num_channels': self.num_channels,
+            'channeltype': self.channeltype,
+        }
+        if self._args:
+            data['args'] = self._args
+        data.update(self._extra_attrs)
+
+        def serialize_channel(ch, idx):
+            if ch is None:
+                return None
+            type_name = type(ch).__name__
+            key = f"{type_name} {self.name}.{idx}"
+            if hasattr(ch, "as_dict") and callable(getattr(ch, "as_dict")):
+                return {key: ch.as_dict()}
+            else:
+                return {key: repr(ch)}
+
+        data['channels'] = [serialize_channel(ch, idx) for idx, ch in enumerate(self.channels)]
+        return data
+
+
+class oudDomoModule:
     def __init__(self, module_id):
         self.module_id = module_id
         self.subdevices = []
@@ -192,7 +234,7 @@ class VelbusModule:
     def as_dict(self):
         subdevice_dicts = [sub.as_dict() for sub in self.subdevices]
         return {
-            'velbusmodule': self.subdevice_type,
+            'domomodule': self.subdevice_type,
             'module_id': self.module_id,
             'channels': subdevice_dicts
 
@@ -200,42 +242,67 @@ class VelbusModule:
 
     def add_channel(self, subdevice):
         if not self.subdevices:
-            if isinstance(subdevice, VelbusRelay):
+            if isinstance(subdevice, DomoRelay):
                 self.subdevice_type = 'relayRYLD'
-            elif isinstance(subdevice, VelbusContact):
+            elif isinstance(subdevice, DomoContact):
                 self.subdevice_type = 'contactRYNO'
             else:
                 raise ValueError("Unknown subdevice type")
         current_type = self.subdevice_type
-        if (current_type == 'relay' and not isinstance(subdevice, VelbusRelay)) or \
-                (current_type == 'contact' and not isinstance(subdevice, VelbusContact)):
+        if (current_type == 'relay' and not isinstance(subdevice, DomoRelay)) or \
+                (current_type == 'contact' and not isinstance(subdevice, DomoContact)):
             raise ValueError(f"Cannot add {type(subdevice).__name__}: module already has {current_type}s")
-        if len(self.subdevices) >= 4:
-            raise ValueError("Cannot add more than 4 subdevices to a module")
+        if len(self.subdevices) >= 8:
+            raise ValueError("Cannot add more than 8 subdevices to a module")
         self.subdevices.append(subdevice)
 
 
-
-class VelbusRelay:
-    def __init__(self, channelID, code_HA, code_Caneco, kleur):
-        self.module_id = channelID
+class DomoRelay:
+    def __init__(self, channelid, code_HA=None, code_Caneco=None, kleur=None, *args, **kwargs):
+        self.channelid = channelid
         self.code_HA = code_HA
         self.code_Caneco = code_Caneco
         self.kleur = kleur
-        self.verlichting = []  # <-- lijst voor Verlichting-objecten
+        self.verlichting = []     # List for Verlichting objects
+        self.ct_objects = []      # List for Contax objects
+        self.priezen = []         # List for Prieze objects
+        self._args = args
+        self._extra_attrs = kwargs
+        for key, value in kwargs.items():
+            setattr(self, key, value)
 
     def add_verlichting(self, verlichting):
         if not isinstance(verlichting, Verlichting):
             raise ValueError("Only Verlichting instances can be added")
         self.verlichting.append(verlichting)
 
+    def add_contax(self, contax):
+        if not isinstance(contax, Contax):
+            raise ValueError("Only Contax instances can be added")
+        self.ct_objects.append(contax)
+
+    def add_prieze(self, prieze):
+        if not isinstance(prieze, Prieze):
+            raise ValueError("Only Prieze instances can be added")
+        self.priezen.append(prieze)
+
     def as_dict(self):
-        data = self.__dict__.copy()
-        # Zorg dat verlichting correct geserialiseerd wordt
+        data = {
+            'channelid': self.channelid,
+            'code_HA': self.code_HA,
+            'code_Caneco': self.code_Caneco,
+            'kleur': self.kleur,
+        }
+        if self._args:
+            data['args'] = self._args
+        data.update(self._extra_attrs)
+        # Arrays at the bottom
         data['verlichting'] = [v.as_dict() for v in self.verlichting]
+        data['contaxen'] = [ct.as_dict() for ct in self.ct_objects]
+        data['priezen'] = [p.as_dict() for p in self.priezen]
         return data
 
-class VelbusContact:
+class DomoContact:
     def __init__(self, channelID, naam, kabel, kleur):
         self.module_id = channelID
         self.naam = naam
@@ -253,7 +320,7 @@ class Differentieel:
         self.millies = millies
         self.type = type_
         self.kA = kA
-        self.velbusmodules = []   # List for VelbusModule objects
+        self.domomodules = []   # List for domoModule objects
         self.ct_objects = []      # List for Contax objects
         self.toestellen = []      # List for Toestel objects
         self.zekeringen = []      # List for Zekering objects
@@ -264,10 +331,10 @@ class Differentieel:
         for key, value in kwargs.items():
             setattr(self, key, value)
 
-    def add_velbusmodule(self, module):
-        if not isinstance(module, VelbusModule):
-            raise ValueError("Only VelbusModule instances can be added")
-        self.velbusmodules.append(module)
+    def add_domomodule(self, module):
+        if not isinstance(module, DomoModule):
+            raise ValueError("Only DomoModule instances can be added")
+        self.domomodules.append(module)
 
     def add_ct(self, ct):
         if not isinstance(ct, Contax):
@@ -307,7 +374,7 @@ class Differentieel:
             data['args'] = self._args
         data.update(self._extra_attrs)
         # Arrays at the bottom
-        data['velbusmodules'] = [mod.as_dict() for mod in self.velbusmodules]
+        data['domomodules'] = [mod.as_dict() for mod in self.domomodules]
         data['contaxen'] = [ct.as_dict() for ct in self.ct_objects]
         data['toestellen'] = [toestel.as_dict() for toestel in self.toestellen]
         data['zekeringen'] = [zek.as_dict() for zek in self.zekeringen]
@@ -321,12 +388,12 @@ class Zekering:
         self.amp = amp
         self.kabelonder = kabelonder
         self.polen = polen
-        self.velbusmodules = []   # List for VelbusModule objects
-        self.ct_objects = []      # List for CT objects
-        self.toestellen = []      # List for Toestel objects
-        self.differentielen = []  # List for Differentieel objects
-        self.priezen = []         # List for Prieze objects
-        self.verlichtingen = []   # List for Verlichting objects
+        self.domomodules = []   # List for DomoModule objects
+        self.ct_objects = []    # List for Contax objects
+        self.toestellen = []    # List for Toestel objects
+        self.differentielen = [] # List for Differentieel objects
+        self.priezen = []       # List for Prieze objects
+        self.verlichtingen = [] # List for Verlichting objects
         self._args = args
         self._extra_attrs = kwargs
         for key, value in kwargs.items():
@@ -334,9 +401,9 @@ class Zekering:
 
     def controleer_verlichting_veiligheid(self):
         verlichtingen = list(self.verlichtingen)
-        for module in self.velbusmodules:
+        for module in self.domomodules:
             for ch in module.subdevices:
-                if isinstance(ch, VelbusRelay):
+                if isinstance(ch, DomoRelay):
                     verlichtingen.extend(ch.verlichting)
         if verlichtingen and self.amp and self.amp > 16:
             return f" Waarschuwing: verlichting op zekering {self.naam} ({self.amp}A) > 16A!"
@@ -349,9 +416,9 @@ class Zekering:
         onderdelen.extend(prieze.naam for prieze in self.priezen)
         onderdelen.extend(toestel.naam for toestel in self.toestellen)
         onderdelen.extend(v.naam for v in self.verlichtingen)
-        for mod in self.velbusmodules:
+        for mod in self.domomodules:
             for ch in mod.subdevices:
-                if isinstance(ch, VelbusRelay):
+                if isinstance(ch, DomoRelay):
                     onderdelen.extend(v.naam for v in ch.verlichting)
         prefix = f"{self.naam} {self.polen}P {self.amp}A:"
         return f"{prefix} " + ", ".join(onderdelen)
@@ -361,15 +428,20 @@ class Zekering:
             raise ValueError("Only Verlichting instances can be added")
         self.verlichtingen.append(verlichting)
 
-    def add_velbusmodule(self, module):
-        if not isinstance(module, VelbusModule):
-            raise ValueError("Only VelbusModule instances can be added")
-        self.velbusmodules.append(module)
+    def add_domomodule(self, module):
+        if not isinstance(module, DomoModule):
+            raise ValueError("Only DomoModule instances can be added")
+        self.domomodules.append(module)
 
     def add_ct(self, ct):
         if not isinstance(ct, Contax):
-            raise ValueError("Only CT instances can be added")
+            raise ValueError("Only Contax instances can be added")
         self.ct_objects.append(ct)
+
+    def add_contax(self, contax):
+        if not isinstance(contax, Contax):
+            raise ValueError("Only Contax instances can be added")
+        self.ct_objects.append(contax)
 
     def add_toestel(self, toestel):
         if not isinstance(toestel, Toestel):
@@ -398,7 +470,7 @@ class Zekering:
             data['args'] = self._args
         data.update(self._extra_attrs)
         # Arrays at the bottom
-        data['velbusmodules'] = [mod.as_dict() for mod in self.velbusmodules]
+        data['domomodules'] = [mod.as_dict() for mod in self.domomodules]
         data['contaxen'] = [ct.as_dict() for ct in self.ct_objects]
         data['toestellen'] = [toestel.as_dict() for toestel in self.toestellen]
         data['differentielen'] = [diff.as_dict() for diff in self.differentielen]
@@ -407,16 +479,21 @@ class Zekering:
         return data
 
 class Contax:
-    def __init__(self, naam, spoel_van):
+    def __init__(self, naam, spoel_van=None, contact_op=None, *args, **kwargs):
         self.naam = naam
         self.spoel_van = spoel_van
-        self.velbusmodules = []
-        self.priezen = []  # <-- Toegevoegd
+        self.contact_op = contact_op
+        self.domomodules = []
+        self.priezen = []
+        self._args = args
+        self._extra_attrs = kwargs
+        for key, value in kwargs.items():
+            setattr(self, key, value)
 
-    def add_velbusmodule(self, module):
-        if not isinstance(module, VelbusModule):
-            raise ValueError("Only VelbusModule instances can be added")
-        self.velbusmodules.append(module)
+    def add_domomodule(self, module):
+        if not isinstance(module, DomoModule):
+            raise ValueError("Only DomoModule instances can be added")
+        self.domomodules.append(module)
 
     def add_prieze(self, prieze):
         if not isinstance(prieze, Prieze):
@@ -424,12 +501,18 @@ class Contax:
         self.priezen.append(prieze)
 
     def as_dict(self):
-        return {
+        data = {
             'naam': self.naam,
             'spoel_van': self.spoel_van,
-            'velbusmodules': [mod.as_dict() for mod in self.velbusmodules],
-            'priezen': [p.as_dict() for p in self.priezen]  # <-- Toegevoegd
+            'contact_op': self.contact_op,
         }
+        if self._args:
+            data['args'] = self._args
+        data.update(self._extra_attrs)
+        # Arrays at the bottom
+        data['domomodules'] = [mod.as_dict() for mod in self.domomodules]
+        data['priezen'] = [p.as_dict() for p in self.priezen]
+        return data
 
 class Teller:
     def __init__(self, ean= None, amp = None, toevoerkabel=None, carre=None, spanning=None, polen=None, ohm=None, **kwargs):

@@ -19,12 +19,12 @@ lamp3 = Verlichting("far tuin", "LED", 8, "wv5", "5g2.5", 14, "20x20", driver="M
 lamp4 = Verlichting("rgb strip", "LED", 1, "wv6", "5g2.5", 4, "20x20", transfo="tr1 100W")
 
 # VelbusContacten
-ryno1_1 = VelbusContact(1, "Voordeur", "5g6", "Blauw")
-ryno1_2 = VelbusContact(2, "Tuinpad", "4g1", "Bruin")
+ryno1_1 = DomoContact(1, "Voordeur", "5g6", "Blauw")
+ryno1_2 = DomoContact(2, "Tuinpad", "4g1", "Bruin")
 
 # VelbusRelays
-rel1_1 = VelbusRelay(1, "nvt", "nvt", "nvt")
-rel1_2 = VelbusRelay(2, "nvt", "ja", "nvt")
+rel1_1 = DomoRelay(1, "nvt", "nvt", "nvt")
+rel1_2 = DomoRelay(2, "nvt", "ja", "nvt")
 rel1_1.add_verlichting(lamp1)
 rel1_2.add_verlichting(lamp2)
 
@@ -36,17 +36,17 @@ laadpaal1 = Toestel("blitz", "Prieze", "5g2.5", "20x20", 5, "bu", kabellijst="ws
 # 2. Modules en Contax #######################################################
 
 # VelbusModules
-ryno1 = VelbusModule(1)
+ryno1 = DomoModule(1)
 ryno1.add_channel(ryno1_1)
 ryno1.add_channel(ryno1_2)
 
-ryld1 = VelbusModule(2)
+ryld1 = DomoModule(2)
 ryld1.add_channel(rel1_1)
 ryld1.add_channel(rel1_2)
 
 # Contax
 ct1 = Contax("CT5", "klok")
-ct1.add_velbusmodule(VelbusModule(3))
+ct1.add_domomodule(DomoModule(3))
 
 # 3. Zekeringen ##############################################################
 
@@ -57,8 +57,8 @@ Q1008 = Zekering("Q1008", 16, 20, "5g2", 7)
 Q1008.add_verlichting(lamp3)
 
 Q1009 = Zekering("Q1009", 6, 16, "5g2.5", 3)
-Q1009.add_velbusmodule(ryno1)
-Q1009.add_velbusmodule(ryld1)
+Q1009.add_domomodule(ryno1)
+Q1009.add_domomodule(ryld1)
 Q1009.add_ct(ct1)
 Q1009.add_toestel(toestel1)
 Q1009.add_toestel(toestel2)

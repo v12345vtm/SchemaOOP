@@ -11,15 +11,48 @@ prieze2 = Prieze("CEE-lastafel", 2, "3g2.5", "20x20", 8, hydro="IP44", enk_dubb=
 
 # Verlichting LIVING :
 lamp1 = Verlichting("eettafel 60W smartlamp", "Living","LED", 1, "wv5", "5g2.5", 14, "20x20", driver="Meanwell")
-lamp2 = Verlichting("Spots trap", "LED", 1, "wv6", "5g2.5", 4, "20x20", transfo="tr1 100W")
-lamp3 = Verlichting("far tuin", "LED", 8, "wv5", "5g2.5", 14, "20x20", driver="Meanwell")
-lamp4 = Verlichting("rgb strip", "LED", 1, "wv6", "5g2.5", 4, "20x20", transfo="tr1 100W")
 
 
-# VelbusRelays
-umd0_0 = VelbusModule(1)
 
-rel1_1 = VelbusRelay(1, "nvt", "nvt", "nvt")
+
+
+
+
+
+
+
+
+
+ct1 = Contax("ct1", "1.7" , "pomp kringE")
+
+
+
+
+umd0 = DomoModule("0", 8, "relay")
+umd0.channels[0]  = Verlichting("eettafel 60w smartlamp", "living")
+umd0.channels[1]  = Verlichting("eettafel 100w 2e aansluitpunt niet gebruikt", "living")
+umd0.channels[2]  = Verlichting("led strip _50% ", "keuken")
+umd0.channels[3]  = Verlichting("led strip 100% ", "keuken")
+umd0.channels[4]  = Verlichting("garage kapot niet gebruiken 5.5gebruikt", "garage")
+umd0.channels[5]  = Verlichting("keukentafel", "keuken")
+umd0.channels[6]  = Verlichting("zetel", "living")
+umd0.channels[7]  = Verlichting("ledstrip grootraam", "living")
+
+
+umd1 = DomoModule("1", 8, "relay")
+umd1.channels[0]  = Verlichting("dressing", "dressing")
+umd1.channels[1]  = Verlichting("dressing", "traphal")
+umd1.channels[2]  = Verlichting("daan", "nachtlamp")
+umd1.channels[3]  = Verlichting("daan", "slpk alg")
+umd1.channels[4]  = Verlichting("master", "alg")
+umd1.channels[5]  = Verlichting("silvie", "nachtlamp")
+umd1.channels[6]  = Verlichting("vincent", "nachtlamp")
+umd1.channels[7]  = ct1
+
+#ct1 = Contax("ct1", "1.7" , "pomp kringE")
+
+
+
 #rel1_2 = VelbusRelay(2, "nvt", "ja", "nvt")
 #rel1_1.add_verlichting(lamp1)
 #rel1_2.add_verlichting(lamp2)
@@ -64,6 +97,10 @@ zekH = Zekering("H", 16, 10, "5g2", 7)
 zekI = Zekering("I", 16, 10, "5g2", 7)
 zekJ = Zekering("J", 16, 10, "5g2", 7 , scheef= "ja")
 
+
+zekA.add_domomodule(umd0)
+zekB.add_domomodule(umd1)
+zekE.add_contax(ct1)
 #Q1007 = Zekering("Q1007", 16, 10, "5g2", 7)
 #Q1007.add_toestel(laadpaal1)
 
@@ -118,9 +155,6 @@ sk1 = Verdeelbord("Bord SK1", "garage", 10 , merk="geen")
 
 sk1.add_differentieel(diff1)
 sk1.add_differentieel(diff2)
-
-sk1.add_zekering(zekA)
-
 
 
 

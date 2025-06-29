@@ -3,6 +3,100 @@ import json
 import subprocess #klembord schrijven
 import platform #voor klembord
 
+def print_paths_to_kabellijst(root, target_value, path=None, print_messages=True):
+    """
+    Recursively searches for objects where kabellijst matches target_value.
+    Automatically prints a friendly message for each path found.
+    If print_messages=False, it will collect and return the paths as a list of strings.
+    """
+    if path is None:
+        path = []
+    if print_messages is True:
+        found = None
+    else:
+        found = []
+
+    current_path = list(path)
+    if hasattr(root, 'naam'):
+        current_path = path + [getattr(root, 'naam')]
+
+    if hasattr(root, 'kabellijst'):
+        kabellijst = getattr(root, 'kabellijst')
+        if (isinstance(kabellijst, (list, tuple)) and target_value in kabellijst) or \
+           (isinstance(kabellijst, str) and target_value == kabellijst):
+            path_str = ', '.join(current_path)
+            msg = f"path naar kabellijst '{target_value}' is: {path_str}"
+            if print_messages:
+                print(msg)
+            else:
+                found.append(msg)
+
+    if hasattr(root, '__dict__'):
+        for attr, value in vars(root).items():
+            if attr.startswith('_'):
+                continue
+            if isinstance(value, (list, tuple)):
+                for item in value:
+                    if print_messages:
+                        print_paths_to_kabellijst(item, target_value, current_path)
+                    else:
+                        found.extend(
+                            print_paths_to_kabellijst(item, target_value, current_path, False)
+                        )
+            elif isinstance(value, dict):
+                for item in value.values():
+                    if print_messages:
+                        print_paths_to_kabellijst(item, target_value, current_path)
+                    else:
+                        found.extend(
+                            print_paths_to_kabellijst(item, target_value, current_path, False)
+                        )
+            else:
+                if print_messages:
+                    print_paths_to_kabellijst(value, target_value, current_path)
+                else:
+                    found.extend(
+                        print_paths_to_kabellijst(value, target_value, current_path, False)
+                    )
+    return found if not print_messages else None
+
+
+def find_name_paths(root, target_name, path=None, found=None):
+    """
+    Recursively finds all objects with .naam == target_name, starting from root.
+    Returns a list of lists, each containing the .naam values along the path.
+    """
+    if path is None:
+        path = []
+    if found is None:
+        found = []
+
+    # If the object has a .naam, add it to the current path
+    current_path = list(path)
+    if hasattr(root, 'naam'):
+        current_path = path + [getattr(root, 'naam')]
+
+    # If this is a match, add the path
+    if hasattr(root, 'naam') and getattr(root, 'naam') == target_name:
+        found.append(current_path)
+
+    # Recursively search attributes
+    if hasattr(root, '__dict__'):
+        for attr, value in vars(root).items():
+            if attr.startswith('_'):
+                continue
+            if isinstance(value, (list, tuple)):
+                for item in value:
+                    find_name_paths(item, target_name, current_path, found)
+            elif isinstance(value, dict):
+                for item in value.values():
+                    find_name_paths(item, target_name, current_path, found)
+            else:
+                find_name_paths(value, target_name, current_path, found)
+    return found
+
+
+
 def toon_automaten_per_bord(gebouw):
     """
     Toont alle automaten per verdeelbord, inclusief differentiëlen en zekeringen (ook genest).
@@ -81,10 +175,47 @@ def toon_gebouwstructuur(gebouw):
         for zek in vb.zekeringen:
             print(f"    - Zekering: {zek.naam}")
 
+class Kring:
+    def __init__(self, naam, **kwargs):
+        self.naam = naam           # Required
+        self.priezen = []          # List to hold Prieze objects
+        self.max_priezen = 8       # Default maximum
+        self._warned = False       # To avoid repeated warnings
+        self._args = None          # For consistency with your example
+        self._extra_attrs = kwargs # Store extra kwargs for as_dict
+        # Add any extra kwargs as attributes
+        for key, value in kwargs.items():
+            setattr(self, key, value)
+
+    def add_prieze(self, prieze):
+        if len(self.priezen) >= self.max_priezen:
+            if not self._warned:
+                print(f"Waarschuwing: Kring '{self.naam}' kan maximaal {self.max_priezen} Prieze objecten bevatten!")
+                self._warned = True
+            return False
+        self.priezen.append(prieze)
+        return True
+
+    def vullenmet(self, prieze, aantal):
+        for _ in range(aantal):
+            if not self.add_prieze(prieze):
+                break
+
+    def as_dict(self):
+        data = {
+            'naam': self.naam,
+            'max_priezen': self.max_priezen,
+            'priezen': [p.as_dict() for p in self.priezen]
+        }
+        if self._args:
+            data['args'] = self._args
+        data.update(self._extra_attrs)
+        return data
 
 class Prieze:
-    def __init__(self, naam, aantal=None, kabel=None, carre=None, lengte=None, kabellijst=None, *args, **kwargs):
+    def __init__(self, naam, locatie=None, aantal=None, kabel=None, carre=None, lengte=None, kabellijst=None, *args, **kwargs):
         self.naam = naam
+        self.locatie = locatie
         self.aantal = aantal
         self.kabel = kabel
         self.carre = carre
@@ -98,6 +229,7 @@ class Prieze:
     def as_dict(self):
         data = {
             'naam': self.naam,
+            'locatie': self.locatie,
             'aantal': self.aantal,
             'kabel': self.kabel,
             'carre': self.carre,
@@ -187,9 +319,10 @@ class Verlichting:
         data.update(self._extra_attrs)
         return data
 
+
 class DomoModule:
-    def __init__(self, name, num_channels, channeltype, *args, **kwargs):
-        self.name = name
+    def __init__(self, naam, num_channels, channeltype, *args, **kwargs):
+        self.naam = naam
         self.num_channels = num_channels
         self.channeltype = channeltype
         self.channels = [None] * num_channels
@@ -203,7 +336,7 @@ class DomoModule:
 
     def as_dict(self):
         data = {
-            'name': self.name,
+            'naam': self.naam,
             'num_channels': self.num_channels,
             'channeltype': self.channeltype,
         }
@@ -215,7 +348,7 @@ class DomoModule:
             if ch is None:
                 return None
             type_name = type(ch).__name__
-            key = f"{type_name} {self.name}.{idx}"
+            key = f"{type_name} {self.naam}.{idx}"
             if hasattr(ch, "as_dict") and callable(getattr(ch, "as_dict")):
                 return {key: ch.as_dict()}
             else:
@@ -225,36 +358,6 @@ class DomoModule:
         return data
 
 
-class oudDomoModule:
-    def __init__(self, module_id):
-        self.module_id = module_id
-        self.subdevices = []
-        self.subdevice_type = None  # 'relay' or 'contact'
-
-    def as_dict(self):
-        subdevice_dicts = [sub.as_dict() for sub in self.subdevices]
-        return {
-            'domomodule': self.subdevice_type,
-            'module_id': self.module_id,
-            'channels': subdevice_dicts
-
-        }
-
-    def add_channel(self, subdevice):
-        if not self.subdevices:
-            if isinstance(subdevice, DomoRelay):
-                self.subdevice_type = 'relayRYLD'
-            elif isinstance(subdevice, DomoContact):
-                self.subdevice_type = 'contactRYNO'
-            else:
-                raise ValueError("Unknown subdevice type")
-        current_type = self.subdevice_type
-        if (current_type == 'relay' and not isinstance(subdevice, DomoRelay)) or \
-                (current_type == 'contact' and not isinstance(subdevice, DomoContact)):
-            raise ValueError(f"Cannot add {type(subdevice).__name__}: module already has {current_type}s")
-        if len(self.subdevices) >= 8:
-            raise ValueError("Cannot add more than 8 subdevices to a module")
-        self.subdevices.append(subdevice)
 
 
 class DomoRelay:
@@ -303,14 +406,27 @@ class DomoRelay:
         return data
 
 class DomoContact:
-    def __init__(self, channelID, naam, kabel, kleur):
-        self.module_id = channelID
+    def __init__(self, naam, locatie=None, kabel=None, kleur=None, *args, **kwargs):
         self.naam = naam
+        self.locatie = locatie
         self.kabel = kabel
         self.kleur = kleur
+        self._args = args
+        self._extra_attrs = kwargs
+        for key, value in kwargs.items():
+            setattr(self, key, value)
 
     def as_dict(self):
-        return self.__dict__.copy()
+        data = {
+            'naam': self.naam,
+            'locatie': self.locatie,
+            'kabel': self.kabel,
+            'kleur': self.kleur,
+        }
+        if self._args:
+            data['args'] = self._args
+        data.update(self._extra_attrs)
+        return data
 
 class Differentieel:
     def __init__(self, naam, amp=None, polen=None, millies=None, type_=None, kA=None, *args, **kwargs):
@@ -388,12 +504,13 @@ class Zekering:
         self.amp = amp
         self.kabelonder = kabelonder
         self.polen = polen
-        self.domomodules = []   # List for DomoModule objects
-        self.ct_objects = []    # List for Contax objects
-        self.toestellen = []    # List for Toestel objects
-        self.differentielen = [] # List for Differentieel objects
-        self.priezen = []       # List for Prieze objects
-        self.verlichtingen = [] # List for Verlichting objects
+        self.domomodules = []
+        self.ct_objects = []
+        self.toestellen = []
+        self.differentielen = []
+        self.priezen = []
+        self.verlichtingen = []
+        self.kringen = []  # NEW: Container for Kring objects
         self._args = args
         self._extra_attrs = kwargs
         for key, value in kwargs.items():
@@ -412,14 +529,22 @@ class Zekering:
 
     def maak_automatenlijstlijn(self):
         onderdelen = []
-        onderdelen.extend(ct.naam for ct in self.ct_objects)
-        onderdelen.extend(prieze.naam for prieze in self.priezen)
-        onderdelen.extend(toestel.naam for toestel in self.toestellen)
-        onderdelen.extend(v.naam for v in self.verlichtingen)
+        onderdelen.extend(ct.naam for ct in self.ct_objects if hasattr(ct, 'naam'))
+        onderdelen.extend(prieze.naam for prieze in self.priezen if hasattr(prieze, 'naam'))
+        onderdelen.extend(toestel.naam for toestel in self.toestellen if hasattr(toestel, 'naam'))
+        onderdelen.extend(v.naam for v in self.verlichtingen if hasattr(v, 'naam'))
+
         for mod in self.domomodules:
-            for ch in mod.subdevices:
-                if isinstance(ch, DomoRelay):
-                    onderdelen.extend(v.naam for v in ch.verlichting)
+            for ch in getattr(mod, 'channels', []):
+                if ch is None:
+                    continue
+                # Add the channel's name if it has one
+                if hasattr(ch, 'naam'):
+                    onderdelen.append(ch.naam)
+                # If this channel is a DomoRelay with verlichting, add those names too
+                if hasattr(ch, 'verlichting'):
+                    onderdelen.extend(v.naam for v in getattr(ch, 'verlichting', []) if hasattr(v, 'naam'))
+
         prefix = f"{self.naam} {self.polen}P {self.amp}A:"
         return f"{prefix} " + ", ".join(onderdelen)
 
@@ -458,6 +583,12 @@ class Zekering:
             raise ValueError("Only Prieze instances can be added")
         self.priezen.append(prieze)
 
+    def add_kring(self, kring):  # NEW: Add this method
+        """Add a Kring object to this Zekering"""
+        if not isinstance(kring, Kring):
+            raise ValueError("Only Kring instances can be added")
+        self.kringen.append(kring)
+
     def as_dict(self):
         data = {
             'naam': self.naam,
@@ -469,14 +600,15 @@ class Zekering:
         if self._args:
             data['args'] = self._args
         data.update(self._extra_attrs)
-        # Arrays at the bottom
         data['domomodules'] = [mod.as_dict() for mod in self.domomodules]
         data['contaxen'] = [ct.as_dict() for ct in self.ct_objects]
         data['toestellen'] = [toestel.as_dict() for toestel in self.toestellen]
         data['differentielen'] = [diff.as_dict() for diff in self.differentielen]
         data['priezen'] = [p.as_dict() for p in self.priezen]
         data['verlichtingen'] = [v.as_dict() for v in self.verlichtingen]
+        data['kringen'] = [k.as_dict() for k in self.kringen]  # NEW: Serialize kringen
         return data
+
 
 class Contax:
     def __init__(self, naam, spoel_van=None, contact_op=None, *args, **kwargs):
@@ -515,19 +647,20 @@ class Contax:
         return data
 
 class Teller:
-    def __init__(self, ean= None, amp = None, toevoerkabel=None, carre=None, spanning=None, polen=None, ohm=None, **kwargs):
-        self.ean = ean                # EAN-nummer (uniek identificatienummer)
-        self.amp = amp                # Stroomsterkte in ampère
+    def __init__(self, naam, ean=None, amp=None, toevoerkabel=None, carre=None, spanning=None, polen=None, ohm=None, *args, **kwargs):
+        self.naam = naam                # Naam van de teller (required)
+        self.ean = ean                  # EAN-nummer (uniek identificatienummer)
+        self.amp = amp                  # Stroomsterkte in ampère
         self.toevoerkabel = toevoerkabel  # bv. 'EXVB', 'H07RN-F', ...
-        self.carre = carre            # doorsnede in mm²
-        self.spanning = spanning      # spanning in volt (bijv. 230V/400V)
-        self.polen = polen            # aantal polen (bijv. 1P, 3P)
-        self.ohm = ohm                # aardingweerstand in ohm
+        self.carre = carre              # doorsnede in mm²
+        self.spanning = spanning        # spanning in volt (bijv. 230V/400V)
+        self.polen = polen              # aantal polen (bijv. 1P, 3P)
+        self.ohm = ohm                  # aardingweerstand in ohm
         self.zekeringen = []
         self.differentielen = []
         self.hoofdschakelaars = []
         self.verdeelborden = []
-        # Store extra attributes
+        self._args = args
         self._extra_attrs = kwargs
         for key, value in kwargs.items():
             setattr(self, key, value)
@@ -551,15 +684,14 @@ class Teller:
         if not isinstance(verdeelbord, Verdeelbord):
             raise ValueError("Only Verdeelbord instances can be added")
         print(f"WAARSCHUWING: Bent u zeker dat u een verdeelbord zonder zekering ertussen wil aankoppelen?\n"
-              f"Teller: '{self.ean}'\n"
+              f"Teller: '{self.naam}'\n"
               f"Sub-verdeelbord: '{verdeelbord.naam}' (locatie: {verdeelbord.lokatie})")
         self.verdeelborden.append(verdeelbord)
-
-
 
     def as_dict(self):
         # Start with the fixed attributes
         data = {
+            'naam': self.naam,
             'ean': self.ean,
             'amp': self.amp,
             'toevoerkabel': self.toevoerkabel,
@@ -568,9 +700,17 @@ class Teller:
             'polen': self.polen,
             'ohm': self.ohm,
         }
-        # Insert extra attributes from kwargs here
+        # Add args and extra attrs (from kwargs)
+        if self._args:
+            data['args'] = self._args
         data.update(self._extra_attrs)
-        # Add the list attributes at the end
+        # Add all other non-private attributes, except lists
+        for attr, value in self.__dict__.items():
+            if (attr not in data and
+                    not attr.startswith('_') and
+                    attr not in ['zekeringen', 'differentielen', 'hoofdschakelaars', 'verdeelborden']):
+                data[attr] = value
+        # Add the lists of objects
         data['zekeringen'] = [zek.as_dict() for zek in self.zekeringen]
         data['differentielen'] = [diff.as_dict() for diff in self.differentielen]
         data['hoofdschakelaars'] = [hos.as_dict() for hos in self.hoofdschakelaars]
@@ -669,24 +809,35 @@ class Hoofdschakelaar:
         return f"{self.naam} {self.polen}P {self.amp}A"
 
 class Toestel:
-    def __init__(self, naam, aansluiting, kabel, carre, lengte, bibu ,kabellijst=None):
-        self.naam = naam
-        self.aansluiting = aansluiting
-        self.kabel = kabel
-        self.carre = carre
-        self.lengte = lengte
-        self.bibu = bibu
-        self.kabellijst = kabellijst  # Nieuw attribuut
+    def __init__(self, naam, locatie=None ,aansluiting=None, kabel=None, carre=None, lengte=None, bibu=None, kabellijst=None, **kwargs):
+        self.naam = naam                # Required
+        self.aansluiting = aansluiting  # Optional
+        self.kabel = kabel              # Optional
+        self.carre = carre              # Optional
+        self.lengte = lengte            # Optional
+        self.bibu = bibu                # Optional
+        self.kabellijst = kabellijst    # Optional
+        self.locatie = locatie          # Optional (new)
+        # Add any extra kwargs as attributes
+        for key, value in kwargs.items():
+            setattr(self, key, value)
 
     def as_dict(self):
-        return {
+        # Start with fixed attributes
+        data = {
             'naam': self.naam,
             'aansluiting': self.aansluiting,
             'kabel': self.kabel,
             'carre': self.carre,
             'lengte': self.lengte,
             'bibu': self.bibu,
-            'kabellijst': self.kabellijst
+            'kabellijst': self.kabellijst,
+            'locatie': self.locatie
         }
+        # Add any dynamically added attributes (from kwargs)
+        for attr, value in self.__dict__.items():
+            if attr not in data and not attr.startswith('_'):
+                data[attr] = value
+        return data
 
 

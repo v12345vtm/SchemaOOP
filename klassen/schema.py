@@ -497,6 +497,11 @@ class Differentieel:
         data['differentielen'] = [diff.as_dict() for diff in self.differentielen]
         data['priezen'] = [p.as_dict() for p in self.priezen]
         return data
+
+
+
+
+
 class Zekering:
     def __init__(self, naam, ka=None, amp=None, kabelonder=None, polen=None, *args, **kwargs):
         self.naam = naam
@@ -590,6 +595,7 @@ class Zekering:
         self.kringen.append(kring)
 
     def as_dict(self):
+        # Start with the fixed attributes
         data = {
             'naam': self.naam,
             'ka': self.ka,
@@ -597,16 +603,28 @@ class Zekering:
             'kabelonder': self.kabelonder,
             'polen': self.polen,
         }
+        # Add args and extra attrs (from kwargs)
         if self._args:
             data['args'] = self._args
         data.update(self._extra_attrs)
+        # Add all other non-private attributes, except the special lists and underscore-prefixed
+        special_lists = [
+            'domomodules', 'ct_objects', 'toestellen', 'differentielen',
+            'priezen', 'verlichtingen', 'kringen',
+        ]
+        for attr, value in self.__dict__.items():
+            if (attr not in data and
+                    not attr.startswith('_') and
+                    attr not in special_lists):
+                data[attr] = value
+        # Serialize the lists of objects
         data['domomodules'] = [mod.as_dict() for mod in self.domomodules]
         data['contaxen'] = [ct.as_dict() for ct in self.ct_objects]
         data['toestellen'] = [toestel.as_dict() for toestel in self.toestellen]
         data['differentielen'] = [diff.as_dict() for diff in self.differentielen]
         data['priezen'] = [p.as_dict() for p in self.priezen]
         data['verlichtingen'] = [v.as_dict() for v in self.verlichtingen]
-        data['kringen'] = [k.as_dict() for k in self.kringen]  # NEW: Serialize kringen
+        data['kringen'] = [k.as_dict() for k in self.kringen]
         return data
 
 
@@ -617,6 +635,7 @@ class Contax:
         self.contact_op = contact_op
         self.domomodules = []
         self.priezen = []
+        self.verlichtingen = []  # NEW: List for verlichtingen
         self._args = args
         self._extra_attrs = kwargs
         for key, value in kwargs.items():
@@ -632,6 +651,12 @@ class Contax:
             raise ValueError("Only Prieze instances can be added")
         self.priezen.append(prieze)
 
+    def add_verlichting(self, verlichting):
+        if not isinstance(verlichting, Verlichting):
+            raise ValueError("Only Verlichting instances can be added")
+        self.verlichtingen.append(verlichting)
+
+
     def as_dict(self):
         data = {
             'naam': self.naam,
@@ -644,6 +669,7 @@ class Contax:
         # Arrays at the bottom
         data['domomodules'] = [mod.as_dict() for mod in self.domomodules]
         data['priezen'] = [p.as_dict() for p in self.priezen]
+        data['verlichtingen'] = [v.as_dict() for v in self.verlichtingen]  # NEW: Include verlichtingen
         return data
 
 class Teller:
@@ -684,8 +710,8 @@ class Teller:
         if not isinstance(verdeelbord, Verdeelbord):
             raise ValueError("Only Verdeelbord instances can be added")
         print(f"WAARSCHUWING: Bent u zeker dat u een verdeelbord zonder zekering ertussen wil aankoppelen?\n"
-              f"Teller: '{self.naam}'\n"
-              f"Sub-verdeelbord: '{verdeelbord.naam}' (locatie: {verdeelbord.lokatie})")
+              f"Teller: '{self.naam}'\t >>"
+              f"Sub-verdeelbord: '{verdeelbord.naam}' (locatie: {verdeelbord.lokatie})\n\n")
         self.verdeelborden.append(verdeelbord)
 
     def as_dict(self):

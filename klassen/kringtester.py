@@ -1,4 +1,4 @@
-from schema import *
+from OOPschema import *
 pr = Prieze("zolder" , "muur")
 
 

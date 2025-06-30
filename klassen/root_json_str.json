@@ -1,0 +1,18 @@
+{
+  "Zekering": [
+    {
+      "naam": "A",
+      "ka": 16,
+      "amp": 10,
+      "kabelonder": "5g2",
+      "polen": 4,
+      "domomodules": [],
+      "contaxen": [],
+      "toestellen": [],
+      "differentielen": [],
+      "priezen": [],
+      "verlichtingen": [],
+      "kringen": []
+    }
+  ]
+}

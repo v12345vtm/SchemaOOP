@@ -1,4 +1,4 @@
-from schema import *
+from OOPschema import *
 
 a= Verlichting("daan", "nachtlamp")
 b= Verlichting("daan", "slpk alg")

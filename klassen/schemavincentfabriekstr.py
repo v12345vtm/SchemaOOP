@@ -1,4 +1,4 @@
-from schema import *
+from OOPschema import *
 
 # 1. Smallest Components (Verlichting, Toestel, Prieze, Contax) #############
 
@@ -184,13 +184,25 @@ zekE.compleet = "ja"
 zekF.compleet = "ja"
 
 # 7. Output and Testing ######################################################
-startopbject_in_output = gebouw1  #vul hier in wat er op de kop vd json getoont moet worden
+startopbject_in_output = teller   #vul hier in wat er op de kop vd json getoont moet worden
 
-json_str = json.dumps(startopbject_in_output.as_dict(), indent=2) #json string {{}}
+
+
+root_json = startopbject_in_output.to_root_json()  #geschikt om schemas te maken
+root_json_str = json.dumps(root_json, indent=2)
+print(root_json_str)
 
 if platform.system() == "Windows":
-    subprocess.run('clip', universal_newlines=True, input=json_str)
+    subprocess.run('clip', universal_newlines=True, input=root_json_str)
     print(" JSON copied to clipboard!")
 
-print(zekA.maak_automatenlijstlijn())
-print_paths_to_kabellijst(gebouw1, "wv1")
+
+
+
+with open('root_json_str.json', 'w', encoding='utf-8') as f:
+    f.write(root_json_str)
+
+
+#oude dict zonder root
+json_str = json.dumps(startopbject_in_output.as_dict(), indent=2)
+print(json_str)

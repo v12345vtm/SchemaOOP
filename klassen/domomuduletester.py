@@ -1,4 +1,4 @@
-from schema import *
+from OOPschema import *
 
 umd4 = DomoModule("4", 8, "relay")
 umd4.channels[0] = "vrij"

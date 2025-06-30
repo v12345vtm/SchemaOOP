@@ -1,7 +1,7 @@
 
 
 
-from schema import *
+from OOPschema import *
 
 
 

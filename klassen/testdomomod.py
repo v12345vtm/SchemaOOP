@@ -1,4 +1,4 @@
-from schema import *
+from OOPschema import *
 
 mod = DomoModule("0.0", 4, "relay")
 mod.channels[0] = "Just a string"

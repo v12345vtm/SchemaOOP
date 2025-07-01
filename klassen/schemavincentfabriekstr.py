@@ -158,7 +158,7 @@ diff2.add_zekering(zekJ)
 
 sk1 = Verdeelbord("Bord SK1", "garage", 10, merk="geen")
 sk1.add_differentieel(diff1)
-sk1.add_differentieel(diff2)
+diff1.add_differentieel(diff2)
 
 # 5. Main Components (Hoofdschakelaar, Teller) ###############################
 
@@ -184,7 +184,7 @@ zekE.compleet = "ja"
 zekF.compleet = "ja"
 
 # 7. Output and Testing ######################################################
-startopbject_in_output = teller   #vul hier in wat er op de kop vd json getoont moet worden
+startopbject_in_output = gebouw1   #vul hier in wat er op de kop vd json getoont moet worden
 
 
 

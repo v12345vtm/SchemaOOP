@@ -2,8 +2,26 @@ from reportlab.lib.pagesizes import A4, landscape
 from reportlab.pdfgen import canvas
 from reportlab.lib.units import mm
 from reportlab.lib import colors
+
+from symboolparameters import *  # mijn eigen klassen met parameters hoe je een symbool tekent
 import math
 import json
+import jsonontleder
+
+with open('root_json_str.json', 'r', encoding='utf-8') as f:
+    jsonbestand = json.load(f)
+
+all_differentielen = jsonontleder.find_all_elements(jsonbestand, "differentielen")
+print(f"Found {len(all_differentielen)} 'differentielen':")
+for diff in all_differentielen:
+    print(" -", diff.get("naam"))
+
+all_tellers = jsonontleder.find_all_elements(jsonbestand, "tellers")
+print(f"\nFound {len(all_tellers)} 'tellers':")
+for teller in all_tellers:
+    print(" -", teller.get("naam"))
+
+####################################################
 
 PAGE_WIDTH, PAGE_HEIGHT = landscape(A4)
 BORDER_WIDTH = 7 * mm  # border width from edge in millimeters
@@ -17,39 +35,62 @@ PAGE_NUM_SIZE = 12
 
 # Voedingslijn parameters
 VOEDINGSLIJN_Y = 60 * mm  # Y position of voedingslijn (line)
-VOEDINGSLIJN_LENGTH = 240 * mm  # Total length of the voedingslijn
+VOEDINGSLIJN_LENGTH = 300 * mm  # Total length of the voedingslijn
 
 # Calculate the drawable width of each page (accounting for left & right offsets)
 DRAWABLE_WIDTH = PAGE_WIDTH - 2 * BORDER_WIDTH - 2 * OFFSET_X
 
-# Load data from root_json_str.json
-with open("root_json_str.json", "r") as f:
-    json_data = json.load(f)
 
-print("Loaded JSON:", json_data)
+
+def draw_grid(canvas, page_width, page_height, spacing_mm=10):
+    canvas.setStrokeColor(colors.lightgrey)
+    canvas.setLineWidth(0.5)
+
+    spacing = spacing_mm * mm  # convert mm to points
+
+    # Vertical lines
+    x = 0
+    while x <= page_width:
+        canvas.line(x, 0, x, page_height)
+        x += spacing
+
+    # Horizontal lines
+    y = 0
+    while y <= page_height:
+        canvas.line(0, y, page_width, y)
+        y += spacing
+
+class VirtualBorder:
+    def __init__(self, canvas):
+        self.canvas = canvas
+
+    def draw(self):
+        self.canvas.setStrokeColor(colors.red)  # use global color or constant
+        self.canvas.rect(
+            17 * mm ,
+            17 * mm ,
+            PAGE_WIDTH - 2 * 17 * mm ,
+            PAGE_HEIGHT - 2 * 17 * mm
+        )
 
 
 class Border:
-    def __init__(self, canvas, page_width, page_height, border_width, color=colors.darkblue):
+    def __init__(self, canvas):
         self.canvas = canvas
-        self.page_width = page_width
-        self.page_height = page_height
-        self.border_width = border_width
-        self.color = color
 
     def draw(self):
-        self.canvas.setStrokeColor(self.color)
+        self.canvas.setStrokeColor(colors.darkblue)  # use global color or constant
         self.canvas.rect(
-            self.border_width,
-            self.border_width,
-            self.page_width - 2 * self.border_width,
-            self.page_height - 2 * self.border_width
+            BORDER_WIDTH,
+            BORDER_WIDTH,
+            PAGE_WIDTH - 2 * BORDER_WIDTH,
+            PAGE_HEIGHT - 2 * BORDER_WIDTH
         )
 
 
 class OnderKader:
     def __init__(self, canvas, page_width, border_width, height_mm, color=colors.darkblue):
-        self.canvas = canvas
+        self.canvas = canvas #waarop ga je het tekenen ? op u a4blaadjes
         self.page_width = page_width
         self.border_width = border_width
         self.height = height_mm * mm
@@ -111,39 +152,24 @@ class VoedingsLijn:
         self.canvas.line(start_x, self.y_pos, end_x, self.y_pos)
 
 
-class ZekeringHandler:
-    def __init__(self, canvas, zekeringen, start_x, y_base, line_height, spacing):
-        """
-        zekeringen: list of dicts from JSON for each zekering
-        start_x: starting x position for first zekering (in points)
-        y_base: y position baseline for vertical lines (in points)
-        line_height: height of each vertical line (in points)
-        spacing: horizontal spacing between zekeringen (in points)
-        """
+
+class TellerHandler:
+    def __init__(self, canvas, y_pos, total_length, border_width, offset_x):
         self.canvas = canvas
-        self.zekeringen = zekeringen
-        self.start_x = start_x
-        self.y_base = y_base
-        self.line_height = line_height
-        self.spacing = spacing
-
+        self.y_pos = y_pos
+        self.total_length = total_length
+        self.border_width = border_width
+        self.offset_x = offset_x
+        # Size of the square to draw
+        self.square_size = 20
+        # Drawable width per page (accounting for borders and offsets)
+        self.drawable_width = PAGE_WIDTH - 2 * self.border_width - 2 * self.offset_x
     def draw(self):
-        self.canvas.setStrokeColor(colors.red)
-        self.canvas.setLineWidth(1.5)
-
-        for i, zekering in enumerate(self.zekeringen):
-            x = self.start_x + i * self.spacing
-            y1 = self.y_base
-            y2 = y1 + self.line_height
-
-            # Draw vertical line
-            self.canvas.line(x, y1, x, y2)
-
-            # Draw zekering name and amp next to the line
-            self.canvas.setFont("Helvetica", 8)
-            self.canvas.setFillColor(colors.black)
-            text = f"{zekering['naam']} ({zekering['amp']}A)"
-            self.canvas.drawString(x + 2 * mm, y2 - 4 * mm, text)
+        start_x = self.border_width + self.offset_x
+        self.canvas.setLineWidth(1)
+        self.canvas.setStrokeColor(colors.darkblue)
+        self.canvas.setFillColor(colors.lightblue)
+        self.canvas.rect(0, self.y_pos, self.square_size, self.square_size, fill=1, stroke=1)
 
 
 # Number of pages needed
@@ -153,40 +179,40 @@ num_pages = math.ceil(VOEDINGSLIJN_LENGTH / DRAWABLE_WIDTH)
 eendraadschema = canvas.Canvas("horizontal_line_output.pdf", pagesize=landscape(A4))
 
 # Create instances for borders and voedingslijn
-page_border = Border(eendraadschema, PAGE_WIDTH, PAGE_HEIGHT, BORDER_WIDTH)
+blauwe_rand = Border(eendraadschema)
+virtuelerandzodatnietindeblauwerandtekenen = VirtualBorder(eendraadschema)
 onderkader = OnderKader(eendraadschema, PAGE_WIDTH, BORDER_WIDTH, 50)
 voedings_lijn = VoedingsLijn(eendraadschema, VOEDINGSLIJN_Y, VOEDINGSLIJN_LENGTH, BORDER_WIDTH, OFFSET_X)
+teller_handler = TellerHandler(eendraadschema, y_pos=100, total_length=300, border_width=7*mm, offset_x=17*mm)
 
-# Prepare ZekeringHandler with parameters
-zekeringen_list = json_data.get("Zekering", [])
-zekering_start_x = BORDER_WIDTH + OFFSET_X + 10 * mm  # inside voedingslijn start + margin
-zekering_y_base = VOEDINGSLIJN_Y
-zekering_line_height = 30 * mm
-zekering_spacing = 40 * mm
 
-zekering_handler = ZekeringHandler(eendraadschema, zekeringen_list, zekering_start_x, zekering_y_base, zekering_line_height, zekering_spacing)
+
 
 # Optionally adjust page number params if you want:
 # onderkader.set_page_number_params(x=..., y=..., color=..., size=...)
 
 # Draw pages loop
 for i in range(num_pages):
-    page_border.draw()
+    blauwe_rand.draw()
     onderkader.draw()
     voedings_lijn.draw(i)
-
-    # Draw vertical zekering lines
-    zekering_handler.draw()
-
     # Draw page number
     onderkader.draw_page_number(f"Page {i + 1} of {num_pages}")
+    virtuelerandzodatnietindeblauwerandtekenen.draw()
+    # Draw the 1x1 cm grid
+    draw_grid(eendraadschema, PAGE_WIDTH, PAGE_HEIGHT)
 
-    # Add 'X' character on page 2 (index 1)
-    if i == 1:
-        eendraadschema.setFont("Helvetica-Bold", 20)
-        eendraadschema.drawString(PAGE_WIDTH / 2, VOEDINGSLIJN_Y + 30 * mm, "X")
+
+
 
     eendraadschema.showPage()
+
+    #**************start tekenen op elke pagina
+
+
+
+
+
 
 eendraadschema.save()
 

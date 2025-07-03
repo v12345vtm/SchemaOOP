@@ -183,7 +183,7 @@ class Dot(CanvasObject):
             self.draw(c, offset_x_mm, offset_y_mm)
 
 class CanvasModel:
-    def __init__(self, show_grid=False, grid_spacing_mm=10):
+    def __init__(self, show_grid=False, grid_spacing_mm=10, page_marker_spacing_mm=297):
         self.objects = []
         self.width_mm = None
         self.height_mm = None
@@ -191,6 +191,8 @@ class CanvasModel:
         self.offset_y = 0
         self.show_grid = show_grid
         self.grid_spacing_mm = grid_spacing_mm
+        self.page_marker_spacing_mm = page_marker_spacing_mm  # <--- NEW
+
 
     def add_object(self, obj):
         self.objects.append(obj)
@@ -215,7 +217,8 @@ class CanvasModel:
         thick_color = colors.grey
         page_marker_color = colors.darkgrey
         page_marker_width = 0.3
-        page_marker_spacing_mm = 297  # A4 portrait width
+        page_marker_color = colors.darkgrey
+        page_marker_width = 0.3
 
         # Regular grid lines
         x = 0
@@ -231,13 +234,10 @@ class CanvasModel:
             x += self.grid_spacing_mm
 
         # Extra vertical page marker lines every 297 mm
-        x = page_marker_spacing_mm
+        x = self.page_marker_spacing_mm
         while x < width_mm:
-            c.setStrokeColor(page_marker_color)
-            c.setLineWidth(page_marker_width)
-            x_pt = x * mm
-            c.line(x_pt, 0, x_pt, height_mm * mm)
-            x += page_marker_spacing_mm
+            self.add_object(VerticalLine(x, 0, height_mm, page_marker_color, page_marker_width))
+            x += self.page_marker_spacing_mm
 
         # Horizontal grid lines
         y = 0
@@ -305,6 +305,27 @@ class CanvasModel:
                 c.showPage()
         c.save()
 
+
+class VerticalLine(CanvasObject):
+    def __init__(self, x_mm, y_mm, length_mm, color, width_mm=0.5):
+        super().__init__(x_mm, y_mm)
+        self.length_mm = length_mm
+        self.color = color
+        self.width_mm = width_mm
+
+    def get_bounding_box(self):
+        return (self.x_mm, self.y_mm, self.x_mm, self.y_mm + self.length_mm)
+
+    def draw(self, c, offset_x_mm=0, offset_y_mm=0):
+        x = self.to_points(self.x_mm + offset_x_mm)
+        y = self.to_points(self.y_mm + offset_y_mm)
+        length = self.to_points(self.length_mm)
+        width = self.to_points(self.width_mm)
+        c.setStrokeColor(self.color)
+        c.setLineWidth(width)
+        c.line(x, y, x, y + length)
+
+
 if __name__ == "__main__":
     model = CanvasModel(show_grid=True)
     model.add_object(Square(50, 50, 40, colors.red))
@@ -312,5 +333,12 @@ if __name__ == "__main__":
     model.add_object(HorizontalLine(100, 10, 250, colors.blue, 1))
     model.add_object(Text(10, 80, "10/80_Dynamic canvas with grid!", 12, colors.black))
     model.add_object(Dot(300, 60, radius_mm=2, color=colors.green))
+
+    model.add_object(VerticalLine(100, 10, 60, colors.pink, 10))
+
     model.draw_pages("1single_canvas_output.pdf")
     model.draw_paginated_pages("1paginated_canvas_output.pdf")
+
+    for obj in model.objects:
+        print(type(obj), obj.__dict__)
+

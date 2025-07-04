@@ -101,38 +101,6 @@ class HorizontalLine(CanvasObject):
             c.setLineWidth(width)
             c.line(x, y, x + length, y)
 
-class VerticalLine(CanvasObject):
-    def __init__(self, x_mm, y_mm, length_mm, color, width_mm=0.5):
-        super().__init__(x_mm, y_mm)
-        self.length_mm = length_mm
-        self.color = color
-        self.width_mm = width_mm
-
-    def get_bounding_box(self):
-        return (self.x_mm, self.y_mm, self.x_mm, self.y_mm + self.length_mm)
-
-    def draw(self, c, offset_x_mm=0, offset_y_mm=0):
-        x = self.to_points(self.x_mm + offset_x_mm)
-        y = self.to_points(self.y_mm + offset_y_mm)
-        length = self.to_points(self.length_mm)
-        width = self.to_points(self.width_mm)
-        c.setStrokeColor(self.color)
-        c.setLineWidth(width)
-        c.line(x, y, x, y + length)
-
-    def draw_on_page(self, c, page_x0, page_y0, page_x1, page_y1, offset_x_mm=0, offset_y_mm=0):
-        # Only draw the visible segment
-        line_start = max(self.y_mm, page_y0)
-        line_end = min(self.y_mm + self.length_mm, page_y1)
-        if line_end > line_start and self.x_mm >= page_x0 and self.x_mm < page_x1:
-            visible_length = line_end - line_start
-            x = self.to_points(self.x_mm + offset_x_mm)
-            y = self.to_points(line_start + offset_y_mm)
-            length = self.to_points(visible_length)
-            width = self.to_points(self.width_mm)
-            c.setStrokeColor(self.color)
-            c.setLineWidth(width)
-            c.line(x, y, x, y + length)
 
 class Text(CanvasObject):
     def __init__(self, x_mm, y_mm, text, font_size_pt=12, color=colors.black):
@@ -141,9 +109,13 @@ class Text(CanvasObject):
         self.font_size_pt = font_size_pt
         self.color = color
 
-    def get_bounding_box(self):
+    def get_bounding_box(self, c=None):
         text_height_mm = self.font_size_pt * 0.3528
-        text_width_mm = self.font_size_pt * 0.6 * len(self.text) * 0.3528
+        if c is not None:
+            text_width_pt = c.stringWidth(self.text, "Helvetica", self.font_size_pt)
+            text_width_mm = text_width_pt / 2.83465
+        else:
+            text_width_mm = self.font_size_pt * 0.6 * len(self.text) * 0.3528
         return (self.x_mm, self.y_mm, self.x_mm + text_width_mm, self.y_mm + text_height_mm)
 
     def draw(self, c, offset_x_mm=0, offset_y_mm=0):
@@ -154,8 +126,7 @@ class Text(CanvasObject):
         c.drawString(x, y, self.text)
 
     def draw_on_page(self, c, page_x0, page_y0, page_x1, page_y1, offset_x_mm=0, offset_y_mm=0):
-        # Only draw if any part of text is on the page (no clipping)
-        min_x, min_y, max_x, max_y = self.get_bounding_box()
+        min_x, min_y, max_x, max_y = self.get_bounding_box(c)
         if max_x > page_x0 and min_x < page_x1 and max_y > page_y0 and min_y < page_y1:
             self.draw(c, offset_x_mm, offset_y_mm)
 
@@ -183,7 +154,7 @@ class Dot(CanvasObject):
             self.draw(c, offset_x_mm, offset_y_mm)
 
 class CanvasModel:
-    def __init__(self, show_grid=False, grid_spacing_mm=10):
+    def __init__(self, show_grid=False, grid_spacing_mm=10, page_marker_spacing_mm=297):
         self.objects = []
         self.width_mm = None
         self.height_mm = None
@@ -191,6 +162,8 @@ class CanvasModel:
         self.offset_y = 0
         self.show_grid = show_grid
         self.grid_spacing_mm = grid_spacing_mm
+        self.page_marker_spacing_mm = page_marker_spacing_mm  # <--- NEW
+
 
     def add_object(self, obj):
         self.objects.append(obj)
@@ -215,7 +188,6 @@ class CanvasModel:
         thick_color = colors.grey
         page_marker_color = colors.darkgrey
         page_marker_width = 0.3
-        page_marker_spacing_mm = 297  # A4 portrait width
 
         # Regular grid lines
         x = 0
@@ -230,28 +202,16 @@ class CanvasModel:
             c.line(x_pt, 0, x_pt, height_mm * mm)
             x += self.grid_spacing_mm
 
-        # Extra vertical page marker lines every 297 mm
-        x = page_marker_spacing_mm
+        # Vertical page marker lines (draw directly)
+        x = self.page_marker_spacing_mm
         while x < width_mm:
+            x_pt = x * mm
             c.setStrokeColor(page_marker_color)
             c.setLineWidth(page_marker_width)
-            x_pt = x * mm
             c.line(x_pt, 0, x_pt, height_mm * mm)
-            x += page_marker_spacing_mm
+            x += self.page_marker_spacing_mm
 
         # Horizontal grid lines
-        y = 0
-        while y <= height_mm:
-            y_pt = y * mm
-            if (y % 50) == 0:
-                c.setStrokeColor(thick_color)
-                c.setLineWidth(thick_line_width)
-            else:
-                c.setStrokeColor(thin_color)
-                c.setLineWidth(thin_line_width)
-            c.line(0, y_pt, width_mm * mm, y_pt)
-            y += self.grid_spacing_mm
-
         y = 0
         while y <= height_mm:
             y_pt = y * mm
@@ -275,42 +235,135 @@ class CanvasModel:
         c.save()
 
     def draw_paginated_pages(self, filename):
-        page_width_mm, page_height_mm = landscape(A4)
-        page_width_mm /= mm
-        page_height_mm /= mm
-
+        page_height_mm = 210  # A4 height in landscape
         self.calculate_size()
-        x_pages = int(self.width_mm // page_width_mm) + 1
+
+        # --- Step 1: Extract adjusted split lines (paginaMarkeerlijn=True)
+        split_lines = sorted(
+            obj.get_bounding_box()[0] for obj in self.objects
+
+            if isinstance(obj, VerticalLine) and getattr(obj, "paginaMarkeerlijn", False)
+        )
+
+        # --- Step 2: Calculate page rectangles (x0 to x1)
+        page_x_ranges = []
+        prev_x = 0
+        aantalpaginas = 0
+        for x in split_lines:
+            page_x_ranges.append((prev_x, x))
+            prev_x = x
+        page_x_ranges.append((prev_x, self.width_mm))  # Add final segment
+
+        # --- Step 3: Prepare Y pages (static)
         y_pages = int(self.height_mm // page_height_mm) + 1
 
+        # --- Step 4: Begin drawing
         c = canvas.Canvas(filename, pagesize=landscape(A4))
 
         for y in range(y_pages):
-            for x in range(x_pages):
-                page_x0 = x * page_width_mm
-                page_y0 = y * page_height_mm
-                page_x1 = page_x0 + page_width_mm
-                page_y1 = page_y0 + page_height_mm
+            page_y0 = y * page_height_mm
+            page_y1 = page_y0 + page_height_mm
 
+            for x0, x1 in page_x_ranges:
+                aantalpaginas = aantalpaginas + 1
+                page_number_text = f"Page {aantalpaginas}"
+                print(f"aantalpaginas: {aantalpaginas}")
                 if self.show_grid:
-                    self.draw_grid(c, page_width_mm, page_height_mm)
+                    self.draw_grid(c, x1 - x0, page_height_mm)
 
                 for obj in self.objects:
                     obj.draw_on_page(
                         c,
-                        page_x0, page_y0, page_x1, page_y1,
-                        offset_x_mm=-page_x0,
+                        x0, page_y0, x1, page_y1,
+                        offset_x_mm=-x0,
                         offset_y_mm=-page_y0
                     )
+                c.rect(           10 * mm, 10 * mm,                    200 * mm, 30 * mm,                    fill=1, stroke=0                )
+
+                c.drawRightString(297-50 , 20 , page_number_text)  # 10mm from right
                 c.showPage()
+
         c.save()
+
+    def insert_dynamic_paginasplits(self, page_width_mm=297, overlap_whitelist=(HorizontalLine,)):
+        self.calculate_size()  # Ensure width_mm is available
+
+        overlap_blacklist = tuple(obj for obj in set(type(o) for o in self.objects)
+                                  if obj not in overlap_whitelist)
+
+        x_pos = page_width_mm  # Start at first split
+        while x_pos < self.width_mm:
+            theoretical_split = x_pos
+
+            # Step 1: Draw green line (always at theoretical position)
+            self.add_object(
+                VerticalLine(theoretical_split, 0, self.height_mm, colors.green, width_mm=0.3, paginaMarkeerlijn=False)
+            )
+
+            # Step 2: Move left from x_pos until there is no collision with blacklisted objects
+            adjusted_split = theoretical_split
+            while True:
+                overlapping = False
+                for obj in self.objects:
+                    if isinstance(obj, overlap_blacklist):
+                        min_x, min_y, max_x, max_y = obj.get_bounding_box()
+                        if min_x < adjusted_split < max_x:
+                            overlapping = True
+                            adjusted_split -= 1  # move left 1mm
+                            break
+                if not overlapping:
+                    break
+
+            # Step 3: Draw red line at final position
+            self.add_object(
+                VerticalLine(adjusted_split, 0, self.height_mm, colors.red, width_mm=0.5, paginaMarkeerlijn=True)
+            )
+
+            # Step 4: Continue from the red line split (not the theoretical one)
+            x_pos = adjusted_split + page_width_mm
+
+
+class VerticalLine(CanvasObject):
+    def __init__(self, x_mm, y_mm, length_mm, color, width_mm=0.5 ,paginaMarkeerlijn = False ):
+        super().__init__(x_mm, y_mm)
+        self.length_mm = length_mm
+        self.color = color
+        self.width_mm = width_mm
+        self.paginaMarkeerlijn = paginaMarkeerlijn
+
+    def get_bounding_box(self):
+        return (self.x_mm, self.y_mm, self.x_mm, self.y_mm + self.length_mm)
+
+    def draw(self, c, offset_x_mm=0, offset_y_mm=0):
+        x = self.to_points(self.x_mm + offset_x_mm)
+        y = self.to_points(self.y_mm + offset_y_mm)
+        length = self.to_points(self.length_mm)
+        width = self.to_points(self.width_mm)
+        c.setStrokeColor(self.color)
+        c.setLineWidth(width)
+        c.line(x, y, x, y + length)
+
 
 if __name__ == "__main__":
     model = CanvasModel(show_grid=True)
     model.add_object(Square(50, 50, 40, colors.red))
     model.add_object(Square(260, 50, 80, colors.red))
-    model.add_object(HorizontalLine(100, 10, 250, colors.blue, 1))
+    model.add_object(HorizontalLine(100, 10, 500, colors.blue, 1))
     model.add_object(Text(10, 80, "10/80_Dynamic canvas with grid!", 12, colors.black))
-    model.add_object(Dot(300, 60, radius_mm=2, color=colors.green))
+    model.add_object(Dot(297, 60, radius_mm=2, color=colors.green))
+    model.add_object(Dot(594, 60, radius_mm=2, color=colors.green))
+
+    #model.add_object(VerticalLine(100, 10, 60, colors.pink, 10))
+
+    # Add pagina marker visualizations
+    model.insert_dynamic_paginasplits(
+        page_width_mm=297,
+        overlap_whitelist=(HorizontalLine,)  # Only allow horizontal lines to overlap
+    )
+
     model.draw_pages("1single_canvas_output.pdf")
     model.draw_paginated_pages("1paginated_canvas_output.pdf")
+
+    for obj in model.objects:
+        print(type(obj), obj.__dict__)
+

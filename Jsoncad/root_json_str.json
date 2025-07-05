@@ -1,0 +1,901 @@
+{
+  "Gebouw": [
+    {
+      "naam": "Woning vincent",
+      "pos": "51.12345, 4.56789",
+      "toevoervan": null,
+      "test": "ja",
+      "verdeelborden": [],
+      "tellers": [
+        {
+          "naam": "Conteur",
+          "ean": null,
+          "amp": null,
+          "toevoerkabel": null,
+          "carre": null,
+          "spanning": null,
+          "polen": null,
+          "ohm": null,
+          "kleur": "geel",
+          "vorm": "vierkant",
+          "zekeringen": [],
+          "differentielen": [],
+          "hoofdschakelaars": [],
+          "verdeelborden": [
+            {
+              "naam": "Bord SK1",
+              "lokatie": "garage",
+              "kA": 10,
+              "toevoerkabel": null,
+              "carre": null,
+              "lengte": null,
+              "merk": "geen",
+              "zekeringen": [],
+              "differentielen": [
+                {
+                  "naam": "Diff1",
+                  "amp": 40,
+                  "polen": 4,
+                  "millies": 300,
+                  "type": "A",
+                  "kA": 6,
+                  "domomodules": [],
+                  "contaxen": [],
+                  "toestellen": [],
+                  "zekeringen": [
+                    {
+                      "naam": "A",
+                      "ka": 16,
+                      "amp": 10,
+                      "kabelonder": "5g2",
+                      "polen": 7,
+                      "compleet": "ja",
+                      "domomodules": [
+                        {
+                          "naam": "0",
+                          "num_channels": 8,
+                          "channeltype": "relay",
+                          "channels": [
+                            {
+                              "Verlichting 0.0": {
+                                "naam": "eettafel 60w smartlamp",
+                                "locatie": "living",
+                                "soort": null,
+                                "aantal": null,
+                                "kabellijst": "wv1",
+                                "kabel": null,
+                                "lengte": null,
+                                "carre": null,
+                                "driver": null,
+                                "transfo": null
+                              }
+                            },
+                            {
+                              "Verlichting 0.1": {
+                                "naam": "eettafel 100w 2e aansluitpunt niet gebruikt",
+                                "locatie": "living",
+                                "soort": null,
+                                "aantal": null,
+                                "kabellijst": "wv2",
+                                "kabel": null,
+                                "lengte": null,
+                                "carre": null,
+                                "driver": null,
+                                "transfo": null
+                              }
+                            },
+                            {
+                              "Contax 0.2": {
+                                "naam": "ct3",
+                                "spoel_van": "hier",
+                                "contact_op": "hier",
+                                "domomodules": [],
+                                "priezen": [],
+                                "verlichtingen": [
+                                  {
+                                    "naam": "led strip _50% ",
+                                    "locatie": "keuken",
+                                    "soort": null,
+                                    "aantal": null,
+                                    "kabellijst": "wv3",
+                                    "kabel": null,
+                                    "lengte": null,
+                                    "carre": null,
+                                    "driver": null,
+                                    "transfo": null
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "Contax 0.3": {
+                                "naam": "ct4",
+                                "spoel_van": "hier",
+                                "contact_op": "hier",
+                                "domomodules": [],
+                                "priezen": [],
+                                "verlichtingen": [
+                                  {
+                                    "naam": "led strip 100% ",
+                                    "locatie": "keuken",
+                                    "soort": null,
+                                    "aantal": null,
+                                    "kabellijst": "wv4blbr",
+                                    "kabel": null,
+                                    "lengte": null,
+                                    "carre": null,
+                                    "driver": null,
+                                    "transfo": null
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "Verlichting 0.4": {
+                                "naam": "garage kapot niet gebruiken 5.5gebruikt",
+                                "locatie": "garage",
+                                "soort": null,
+                                "aantal": null,
+                                "kabellijst": "wv4grzw",
+                                "kabel": null,
+                                "lengte": null,
+                                "carre": null,
+                                "driver": null,
+                                "transfo": null
+                              }
+                            },
+                            {
+                              "Verlichting 0.5": {
+                                "naam": "keukentafel",
+                                "locatie": "keuken",
+                                "soort": null,
+                                "aantal": null,
+                                "kabellijst": "wv10",
+                                "kabel": null,
+                                "lengte": null,
+                                "carre": null,
+                                "driver": null,
+                                "transfo": null
+                              }
+                            },
+                            {
+                              "Verlichting 0.6": {
+                                "naam": "zetel",
+                                "locatie": "living",
+                                "soort": null,
+                                "aantal": null,
+                                "kabellijst": "wv10",
+                                "kabel": null,
+                                "lengte": null,
+                                "carre": null,
+                                "driver": null,
+                                "transfo": null
+                              }
+                            },
+                            {
+                              "Contax 0.7": {
+                                "naam": "ct2",
+                                "spoel_van": "hier",
+                                "contact_op": "hier",
+                                "domomodules": [],
+                                "priezen": [],
+                                "verlichtingen": [
+                                  {
+                                    "naam": "ledstrip grootraam",
+                                    "locatie": "living",
+                                    "soort": null,
+                                    "aantal": null,
+                                    "kabellijst": "wv81",
+                                    "kabel": null,
+                                    "lengte": null,
+                                    "carre": null,
+                                    "driver": null,
+                                    "transfo": null
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      ],
+                      "contaxen": [],
+                      "toestellen": [],
+                      "differentielen": [],
+                      "priezen": [],
+                      "verlichtingen": [],
+                      "kringen": []
+                    },
+                    {
+                      "naam": "B",
+                      "ka": 16,
+                      "amp": 16,
+                      "kabelonder": "5g2",
+                      "polen": 7,
+                      "compleet": "ja",
+                      "domomodules": [
+                        {
+                          "naam": "1",
+                          "num_channels": 8,
+                          "channeltype": "relay",
+                          "channels": [
+                            {
+                              "Verlichting 1.0": {
+                                "naam": "dressing",
+                                "locatie": "dressing",
+                                "soort": null,
+                                "aantal": null,
+                                "kabellijst": null,
+                                "kabel": null,
+                                "lengte": null,
+                                "carre": null,
+                                "driver": null,
+                                "transfo": null
+                              }
+                            },
+                            {
+                              "Verlichting 1.1": {
+                                "naam": "dressing",
+                                "locatie": "traphal",
+                                "soort": null,
+                                "aantal": null,
+                                "kabellijst": null,
+                                "kabel": null,
+                                "lengte": null,
+                                "carre": null,
+                                "driver": null,
+                                "transfo": null
+                              }
+                            },
+                            {
+                              "Verlichting 1.2": {
+                                "naam": "daan",
+                                "locatie": "nachtlamp",
+                                "soort": null,
+                                "aantal": null,
+                                "kabellijst": null,
+                                "kabel": null,
+                                "lengte": null,
+                                "carre": null,
+                                "driver": null,
+                                "transfo": null
+                              }
+                            },
+                            {
+                              "Verlichting 1.3": {
+                                "naam": "daan",
+                                "locatie": "slpk alg",
+                                "soort": null,
+                                "aantal": null,
+                                "kabellijst": null,
+                                "kabel": null,
+                                "lengte": null,
+                                "carre": null,
+                                "driver": null,
+                                "transfo": null
+                              }
+                            },
+                            {
+                              "Verlichting 1.4": {
+                                "naam": "master",
+                                "locatie": "alg",
+                                "soort": null,
+                                "aantal": null,
+                                "kabellijst": null,
+                                "kabel": null,
+                                "lengte": null,
+                                "carre": null,
+                                "driver": null,
+                                "transfo": null
+                              }
+                            },
+                            {
+                              "Verlichting 1.5": {
+                                "naam": "silvie",
+                                "locatie": "nachtlamp",
+                                "soort": null,
+                                "aantal": null,
+                                "kabellijst": null,
+                                "kabel": null,
+                                "lengte": null,
+                                "carre": null,
+                                "driver": null,
+                                "transfo": null
+                              }
+                            },
+                            {
+                              "Verlichting 1.6": {
+                                "naam": "vincent",
+                                "locatie": "nachtlamp",
+                                "soort": null,
+                                "aantal": null,
+                                "kabellijst": null,
+                                "kabel": null,
+                                "lengte": null,
+                                "carre": null,
+                                "driver": null,
+                                "transfo": null
+                              }
+                            },
+                            {
+                              "Contax 1.7": {
+                                "naam": "ct1",
+                                "spoel_van": "1.7",
+                                "contact_op": "pompregenput  kringE",
+                                "domomodules": [],
+                                "priezen": [],
+                                "verlichtingen": []
+                              }
+                            }
+                          ]
+                        }
+                      ],
+                      "contaxen": [],
+                      "toestellen": [],
+                      "differentielen": [],
+                      "priezen": [],
+                      "verlichtingen": [],
+                      "kringen": []
+                    },
+                    {
+                      "naam": "C",
+                      "ka": 16,
+                      "amp": 10,
+                      "kabelonder": "5g2",
+                      "polen": 7,
+                      "compleet": "ja",
+                      "domomodules": [
+                        {
+                          "naam": "2",
+                          "num_channels": 8,
+                          "channeltype": "relay",
+                          "channels": [
+                            {
+                              "Contax 2.0": {
+                                "naam": "ct6",
+                                "spoel_van": "hier",
+                                "contact_op": "hier",
+                                "domomodules": [],
+                                "priezen": [],
+                                "verlichtingen": [
+                                  {
+                                    "naam": "ledstrip",
+                                    "locatie": "dressoir",
+                                    "soort": null,
+                                    "aantal": null,
+                                    "kabellijst": null,
+                                    "kabel": null,
+                                    "lengte": null,
+                                    "carre": null,
+                                    "driver": "acdc",
+                                    "transfo": null
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "Verlichting 2.1": {
+                                "naam": "spotjes tv",
+                                "locatie": "living",
+                                "soort": null,
+                                "aantal": 3,
+                                "kabellijst": null,
+                                "kabel": null,
+                                "lengte": null,
+                                "carre": null,
+                                "driver": null,
+                                "transfo": null
+                              }
+                            },
+                            {
+                              "Verlichting 2.2": {
+                                "naam": "voordeur",
+                                "locatie": "inkom",
+                                "soort": null,
+                                "aantal": null,
+                                "kabellijst": null,
+                                "kabel": null,
+                                "lengte": null,
+                                "carre": null,
+                                "driver": null,
+                                "transfo": null
+                              }
+                            },
+                            {
+                              "str 2.3": "'contact vrijgave dimmers'"
+                            },
+                            {
+                              "Verlichting 2.4": {
+                                "naam": "voetbaltafel",
+                                "locatie": "zolder",
+                                "soort": null,
+                                "aantal": 4,
+                                "kabellijst": null,
+                                "kabel": null,
+                                "lengte": null,
+                                "carre": null,
+                                "driver": null,
+                                "transfo": null
+                              }
+                            },
+                            {
+                              "Verlichting 2.5": {
+                                "naam": "alg",
+                                "locatie": "merel",
+                                "soort": null,
+                                "aantal": 4,
+                                "kabellijst": null,
+                                "kabel": null,
+                                "lengte": null,
+                                "carre": null,
+                                "driver": null,
+                                "transfo": null
+                              }
+                            },
+                            {
+                              "Verlichting 2.6": {
+                                "naam": "nachtlamp",
+                                "locatie": "merel",
+                                "soort": null,
+                                "aantal": null,
+                                "kabellijst": null,
+                                "kabel": null,
+                                "lengte": null,
+                                "carre": null,
+                                "driver": null,
+                                "transfo": null
+                              }
+                            },
+                            {
+                              "Verlichting 2.7": {
+                                "naam": "buro",
+                                "locatie": "merel",
+                                "soort": null,
+                                "aantal": 3,
+                                "kabellijst": null,
+                                "kabel": null,
+                                "lengte": null,
+                                "carre": null,
+                                "driver": null,
+                                "transfo": null
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "naam": "dim0",
+                          "num_channels": 2,
+                          "channeltype": "dim",
+                          "channels": [
+                            {
+                              "Verlichting dim0.0": {
+                                "naam": "trap",
+                                "locatie": "zolder",
+                                "soort": null,
+                                "aantal": 4,
+                                "kabellijst": null,
+                                "kabel": null,
+                                "lengte": null,
+                                "carre": null,
+                                "driver": null,
+                                "transfo": null
+                              }
+                            },
+                            {
+                              "Verlichting dim0.1": {
+                                "naam": "cinema",
+                                "locatie": "zolder",
+                                "soort": null,
+                                "aantal": null,
+                                "kabellijst": null,
+                                "kabel": null,
+                                "lengte": null,
+                                "carre": null,
+                                "driver": null,
+                                "transfo": null
+                              }
+                            }
+                          ]
+                        }
+                      ],
+                      "contaxen": [],
+                      "toestellen": [],
+                      "differentielen": [],
+                      "priezen": [],
+                      "verlichtingen": [
+                        {
+                          "naam": "alg",
+                          "locatie": "berging",
+                          "soort": null,
+                          "aantal": 1,
+                          "kabellijst": null,
+                          "kabel": null,
+                          "lengte": null,
+                          "carre": null,
+                          "driver": null,
+                          "transfo": null,
+                          "bedien": "enkelpolig"
+                        }
+                      ],
+                      "kringen": []
+                    },
+                    {
+                      "naam": "D",
+                      "ka": 16,
+                      "amp": 10,
+                      "kabelonder": "5g2",
+                      "polen": 7,
+                      "compleet": "ja",
+                      "domomodules": [
+                        {
+                          "naam": "3",
+                          "num_channels": 2,
+                          "channeltype": "rolluik",
+                          "channels": [
+                            {
+                              "Toestel 3.0": {
+                                "naam": "luifel",
+                                "aansluiting": "rechtstreeks",
+                                "kabel": "5g2.5",
+                                "carre": "20x20",
+                                "lengte": 5,
+                                "bibu": "bu",
+                                "kabellijst": "ws1",
+                                "locatie": "koer"
+                              }
+                            },
+                            {
+                              "Toestel 3.1": {
+                                "naam": "rolluik",
+                                "aansluiting": "rechtstreeks",
+                                "kabel": "5g2.5",
+                                "carre": "20x20",
+                                "lengte": 5,
+                                "bibu": "bu",
+                                "kabellijst": "ws19",
+                                "locatie": "voor"
+                              }
+                            }
+                          ]
+                        }
+                      ],
+                      "contaxen": [],
+                      "toestellen": [],
+                      "differentielen": [],
+                      "priezen": [],
+                      "verlichtingen": [],
+                      "kringen": []
+                    },
+                    {
+                      "naam": "E",
+                      "ka": 16,
+                      "amp": 10,
+                      "kabelonder": "5g2",
+                      "polen": 7,
+                      "compleet": "ja",
+                      "domomodules": [],
+                      "contaxen": [
+                        {
+                          "naam": "ct1",
+                          "spoel_van": "1.7",
+                          "contact_op": "pompregenput  kringE",
+                          "domomodules": [],
+                          "priezen": [],
+                          "verlichtingen": []
+                        }
+                      ],
+                      "toestellen": [],
+                      "differentielen": [],
+                      "priezen": [],
+                      "verlichtingen": [],
+                      "kringen": [
+                        {
+                          "naam": "dressing",
+                          "max_priezen": 8,
+                          "priezen": [
+                            {
+                              "naam": "alg",
+                              "locatie": "nvt",
+                              "aantal": 1,
+                              "kabel": "flex",
+                              "carre": 2.5,
+                              "lengte": null,
+                              "kabellijst": null
+                            },
+                            {
+                              "naam": "alg",
+                              "locatie": "nvt",
+                              "aantal": 1,
+                              "kabel": "flex",
+                              "carre": 2.5,
+                              "lengte": null,
+                              "kabellijst": null
+                            },
+                            {
+                              "naam": "alg",
+                              "locatie": "nvt",
+                              "aantal": 1,
+                              "kabel": "flex",
+                              "carre": 2.5,
+                              "lengte": null,
+                              "kabellijst": null
+                            },
+                            {
+                              "naam": "mereltv",
+                              "locatie": "merel",
+                              "aantal": 1,
+                              "kabel": "flex",
+                              "carre": 2.5,
+                              "lengte": null,
+                              "kabellijst": null
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "naam": "F",
+                      "ka": 16,
+                      "amp": 16,
+                      "kabelonder": "5g2",
+                      "polen": 7,
+                      "compleet": "ja",
+                      "domomodules": [],
+                      "contaxen": [],
+                      "toestellen": [],
+                      "differentielen": [],
+                      "priezen": [
+                        {
+                          "naam": "tv",
+                          "locatie": "master",
+                          "aantal": 2,
+                          "kabel": "flex",
+                          "carre": 2.5,
+                          "lengte": null,
+                          "kabellijst": null
+                        },
+                        {
+                          "naam": "modem",
+                          "locatie": "garage",
+                          "aantal": 2,
+                          "kabel": "flex",
+                          "carre": 2.5,
+                          "lengte": null,
+                          "kabellijst": null,
+                          "hydro": "hudro"
+                        }
+                      ],
+                      "verlichtingen": [],
+                      "kringen": []
+                    },
+                    {
+                      "naam": "G",
+                      "ka": 16,
+                      "amp": 10,
+                      "kabelonder": "5g2",
+                      "polen": 7,
+                      "domomodules": [],
+                      "contaxen": [],
+                      "toestellen": [],
+                      "differentielen": [],
+                      "priezen": [],
+                      "verlichtingen": [],
+                      "kringen": [
+                        {
+                          "naam": "living",
+                          "max_priezen": 8,
+                          "priezen": [
+                            {
+                              "naam": "living",
+                              "locatie": null,
+                              "aantal": null,
+                              "kabel": null,
+                              "carre": null,
+                              "lengte": null,
+                              "kabellijst": null
+                            },
+                            {
+                              "naam": "living",
+                              "locatie": null,
+                              "aantal": null,
+                              "kabel": null,
+                              "carre": null,
+                              "lengte": null,
+                              "kabellijst": null
+                            },
+                            {
+                              "naam": "living",
+                              "locatie": null,
+                              "aantal": null,
+                              "kabel": null,
+                              "carre": null,
+                              "lengte": null,
+                              "kabellijst": null
+                            },
+                            {
+                              "naam": "living",
+                              "locatie": null,
+                              "aantal": null,
+                              "kabel": null,
+                              "carre": null,
+                              "lengte": null,
+                              "kabellijst": null
+                            },
+                            {
+                              "naam": "living",
+                              "locatie": null,
+                              "aantal": null,
+                              "kabel": null,
+                              "carre": null,
+                              "lengte": null,
+                              "kabellijst": null
+                            },
+                            {
+                              "naam": "living",
+                              "locatie": null,
+                              "aantal": null,
+                              "kabel": null,
+                              "carre": null,
+                              "lengte": null,
+                              "kabellijst": null
+                            },
+                            {
+                              "naam": "living",
+                              "locatie": null,
+                              "aantal": null,
+                              "kabel": null,
+                              "carre": null,
+                              "lengte": null,
+                              "kabellijst": null
+                            },
+                            {
+                              "naam": "living",
+                              "locatie": null,
+                              "aantal": null,
+                              "kabel": null,
+                              "carre": null,
+                              "lengte": null,
+                              "kabellijst": null
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "naam": "I",
+                      "ka": 16,
+                      "amp": 10,
+                      "kabelonder": "5g2",
+                      "polen": 7,
+                      "domomodules": [],
+                      "contaxen": [],
+                      "toestellen": [],
+                      "differentielen": [],
+                      "priezen": [],
+                      "verlichtingen": [],
+                      "kringen": [
+                        {
+                          "naam": "zolder",
+                          "max_priezen": 8,
+                          "priezen": [
+                            {
+                              "naam": "alg",
+                              "locatie": "nvt",
+                              "aantal": 1,
+                              "kabel": "flex",
+                              "carre": 2.5,
+                              "lengte": null,
+                              "kabellijst": null
+                            },
+                            {
+                              "naam": "alg",
+                              "locatie": "nvt",
+                              "aantal": 1,
+                              "kabel": "flex",
+                              "carre": 2.5,
+                              "lengte": null,
+                              "kabellijst": null
+                            },
+                            {
+                              "naam": "alg",
+                              "locatie": "nvt",
+                              "aantal": 1,
+                              "kabel": "flex",
+                              "carre": 2.5,
+                              "lengte": null,
+                              "kabellijst": null
+                            },
+                            {
+                              "naam": "alg",
+                              "locatie": "nvt",
+                              "aantal": 1,
+                              "kabel": "flex",
+                              "carre": 2.5,
+                              "lengte": null,
+                              "kabellijst": null
+                            },
+                            {
+                              "naam": "alg",
+                              "locatie": "nvt",
+                              "aantal": 1,
+                              "kabel": "flex",
+                              "carre": 2.5,
+                              "lengte": null,
+                              "kabellijst": null
+                            },
+                            {
+                              "naam": "alg",
+                              "locatie": "nvt",
+                              "aantal": 1,
+                              "kabel": "flex",
+                              "carre": 2.5,
+                              "lengte": null,
+                              "kabellijst": null
+                            },
+                            {
+                              "naam": "alg",
+                              "locatie": "nvt",
+                              "aantal": 1,
+                              "kabel": "flex",
+                              "carre": 2.5,
+                              "lengte": null,
+                              "kabellijst": null
+                            },
+                            {
+                              "naam": "alg",
+                              "locatie": "nvt",
+                              "aantal": 1,
+                              "kabel": "flex",
+                              "carre": 2.5,
+                              "lengte": null,
+                              "kabellijst": null
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "differentielen": [
+                    {
+                      "naam": "Diff2",
+                      "amp": 40,
+                      "polen": 4,
+                      "millies": 30,
+                      "type": null,
+                      "kA": null,
+                      "omschrijvng": "vochtigeruitmtes",
+                      "domomodules": [],
+                      "contaxen": [],
+                      "toestellen": [],
+                      "zekeringen": [
+                        {
+                          "naam": "J",
+                          "ka": 16,
+                          "amp": 10,
+                          "kabelonder": "5g2",
+                          "polen": 7,
+                          "scheef": "ja",
+                          "domomodules": [],
+                          "contaxen": [],
+                          "toestellen": [],
+                          "differentielen": [],
+                          "priezen": [],
+                          "verlichtingen": [],
+                          "kringen": []
+                        }
+                      ],
+                      "differentielen": [],
+                      "priezen": []
+                    }
+                  ],
+                  "priezen": []
+                }
+              ],
+              "hoofdschakelaars": [],
+              "verdeelborden": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

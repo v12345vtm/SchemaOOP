@@ -1,6 +1,6 @@
-# example_tree.py
 
-from components import *
+
+from components import * #alles van de klasse importeren
 
 # Build the tree
 cabine = Voeding("cabine", "voeding")
@@ -37,33 +37,17 @@ diffb = Differential("DIFFB", "differential")
 zekc = CircuitBreaker("Zekeringc", "circuit_breaker")
 tv = Appliance("tv", "appliance")
 tv2 = Appliance("tv2", "appliance")
-voeding2.add_child(zek1voeding2)
-cabine.add_child(voeding)
-cabine.add_child(voeding2)
-
-voeding.add_child(diffa)
+cabine.add_child(voeding , voeding2)
+diff3.add_child(domo1 , dif9_3 , ct1 , ct2 , ct3 , ct4 , ct5 , ct6 , ct7 , ct8)
+diff30.add_child(microOven , zek2 , zek3 , zek4)
+diff300.add_child(zek1)
 diffa.add_child(diffb)
 diffb.add_child(zekc)
-zekc.add_child(tv)
-zekc.add_child(tv2)
-voeding.add_child(contaxopvoeding)
-voeding.add_child(diff300)
-voeding.add_child(diff30)
-voeding.add_child(diff3)
-voeding.add_child(verlichting1)
-
-diff300.add_child(zek1)
-diff30.add_child(zek2)
+voeding.add_child(diff3 , verlichting1 , diffa ,diff300 ,  contaxopvoeding , diff30)
+voeding2.add_child(zek1voeding2)
 zek1.add_child(vaatwas)
-zek2.add_child(keuken)
-zek2.add_child(oven)
-diff30.add_child(zek3)
-diff30.add_child(microOven)
-diff30.add_child(zek4)
-
-diff3.add_child(domo1)
-diff3.add_child(ct1 , ct2 , ct3 , ct4 , ct5 , ct6 , ct7 , ct8)
-diff3.add_child(dif9_3)
+zek2.add_child(keuken , oven)
+zekc.add_child(tv , tv2)
 
 # Export the root node
 te_tekenen_startpunt = cabine

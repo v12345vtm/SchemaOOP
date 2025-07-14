@@ -40,7 +40,7 @@ def draw_grid(canvas, width, height, x_spacing, y_spacing, font=("Arial", 8)):
 if __name__ == "__main__":
     te_tekenen_startpunt.sort_children()
     Component.assign_coords_safe_stacking(te_tekenen_startpunt)
-    te_tekenen_startpunt.limit_hoogte(hoogtelimiet=7)
+    te_tekenen_startpunt.limit_hoogte(hoogtelimiet=6)
     te_tekenen_startpunt.print_ascii_tree()
 
 

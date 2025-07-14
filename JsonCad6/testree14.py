@@ -1,0 +1,463 @@
+import tkinter as tk
+import re
+import copy
+
+
+class Component:
+    def __init__(self, label, type,  **kwargs):
+        self.label = label
+        self.type = type
+        self.children = []
+        self.parent = None
+        self.x = 0
+        self.y = 0
+        self._stroomrichting = None   # "horizontal" or "vertical"
+        self.COMPONENT_SIZE = 50  # Default size, can be parameterized
+
+        self.kwargs = kwargs  # Store all extra arguments in a dict
+        # Optionally extract common expected values
+        self.volgorde = kwargs.get("volgorde", None)
+
+    def print_ascii_tree_with_regel(self, prefix=" "):
+        regel = getattr(self, "_regel_used", "?")
+        print(f"{prefix}{self.label} ({self.x},{self.y})\t\t{regel}")
+        for i, child in enumerate(self.children):
+            connector = "└── " if i == len(self.children) - 1 else "├── "
+            child_prefix = prefix + ("    " if i == len(self.children) - 1 else "│   ")
+            print(f"{prefix}{connector}", end="")
+            child.print_ascii_tree_with_regel(child_prefix)
+
+    def assign_coordinates_by_rules(self):
+        """
+        Wijs coördinaten toe aan alle nodes volgens de aangepaste regels.
+        Annotatie: node._regel_used (string).
+        """
+
+        def deepest_descendant_x(node):
+            """Grootste x in de subboom."""
+            xs = [node.x]
+            for child in node.children:
+                xs.append(deepest_descendant_x(child))
+            return max(xs)
+
+        def deepest_descendant_y(node):
+            """Grootste y in de subboom."""
+            ys = [node.y]
+            for child in node.children:
+                ys.append(deepest_descendant_y(child))
+            return max(ys)
+
+        def visit(node, parent=None, prev_sibling=None):
+            # Regel 1: root
+            if parent is None:
+                node.x, node.y = 0, 0
+                node._regel_used = "regel 1"
+            else:
+                pdir = parent.stroomrichting
+                ndir = node.stroomrichting
+
+                # vorige broer info
+                if prev_sibling is not None:
+                    prev_x = prev_sibling.x
+                    prev_y = prev_sibling.y
+                    prev_far_x = deepest_descendant_x(prev_sibling)
+                    prev_far_y = deepest_descendant_y(prev_sibling)
+                else:
+                    prev_x = prev_y = prev_far_x = prev_far_y = None
+
+                # Regel 2: V kind met V ouder
+                if pdir == "vertical" and ndir == "vertical":
+                    if prev_sibling:
+                        # regel 2a
+                        node.x = prev_far_x + 1
+                        node.y = prev_y
+                        node._regel_used = "regel 2a"
+                    else:
+                        # regel 2b
+                        node.x = parent.x
+                        node.y = parent.y + 1
+                        node._regel_used = "regel 2b"
+
+                # Regel 3: H kind met V ouder
+                elif pdir == "vertical" and ndir == "horizontal":
+                    if prev_sibling:
+                        # regel 3a
+                        node.x = prev_x
+                        node.y = prev_far_y + 1  # aangepaste regel!
+                        node._regel_used = "regel 3a"
+                    else:
+                        # regel 3b
+                        node.x = parent.x + 1
+                        node.y = parent.y + 1
+                        node._regel_used = "regel 3b"
+
+                # Regel 4: H kind met H ouder
+                elif pdir == "horizontal" and ndir == "horizontal":
+                    if prev_sibling:
+                        # regel 4a
+                        node.x = prev_x
+                        node.y = prev_y + 1
+                        node._regel_used = "regel 4a"
+                    else:
+                        # regel 4b
+                        node.x = parent.x + 1
+                        node.y = parent.y
+                        node._regel_used = "regel 4b"
+
+                # Regel 5: V kind met H ouder
+                elif pdir == "horizontal" and ndir == "vertical":
+                    if prev_sibling:
+                        # regel 5a
+                        node.x = parent.x + 2
+                        node.y = parent.y + 2
+                        node._regel_used = "regel 5a"
+                    else:
+                        # regel 5b
+                        node.x = parent.x + 3
+                        node.y = parent.y + 2
+                        node._regel_used = "regel 5b"
+                else:
+                    # fallback
+                    node.x = parent.x + 1
+                    node.y = parent.y + 1
+                    node._regel_used = "fallback"
+
+            # Recursief voor kinderen, met bijhouden van vorige broer
+            prev = None
+            for child in node.children:
+                visit(child, node, prev)
+                prev = child
+
+        visit(self)
+
+    def multiply_coordinates(self, factor):
+        """
+        Vermenigvuldig alle x- en y-coördinaten in de boom met de opgegeven factor.
+        """
+        self.x *= factor
+        self.y *= factor
+        for child in self.children:
+            child.multiply_coordinates(factor)
+
+    def draw_recursive_top_left(self, canvas, x_spacing=0, y_spacing=0):
+        # Convert logical grid position to pixel position (top-left corner)
+        pixel_x = self.x   + x_spacing
+        pixel_y = self.y   + y_spacing
+        size = self.COMPONENT_SIZE
+
+        # Draw the rectangle for the component
+        canvas.create_rectangle(pixel_x, pixel_y, pixel_x + size, pixel_y + size, fill="pink", outline="black")
+
+        # Draw the label centered in the component
+        canvas.create_text(pixel_x + size / 2, pixel_y + size / 2, text=self.label, font=("Arial", 8))
+
+        # === RED INPUT LINE ===
+        if self.connectionpoint_input and self.inputlinepoint:
+            x1 = self.inputlinepoint[0] + x_spacing
+            y1 = self.inputlinepoint[1]   + y_spacing
+            x2 = self.connectionpoint_input[0]  + x_spacing
+            y2 = self.connectionpoint_input[1]   + y_spacing
+            canvas.create_line(x1, y1, x2, y2, fill="red")
+
+
+        # === green output LINE ===
+        if self.connectionpoint_output and self.outputlinepoint:
+            x1 = self.outputlinepoint[0] + x_spacing
+            y1 = self.outputlinepoint[1]   + y_spacing
+            x2 = self.connectionpoint_output[0]  + x_spacing
+            y2 = self.connectionpoint_output[1]   + y_spacing
+            canvas.create_line(x1, y1, x2, y2, fill="green")
+
+        # === CONNECTION TO CHILDREN ===
+        for child in self.children:
+            x1 = (self.x + 0.5)   + x_spacing
+            y1 = (self.y + 0.5)  + y_spacing
+            x2 = (child.x + 0.5)  + x_spacing
+            y2 = (child.y + 0.5)  + y_spacing
+            canvas.create_line(x1, y1, x2, y2, fill="black", width=2)
+
+            # Recursively draw the child
+            child.draw_recursive_top_left(canvas, x_spacing, y_spacing)
+
+
+    def limit_hoogte(self, hoogtelimiet=5):
+        # 1. Collect all nodes
+        nodes = []
+        def collect_nodes(node):
+            nodes.append(node)
+            for child in node.children:
+                collect_nodes(child)
+        collect_nodes(self)
+        # 2. Find all columns (x) with nodes above the y-limit
+        # We'll process each column only once
+        processed_columns = set()
+        for node in nodes:
+            if node.y > hoogtelimiet and node.x not in processed_columns:
+                col_x = node.x
+                processed_columns.add(col_x)
+                # 3. Insert new column at x+1 (do this once per column)
+                self.insert_kolom_at(col_x + 1)
+                # 4. Move all nodes in col_x with y > hoogtelimiet to new column (x+1)
+                moved_nodes = []
+                for n in nodes:
+                    if n.x == col_x and n.y > hoogtelimiet:
+                        n.x += 1
+                        moved_nodes.append(n)
+                # 5. Find the lowest y in the previous column (col_x)
+                prev_col_y = [n.y for n in nodes if n.x == col_x]
+                if prev_col_y:
+                    base_y = min(prev_col_y)
+                else:
+                    base_y = 0
+                # 6. Stack moved nodes on top of base_y, preserving their original order
+                moved_nodes.sort(key=lambda n: n.y)  # Ascending order
+                for i, n in enumerate(moved_nodes):
+                    n.y = base_y + i
+        # 7. Print all coordinates for verification
+        for n in nodes:
+            print(f"{n.label}: x={n.x}, y={n.y}")
+
+    def insert_kolom_at(self, kolom_index):
+        """
+        Increase x by 1 for all nodes with x >= kolom_index.
+        Prints all nodes with their new x and y values.
+        """
+        def update_x(component):
+            if component.x >= kolom_index:
+                component.x += 1
+            for child in component.children:
+                update_x(child)
+        update_x(self)
+
+    @property
+    def stroomrichting(self):
+        return self._stroomrichting
+
+    @stroomrichting.setter
+    def stroomrichting(self, value):
+        if value not in ("horizontal", "vertical"):
+            raise ValueError("stroomrichting must be 'horizontal' or 'vertical'")
+        self._stroomrichting = value
+
+
+    def explode_coordinates_to_canvas(self, x=30, y=30):
+        """Multiply logical grid coordinates and apply offset for canvas placement."""
+        #hoeveel pixels moeten tussen de kaders zijn?
+        if self.x is not None and self.y is not None:
+            self.x = self.x *  ( x + self.COMPONENT_SIZE)
+            self.y = self.y *  (y + self.COMPONENT_SIZE)
+
+            #  all children recursively
+            for child in self.children:
+                child.explode_coordinates_to_canvas( x , y)
+
+
+
+    @property
+    def connectionpoint_input(self):
+        if self.x is None or self.y is None:
+            return None
+        if self.stroomrichting == "horizontal":
+            # Input is left center
+            return (self.x, self.y + self.COMPONENT_SIZE // 2)
+        else:
+            # Input is bottom center
+            return (self.x + self.COMPONENT_SIZE // 2, self.y)
+
+    @property
+    def connectionpoint_output(self):
+        if self.x is None or self.y is None:
+            return None
+        if self.stroomrichting == "horizontal":
+            # Output is right center
+            return (self.x + self.COMPONENT_SIZE, self.y + self.COMPONENT_SIZE // 2)
+        else:
+            # Output is top center
+            return (self.x + self.COMPONENT_SIZE // 2, self.y + self.COMPONENT_SIZE)
+
+    @property
+    def inputlinepoint(self):
+        """Return the point from which the input line starts (slightly outside the input connector)."""
+        ip = self.connectionpoint_input
+        inputline_lengte = 10 #hoelang moet het lijntje zijn van ons icoon aan de ingang
+        if ip is None:
+            return None
+        if self.stroomrichting == "horizontal":
+            return (ip[0] - inputline_lengte, ip[1])
+        else:
+            return (ip[0], ip[1] - inputline_lengte)
+
+
+    @property
+    def outputlinepoint(self):
+        """Return the point from which the output line ends (slightly outside the input connector)."""
+        op = self.connectionpoint_output
+        outputline_lengte = 10 #hoelang moet het lijntje zijn van ons icoon op de uitgang
+        if op is None:
+            return None
+        if self.stroomrichting == "horizontal":
+            return (op[0] +  outputline_lengte, op[1])  # x,y koppel
+        else:
+            return (op[0], op[1] + outputline_lengte)
+
+    def contains_node(self, node):
+        if self is node:
+            return True
+        for child in self.children:
+            if child.contains_node(node):
+                return True
+        return False
+
+    def clone(self):
+        return copy.deepcopy(self)
+
+
+    def oudadd_child(self, *children):
+        for child in children:
+            child.parent = self
+            self.children.append(child)
+
+    def add_child(self, *children):
+        for child in children:
+            if self.contains_node(child):
+                print(f"⚠️  WARNING: {child.label} is already present in the tree. Cloning and adding the clone.")
+                child = child.clone()  # Use the clone instead
+            child.parent = self
+            self.children.append(child)
+
+    def sort_children(self):
+        """Sort children by number in label, fallback to alphabetical."""
+        self.children.sort(key=lambda c: (Component.extract_int(c.label), c.label))
+        for child in self.children:
+            child.sort_children()
+
+    def print_ascii_tree(self, prefix=" "):
+        print(f"{prefix}{self.label} ({self.x},{self.y})")
+        for i, child in enumerate(self.children):
+            connector = "└── " if i == len(self.children) - 1 else "├── "
+            child_prefix = prefix + ("    " if i == len(self.children) - 1 else "│   ")
+            print(f"{prefix}{connector}", end="")
+            child.print_ascii_tree(child_prefix)
+
+    @staticmethod
+    def extract_int(label):
+        """Extract the first integer found in the label, or return inf if not found."""
+        match = re.search(r'\d+', label)
+        return int(match.group()) if match else float('inf')
+
+
+
+class Differential(Component):
+    def __init__(self, label, type, **kwargs):
+        super().__init__(label, type, **kwargs)
+        self.stroomrichting = "vertical"
+
+
+class CircuitBreaker(Component):
+    def __init__(self, label, type, **kwargs):
+        super().__init__(label, type, **kwargs)
+        self.stroomrichting = "vertical"
+
+class Appliance(Component):
+    def __init__(self, label, type, **kwargs):
+        super().__init__(label, type, **kwargs)
+        self.stroomrichting="horizontal"
+
+
+class Domomodule(Component):
+    def __init__(self, label, type, **kwargs):
+        super().__init__(label, type, **kwargs)
+        self.stroomrichting = "horizontal"
+
+class Contax(Component):
+    def __init__(self, label, type, **kwargs):
+        super().__init__(label, type, **kwargs)
+        self.stroomrichting = "horizontal"
+
+class Verlichting(Component):
+    def __init__(self, label, type, **kwargs):
+        super().__init__(label, type, **kwargs)
+        self.stroomrichting = "horizontal"
+
+class Voeding(Component):
+    def __init__(self, label, type, **kwargs):
+        super().__init__(label, type, **kwargs)
+        self.stroomrichting = "vertical"
+
+class Teller(Component):
+    def __init__(self, label, type, **kwargs):
+        super().__init__(label, type, **kwargs)
+        self.stroomrichting = "vertical"
+
+class Bord(Component):
+    def __init__(self, label, type, **kwargs):
+        super().__init__(label, type, **kwargs)
+        self.stroomrichting = "vertical"
+
+# Example tree
+teller = Teller("Teller_V", "teller")
+bord1 = Bord("Bord1_V", "bord")
+bord1 = Bord("bord1_V", "bord")
+dif300 = Differential("Diff300_V", "differential")
+dif30 = Differential("Diff30_V", "differential")
+dif100 = Differential("Diff100_V", "differential")
+dif3 = Differential("Diff3_V", "differential")
+zek3001 = CircuitBreaker("zek3001_V", "circuit_breaker")
+zek3002 = CircuitBreaker("zek3002_V", "circuit_breaker")
+zek1001 = CircuitBreaker("zek1001_V", "circuit_breaker")
+zek3003 = CircuitBreaker("zek3003_V", "circuit_breaker")
+zek3004verl = CircuitBreaker("zek3004verl_V", "circuit_breaker")
+vaatwas301 = Appliance("vaatwas301_H", "appliance")
+droogkast3002 = Appliance("droogkast3002_H"  , "appliance")
+oven3002 = Appliance("oven3002_H", "appliance")
+lamp3004 = Appliance("lamp3004_H", "appliance")
+microoven3002 = Appliance("microoven3002_H", "appliance")
+contaxop3004 = Contax("contaxop3004_H", "appliance")
+contaxopcontax = Contax("contaxopcontax_H", "appliance")
+domo = Domomodule("Domomodule_H", "domomodule")
+verlH = Verlichting("Verlichting_H", "verlichting")
+verlH2 = Verlichting("Verlichting2_H", "verlichting")
+verlH3 = Verlichting("Verlichting3_H", "verlichting")
+verlH4 = Verlichting("Verlichting4_H", "verlichting")
+verlH5 = Verlichting("Verlichting5_H", "verlichting")
+
+faaropcontax = Verlichting("faaropcontax_H", "verlichting")
+verlicht1 = Verlichting("Verlicht1_H", "verlichting")
+verlicht2 = Verlichting("Verlicht2_H", "verlichting")
+verlicht3 = Verlichting("Verlicht3_H", "verlichting")
+tv = Appliance("tv_H", "appliance")
+tv2 = Appliance("tv2_H", "appliance")
+domo.add_child(verlH)
+teller.add_child(dif300, dif30, dif3)
+dif300.add_child(zek3001 , zek3002 , zek3003)
+zek3001.add_child(droogkast3002  )
+zek3002.add_child(oven3002 , microoven3002)
+zek3003.add_child(tv , tv2 , domo  )
+tv2.add_child( verlH2,   verlH3 , verlH4 , verlH5)
+zek3004verl.add_child(verlicht1, verlicht2   , verlicht3 , lamp3004 )
+zek3004verl.add_child(contaxop3004)
+dif300.add_child(zek3004verl)
+zek1001.add_child(vaatwas301)
+dif300.add_child(dif100)
+contaxop3004.add_child(contaxopcontax)
+contaxopcontax.add_child(faaropcontax)
+
+dif100.add_child(zek1001)
+# ---- Drawing on Canvas ----
+
+
+
+
+
+if __name__ == "__main__":
+    te_tekenen_startpunt = teller
+
+    te_tekenen_startpunt.sort_children()
+    te_tekenen_startpunt.assign_coordinates_by_rules()
+    te_tekenen_startpunt.multiply_coordinates(1)
+
+    te_tekenen_startpunt.print_ascii_tree_with_regel()
+
+
+
+

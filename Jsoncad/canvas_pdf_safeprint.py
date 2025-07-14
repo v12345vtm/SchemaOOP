@@ -484,6 +484,8 @@ if __name__ == "__main__":
     model.add_object(Square(260, 50, 80, colors.red))
     model.add_object(HorizontalLine(100, 10, 500, colors.blue, 1))
     model.add_object(Text(10, 80, "10/80_Dynamic canvas with grid!", 12, colors.black))
+    model.add_object(Text(0, 0, "pos0/0", 12, colors.black))
+    model.add_object(Dot(0, 0, radius_mm=2, color=colors.green))
     model.add_object(Dot(297, 60, radius_mm=2, color=colors.green))
     model.add_object(Dot(594, 60, radius_mm=2, color=colors.green))
 
@@ -503,3 +505,11 @@ if __name__ == "__main__":
     for obj in model.objects:
         print(type(obj), obj.__dict__)
 
+import os
+
+model.draw_single_pagina("pdf_singlepage.pdf")
+model.draw_multi_pages("pdf_multipage.pdf")
+
+# Let Windows open the PDFs
+os.startfile("pdf_singlepage.pdf")
+os.startfile("pdf_multipage.pdf")

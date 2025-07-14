@@ -159,6 +159,8 @@ contaxopvoeding = Contax("contaxvoeding" , "appliance")
 domo1 = Domomodule("Domo1", "domomodule")
 contax1 = Contax("Contax1", "contax")
 verlichting1 = Verlichting("Verlicht1", "verlichting")
+verlichtingct = Verlichting("Verlicht1vanct", "verlichting")
+verlichtingct2 = Verlichting("Verlicht1vanct2", "verlichting")
 
 diffa = Differential("DiffA", "differential")
 diffb = Differential("DIFFB", "differential")
@@ -192,7 +194,8 @@ diff30.add_child(zek4)
 diff3.add_child(domo1)
 diff3.add_child(contax1)
 diff3.add_child(dif9_3)
-
+contax1.add_child(verlichtingct)
+contax1.add_child(verlichtingct2)
 # ---- Sorting helper ----
 def print_ascii_tree(component, prefix=""):
     print(f"{prefix}{component.label} ({component.x},{component.y})")
@@ -351,7 +354,7 @@ if __name__ == "__main__":
     #assign_increasing_x(voeding)
 
     #print_ascii_tree(voeding)
-
+    print_ascii_tree(te_tekenen_startpunt)
     #assign_coords_combined(voeding) #assign_coords_combined is al zeer goed
     assign_coords_safe_stacking(te_tekenen_startpunt)
 

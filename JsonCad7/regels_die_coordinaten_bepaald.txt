@@ -1,0 +1,56 @@
+ Teller_V (0,0)													regel 1	geen ouders = 0,0
+ ├──  │   Diff300_V (0,1)										regel 2b
+ │   ├──  │   │   zek3001_V (0,2)								regel 2b
+ │   │   └──  │   │       droogkast3002_H (1,3)					regel 3b
+ │   ├──  │   │   zek3002_V (2,2)								regel  2a
+ │   │   ├──  │   │   │   oven3002_H (3,3)						regel 3b
+ │   │   └──  │   │       microoven3002_H (3,4)					regel 3a
+ │   ├──  │   │   zek3003_V (4,2)								regel 2a
+ │   │   ├──  │   │   │   tv_H (5,3)							regel 3b
+ │   │   └──  │   │       tv2_H (5,4)							regel 3a
+ │   ├──  │   │   zek3004verl_V (6,2)							regel 2a
+ │   │   ├──  │   │   │   Verlicht1_H (7,3)						regel 3b
+ │   │   ├──  │   │   │   Verlicht2_H (7,4)						regel 3a
+ │   │   ├──  │   │   │   Verlicht3_H (7,5)						regel 3a
+ │   │   ├──  │   │   │   lamp3004_H (7,6)						regel 3a
+ │   │   └──  │   │       contaxop3004_H (7,7)					regel 3a
+ │   │       └──  │   │           contaxopcontax_H (8,7)		regel 4b
+ │   │           └──  │   │               faaropcontax_H (9,7)	regel 4b
+ │   └──  │       Diff100_V (10,2)								regel 2a
+ │       └──  │           zek1001_V (10,3)						regel 2b
+ │           └──  │               vaatwas301_H (11,4)			regel 3b
+ ├──  │   Diff30_V (12,2)										regel 2a
+ └──      Diff3_V (13,2)										regel 2a
+  
+regel 0 elk coordinaat mag slechts 1 keer voorkomen  
+regel 1	0.0 heeft geen ouder = 0,0
+
+regel 2	als parent al een toegewezen adres heeft gekregen : 
+				elk V kind met V ouder :  
+					heeft hij vorige broer = ja
+regel 2a				child.x =  vorige broer zijn verste_afstammeling.x +1 ; 	child.y = vorigebroer.y
+					heeft hij vorige broer = nee
+regel 2b				child.x = parent.x ; child.y = parent.y +1 
+						
+ 
+regel 3	als parent al een toegewezen adres heeft gekregen : 
+				elk H kind met V ouder :  
+					heeft hij vorige broer = ja
+regel 3a				child.x = vorigebroer.x ; 	vorige broer zijn verste_afstammeling.y +1
+					heeft hij vorige broer = nee
+regel 3b				child.x = parent.x+1 ; child.y = parent.y +1  
+
+
+regel 4	als parent al een toegewezen adres heeft gekregen : 
+				elk H kind met H ouder :  
+					heeft hij vorige broer = ja
+regel 4a				child.x = vorigebroer.x ; 	child.y = vorigebroer.y+1
+					heeft hij vorige broer = nee
+regel 4b				child.x = parent.x+1 ; child.y = parent.y  
+
+regel 5	als parent al een toegewezen adres heeft gekregen : vb hoofddif 
+				elk V kind met H ouder :  
+					heeft hij vorige broer = ja
+regel 5a				child.x = vorige broer zijn verste_afstammeling.x +1; 	child.y = parent.y +1
+					heeft hij vorige broer = nee
+regel 5b				child.x = parent.x + 1 ; child.y = parent.y +1

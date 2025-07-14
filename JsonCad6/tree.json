@@ -1,0 +1,351 @@
+{
+  "label": "cabine",
+  "type": "voeding",
+  "x": 0,
+  "y": 0,
+  "stroomrichting": "vertical",
+  "COMPONENT_SIZE": 20,
+  "stack_on_top_of_brother": false,
+  "allow_stack_on_top_of_parent": true,
+  "kwargs": {},
+  "children": [
+    {
+      "label": "Voeding",
+      "type": "voeding",
+      "x": 0,
+      "y": 0,
+      "stroomrichting": "vertical",
+      "COMPONENT_SIZE": 20,
+      "stack_on_top_of_brother": false,
+      "allow_stack_on_top_of_parent": true,
+      "kwargs": {},
+      "children": [
+        {
+          "label": "DiffA",
+          "type": "differential",
+          "x": 0,
+          "y": 0,
+          "stroomrichting": "vertical",
+          "COMPONENT_SIZE": 20,
+          "stack_on_top_of_brother": false,
+          "allow_stack_on_top_of_parent": true,
+          "kwargs": {},
+          "children": [
+            {
+              "label": "DIFFB",
+              "type": "differential",
+              "x": 0,
+              "y": 0,
+              "stroomrichting": "vertical",
+              "COMPONENT_SIZE": 20,
+              "stack_on_top_of_brother": false,
+              "allow_stack_on_top_of_parent": true,
+              "kwargs": {},
+              "children": [
+                {
+                  "label": "Zekeringc",
+                  "type": "circuit_breaker",
+                  "x": 0,
+                  "y": 0,
+                  "stroomrichting": "vertical",
+                  "COMPONENT_SIZE": 20,
+                  "stack_on_top_of_brother": false,
+                  "allow_stack_on_top_of_parent": true,
+                  "kwargs": {},
+                  "children": [
+                    {
+                      "label": "tv",
+                      "type": "appliance",
+                      "x": 0,
+                      "y": 0,
+                      "stroomrichting": "horizontal",
+                      "COMPONENT_SIZE": 20,
+                      "stack_on_top_of_brother": true,
+                      "allow_stack_on_top_of_parent": false,
+                      "kwargs": {},
+                      "children": []
+                    },
+                    {
+                      "label": "tv2",
+                      "type": "appliance",
+                      "x": 0,
+                      "y": 0,
+                      "stroomrichting": "horizontal",
+                      "COMPONENT_SIZE": 20,
+                      "stack_on_top_of_brother": true,
+                      "allow_stack_on_top_of_parent": false,
+                      "kwargs": {},
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "contaxvoeding",
+          "type": "appliance",
+          "x": 0,
+          "y": 0,
+          "stroomrichting": "horizontal",
+          "COMPONENT_SIZE": 20,
+          "stack_on_top_of_brother": true,
+          "allow_stack_on_top_of_parent": false,
+          "kwargs": {},
+          "children": []
+        },
+        {
+          "label": "Diff300",
+          "type": "differential",
+          "x": 0,
+          "y": 0,
+          "stroomrichting": "vertical",
+          "COMPONENT_SIZE": 20,
+          "stack_on_top_of_brother": false,
+          "allow_stack_on_top_of_parent": true,
+          "kwargs": {},
+          "children": [
+            {
+              "label": "A",
+              "type": "circuit_breaker",
+              "x": 0,
+              "y": 0,
+              "stroomrichting": "vertical",
+              "COMPONENT_SIZE": 20,
+              "stack_on_top_of_brother": false,
+              "allow_stack_on_top_of_parent": true,
+              "kwargs": {},
+              "children": [
+                {
+                  "label": "Vaatwas",
+                  "type": "appliance",
+                  "x": 0,
+                  "y": 0,
+                  "stroomrichting": "horizontal",
+                  "COMPONENT_SIZE": 20,
+                  "stack_on_top_of_brother": true,
+                  "allow_stack_on_top_of_parent": false,
+                  "kwargs": {},
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Diff30",
+          "type": "differential",
+          "x": 0,
+          "y": 0,
+          "stroomrichting": "vertical",
+          "COMPONENT_SIZE": 20,
+          "stack_on_top_of_brother": false,
+          "allow_stack_on_top_of_parent": true,
+          "kwargs": {},
+          "children": [
+            {
+              "label": "B2",
+              "type": "circuit_breaker",
+              "x": 0,
+              "y": 0,
+              "stroomrichting": "vertical",
+              "COMPONENT_SIZE": 20,
+              "stack_on_top_of_brother": false,
+              "allow_stack_on_top_of_parent": true,
+              "kwargs": {},
+              "children": [
+                {
+                  "label": "Keuken",
+                  "type": "appliance",
+                  "x": 0,
+                  "y": 0,
+                  "stroomrichting": "horizontal",
+                  "COMPONENT_SIZE": 20,
+                  "stack_on_top_of_brother": true,
+                  "allow_stack_on_top_of_parent": false,
+                  "kwargs": {},
+                  "children": []
+                },
+                {
+                  "label": "Oven",
+                  "type": "appliance",
+                  "x": 0,
+                  "y": 0,
+                  "stroomrichting": "horizontal",
+                  "COMPONENT_SIZE": 20,
+                  "stack_on_top_of_brother": true,
+                  "allow_stack_on_top_of_parent": false,
+                  "kwargs": {},
+                  "children": []
+                }
+              ]
+            },
+            {
+              "label": "B10",
+              "type": "circuit_breaker",
+              "x": 0,
+              "y": 0,
+              "stroomrichting": "vertical",
+              "COMPONENT_SIZE": 20,
+              "stack_on_top_of_brother": false,
+              "allow_stack_on_top_of_parent": true,
+              "kwargs": {},
+              "children": []
+            },
+            {
+              "label": "microOven",
+              "type": "appliance",
+              "x": 0,
+              "y": 0,
+              "stroomrichting": "horizontal",
+              "COMPONENT_SIZE": 20,
+              "stack_on_top_of_brother": true,
+              "allow_stack_on_top_of_parent": false,
+              "kwargs": {},
+              "children": []
+            },
+            {
+              "label": "B1",
+              "type": "circuit_breaker",
+              "x": 0,
+              "y": 0,
+              "stroomrichting": "vertical",
+              "COMPONENT_SIZE": 20,
+              "stack_on_top_of_brother": false,
+              "allow_stack_on_top_of_parent": true,
+              "kwargs": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Diff9",
+          "type": "differential",
+          "x": 0,
+          "y": 0,
+          "stroomrichting": "vertical",
+          "COMPONENT_SIZE": 20,
+          "stack_on_top_of_brother": false,
+          "allow_stack_on_top_of_parent": true,
+          "kwargs": {},
+          "children": [
+            {
+              "label": "Domo1",
+              "type": "domomodule",
+              "x": 0,
+              "y": 0,
+              "stroomrichting": "horizontal",
+              "COMPONENT_SIZE": 20,
+              "stack_on_top_of_brother": true,
+              "allow_stack_on_top_of_parent": false,
+              "kwargs": {},
+              "children": [
+                {
+                  "label": "ct7 achterdomo",
+                  "type": "contax",
+                  "x": 0,
+                  "y": 0,
+                  "stroomrichting": "horizontal",
+                  "COMPONENT_SIZE": 20,
+                  "stack_on_top_of_brother": true,
+                  "allow_stack_on_top_of_parent": false,
+                  "kwargs": {},
+                  "children": []
+                }
+              ]
+            },
+            {
+              "label": "ct1",
+              "type": "contax",
+              "x": 0,
+              "y": 0,
+              "stroomrichting": "horizontal",
+              "COMPONENT_SIZE": 20,
+              "stack_on_top_of_brother": true,
+              "allow_stack_on_top_of_parent": false,
+              "kwargs": {},
+              "children": [
+                {
+                  "label": "Verlicht1vanct1",
+                  "type": "verlichting",
+                  "x": 0,
+                  "y": 0,
+                  "stroomrichting": "horizontal",
+                  "COMPONENT_SIZE": 20,
+                  "stack_on_top_of_brother": true,
+                  "allow_stack_on_top_of_parent": false,
+                  "kwargs": {},
+                  "children": []
+                }
+              ]
+            },
+            {
+              "label": "3etoestel",
+              "type": "appliance",
+              "x": 0,
+              "y": 0,
+              "stroomrichting": "horizontal",
+              "COMPONENT_SIZE": 20,
+              "stack_on_top_of_brother": true,
+              "allow_stack_on_top_of_parent": false,
+              "kwargs": {
+                "tak": 2
+              },
+              "children": []
+            },
+            {
+              "label": "ct6",
+              "type": "contax",
+              "x": 0,
+              "y": 0,
+              "stroomrichting": "horizontal",
+              "COMPONENT_SIZE": 20,
+              "stack_on_top_of_brother": true,
+              "allow_stack_on_top_of_parent": false,
+              "kwargs": {},
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Verlicht1",
+          "type": "verlichting",
+          "x": 0,
+          "y": 0,
+          "stroomrichting": "horizontal",
+          "COMPONENT_SIZE": 20,
+          "stack_on_top_of_brother": true,
+          "allow_stack_on_top_of_parent": false,
+          "kwargs": {},
+          "children": []
+        }
+      ]
+    },
+    {
+      "label": "Voeding2",
+      "type": "voeding",
+      "x": 0,
+      "y": 0,
+      "stroomrichting": "vertical",
+      "COMPONENT_SIZE": 20,
+      "stack_on_top_of_brother": false,
+      "allow_stack_on_top_of_parent": true,
+      "kwargs": {},
+      "children": [
+        {
+          "label": "voeding2Zekering1",
+          "type": "circuit_breaker",
+          "x": 0,
+          "y": 0,
+          "stroomrichting": "vertical",
+          "COMPONENT_SIZE": 20,
+          "stack_on_top_of_brother": false,
+          "allow_stack_on_top_of_parent": true,
+          "kwargs": {},
+          "children": []
+        }
+      ]
+    }
+  ]
+}

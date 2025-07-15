@@ -1,22 +1,52 @@
 import tkinter as tk
 import re
 import copy
+from PIL import Image, ImageTk
+import os
 
 
 class Component:
-    def __init__(self, label, type,  **kwargs):
+    def __init__(self, label, type, **kwargs):
+        self.pixels_tussen_kringen_H = 40 #tussen verschikkende zekeringen horizontaal
+        self.pixels_tussen_takken_V = 40 #tussen de lampenen onderling vertikaal
         self.label = label
         self.type = type
         self.children = []
         self.parent = None
         self.x = 0
         self.y = 0
-        self._stroomrichting = None   # "horizontal" or "vertical"
-        self.boundarybox = 100  # Default size, can be parameterized
-
+        self._stroomrichting = None  # "horizontal" or "vertical"
+        self.boundarybox = 50  # Default size, can be parameterized
+        self.nulpunt = "top_left" # #top_left of bottom_left
         self.kwargs = kwargs  # Store all extra arguments in a dict
         # Optionally extract common expected values
         self.volgorde = kwargs.get("volgorde", None)
+
+    def swapy(self):
+        """
+        Set nulpunt to 'bottom_left' and flip the y coordinate
+        for this node and all children, so the grid is drawn
+        with (0,0) at the bottom left.
+        """
+        # 1. Gather all nodes to find max_y
+        all_nodes = []
+
+        def collect(node):
+            all_nodes.append(node)
+            for child in node.children:
+                collect(child)
+
+        collect(self)
+        max_y = max(node.y for node in all_nodes)
+
+        # 2. Recursively set nulpunt and flip y for all nodes
+        def flip_nulpunt_and_y(node):
+            node.nulpunt = "bottom_left"
+            node.y = max_y - node.y
+            for child in node.children:
+                flip_nulpunt_and_y(child)
+
+        flip_nulpunt_and_y(self)
 
     def print_ascii_tree_with_regel(self, prefix=" "):
         regel = getattr(self, "_regel_used", "?")
@@ -32,6 +62,7 @@ class Component:
         Wijs coördinaten toe aan alle nodes volgens de aangepaste regels.
         Annotatie: node._regel_used (string).
         """
+
 
         def deepest_descendant_x(node):
             """Grootste x in de subboom."""
@@ -139,44 +170,151 @@ class Component:
         for child in self.children:
             child.multiply_coordinates(factor)
 
-    def draw_recursive_top_left(self, canvas, x_spacing=0, y_spacing=0):
-        # Convert logical grid position to pixel position (top-left corner)
-        pixel_x = self.x   + x_spacing
-        pixel_y = self.y   + y_spacing
+
+    ####MASTERCLASS DRAW
+    def draw_recursive_top_left(self, canvas, x_spacing=0, y_spacing=0 , swapy=False):
+        if swapy:
+            self.swapy()  # flips y, updates self.nulpunt to "bottom_left"
+
+        # Component's top-left pixel position
+        pixel_x = self.x + x_spacing
+        pixel_y = self.y + y_spacing
         size = self.boundarybox
 
         # Draw the rectangle for the component
         canvas.create_rectangle(pixel_x, pixel_y, pixel_x + size, pixel_y + size, fill="pink", outline="black")
-
-        # Draw the label centered in the component
+        # Draw the label
         canvas.create_text(pixel_x + size / 2, pixel_y + size / 2, text=self.label, font=("Arial", 8))
-
-        # === RED INPUT LINE ===
-        if self.connectionpoint_input and self.inputlinepoint:
-            x1 = self.inputlinepoint[0] + x_spacing
-            y1 = self.inputlinepoint[1]   + y_spacing
-            x2 = self.connectionpoint_input[0]  + x_spacing
-            y2 = self.connectionpoint_input[1]   + y_spacing
-            canvas.create_line(x1, y1, x2, y2, fill="red")
+        #here i need to know already the idx
 
 
-        # === green output LINE ===
-        if self.connectionpoint_output and self.outputlinepoint:
-            x1 = self.outputlinepoint[0] + x_spacing
-            y1 = self.outputlinepoint[1]   + y_spacing
-            x2 = self.connectionpoint_output[0]  + x_spacing
-            y2 = self.connectionpoint_output[1]   + y_spacing
-            canvas.create_line(x1, y1, x2, y2, fill="green")
 
-        # === CONNECTION TO CHILDREN ===
+        # ----- Draw input/output dots -----
+        dot_radius = 5
+        # Draw input dot (red)
+        if self.connectionpoint_input:
+            in_cx, in_cy = self.connectionpoint_input
+            canvas.create_oval(
+                pixel_x + in_cx - dot_radius, pixel_y + in_cy - dot_radius,
+                pixel_x + in_cx + dot_radius, pixel_y + in_cy + dot_radius,
+                fill="red", outline=""
+            )
+            canvas.create_text(pixel_x + in_cx, pixel_y + in_cy, text="IN", font=("Arial", 15))
+
+        # Draw output dot (green)
+        if self.connectionpoint_output:
+            out_cx, out_cy = self.connectionpoint_output
+            canvas.create_oval(
+                pixel_x + out_cx - dot_radius, pixel_y + out_cy - dot_radius,
+                pixel_x + out_cx + dot_radius, pixel_y + out_cy + dot_radius,
+                fill="green", outline=""
+            )
+            canvas.create_text(pixel_x + out_cx, pixel_y + out_cy, text="OUT", font=("Arial", 15))
+
+        # ----- Draw connections/lines to children -----
+        stub_length_H = self.pixels_tussen_kringen_H // 2
+        stub_length_V = self.pixels_tussen_takken_V // 2
+
+        # ----- CONNECTIONS -----
+        child_stub_coords = []
+        # First pass: Draw all output and input stubs, and store stub endpoints
         for child in self.children:
-            x1 = (self.x + 0.5)   + x_spacing
-            y1 = (self.y + 0.5)  + y_spacing
-            x2 = (child.x + 0.5)  + x_spacing
-            y2 = (child.y + 0.5)  + y_spacing
-            canvas.create_line(x1, y1, x2, y2, fill="black", width=2)
+            # Parent output
+            out_cx, out_cy = self.connectionpoint_output
+            out_abs_x = pixel_x + out_cx
+            out_abs_y = pixel_y + out_cy
 
-            # Recursively draw the child
+            # Child input
+            child_pixel_x = child.x + x_spacing
+            child_pixel_y = child.y + y_spacing
+            in_cx, in_cy = child.connectionpoint_input
+            in_abs_x = child_pixel_x + in_cx
+            in_abs_y = child_pixel_y + in_cy
+
+            # Parent output stub
+            if self.stroomrichting == "horizontal":
+                stub1_end_x = out_abs_x + stub_length_H
+                stub1_end_y = out_abs_y
+            else:  # vertical
+                if self.nulpunt == "top_left":
+                    stub1_end_x = out_abs_x
+                    stub1_end_y = out_abs_y + stub_length_V
+                else:
+                    stub1_end_x = out_abs_x
+                    stub1_end_y = out_abs_y - stub_length_V
+
+            canvas.create_line(out_abs_x, out_abs_y, stub1_end_x, stub1_end_y, fill="black", width=2)
+
+            # Child input stub
+            if child.stroomrichting == "horizontal":
+                stub2_end_x = in_abs_x - stub_length_H
+                stub2_end_y = in_abs_y
+            else:
+                if child.nulpunt == "top_left":
+                    stub2_end_x = in_abs_x
+                    stub2_end_y = in_abs_y - stub_length_V
+                else:
+                    stub2_end_x = in_abs_x
+                    stub2_end_y = in_abs_y + stub_length_V
+
+            canvas.create_line(in_abs_x, in_abs_y, stub2_end_x, stub2_end_y, fill="black", width=2)
+
+            child_stub_coords.append((stub2_end_x, stub2_end_y))  # for bus crossing
+
+            child._parent_stub_end = (stub1_end_x, stub1_end_y)
+            child._parent_out_abs_x = out_abs_x
+            child._parent_out_abs_y = out_abs_y
+
+        # ----- Draw bus/bend to each child -----
+        for idx, child in enumerate(self.children):
+            parent_stub_end = child._parent_stub_end
+            child_stub_end = child_stub_coords[idx]
+            if child.stroomrichting == "horizontal":
+                print(f"DRAWING: {child.label} (parent: {self.label}, index: {idx})")
+
+            if self.stroomrichting == "vertical":
+                # 'bus' is the vertical extension at parent's out-stub x,
+                # from parent min(y) to max(y) among all children (if >1 child)
+                bus_x = parent_stub_end[0]
+                bus_y0 = parent_stub_end[1]
+                bus_y1 = child_stub_end[1]
+
+                # Draw vertical bus from parent to child's y
+                canvas.create_line(bus_x, bus_y0, bus_x, bus_y1, fill="black", width=2)
+                # Draw horizontal from bus to child stub
+                canvas.create_line(bus_x, bus_y1, child_stub_end[0], bus_y1, fill="black", width=2)
+                # If horizontal offset needed
+                if (child_stub_end[0], bus_y1) != (child_stub_end[0], child_stub_end[1]):
+                    canvas.create_line(child_stub_end[0], bus_y1, child_stub_end[0], child_stub_end[1], fill="black",
+                                       width=2)
+            else:
+                # Horizontal parent: default simple elbow logic
+                if parent_stub_end != child_stub_end:
+                    crossing_point1 = (child_stub_end[0], parent_stub_end[1])
+                    canvas.create_line(parent_stub_end[0], parent_stub_end[1], crossing_point1[0], crossing_point1[1],
+                                       fill="black", width=2)
+                    canvas.create_line(crossing_point1[0], crossing_point1[1], child_stub_end[0], child_stub_end[1],
+                                       fill="black", width=2)
+
+            ### --- CHILD NUMBER LABEL FOR HORIZONTAL CHILDREN ---
+            if child.stroomrichting == "horizontal":
+                # Optional: choose where to put the child number
+                # Example location: just left of the child's input dot
+                in_cx, in_cy = child.connectionpoint_input
+                child_abs_x = child.x + x_spacing + in_cx
+                child_abs_y = child.y + y_spacing + in_cy
+                # Display (1-based) index; idx+1 or whatever scheme you want
+                canvas.create_text(
+                    child_abs_x - 18,  # adjust -18 for spacing to the left
+                    child_abs_y,
+                    text=str(idx + 1),
+                    font=("Arial", 30),
+                    fill="blue"
+                )
+            ### --- END CHILD NUMBER LABEL ---
+
+        # Recurse for children
+        for child in self.children:
             child.draw_recursive_top_left(canvas, x_spacing, y_spacing)
 
     def limit_hoogte(self, hoogtelimiet=5):
@@ -187,11 +325,13 @@ class Component:
         Increase x by 1 for all nodes with x >= kolom_index.
         Prints all nodes with their new x and y values.
         """
+
         def update_x(component):
             if component.x >= kolom_index:
                 component.x += 1
             for child in component.children:
                 update_x(child)
+
         update_x(self)
 
     @property
@@ -204,66 +344,57 @@ class Component:
             raise ValueError("stroomrichting must be 'horizontal' or 'vertical'")
         self._stroomrichting = value
 
-
-    def explode_coordinates_to_canvas(self, x=30, y=30):
-        """Multiply logical grid coordinates and apply offset for canvas placement."""
-        #hoeveel pixels moeten tussen de kaders zijn?
+    def explode_coordinates_to_canvas(self, x=None, y=None):
+        if y is None:
+            y = self.pixels_tussen_takken_V
+        if x is None:
+            x = self.pixels_tussen_kringen_H
         if self.x is not None and self.y is not None:
-            self.x = self.x *  (x + self.boundarybox)
-            self.y = self.y *  (y + self.boundarybox)
-
-            #  all children recursively
+            self.x = self.x * (x + self.boundarybox)
+            self.y = self.y * (y + self.boundarybox)
             for child in self.children:
-                child.explode_coordinates_to_canvas( x , y)
-
-
+                child.explode_coordinates_to_canvas(x, y)
 
     @property
     def connectionpoint_input(self):
-        if self.x is None or self.y is None:
-            return None
+        size = self.boundarybox
+        ref = self.nulpunt
+        HofV = self.stroomrichting
         if self.stroomrichting == "horizontal":
-            # Input is left center
-            return (self.x, self.y + self.boundarybox // 2)
+            # Input always at left center (0,50)
+            return (0, size // 2)  # INPUT  0,50 horizonataal altijd 0,50 Linkerkant
         else:
-            # Input is bottom center
-            return (self.x + self.boundarybox // 2, self.y)
+            if self.nulpunt == "top_left":
+                # Bottom center (default)
+                return (size // 2, 0) # IN vertikaal 50,0 , Bovenaan
+            elif self.nulpunt == "bottom_left":
+                # Top center for bottom-up logic
+                return (size // 2, size) #50,100 = input langs onderkant
+            else:
+                return (size // 2, 0)
 
     @property
     def connectionpoint_output(self):
-        if self.x is None or self.y is None:
-            return None
-        if self.stroomrichting == "horizontal":
-            # Output is right center
-            return (self.x + self.boundarybox, self.y + self.boundarybox // 2)
-        else:
-            # Output is top center
-            return (self.x + self.boundarybox // 2, self.y + self.boundarybox)
+        size = self.boundarybox
+        ref = self.nulpunt
+        HofV = self.stroomrichting
 
-    @property
-    def inputlinepoint(self):
-        """Return the point from which the input line starts (slightly outside the input connector)."""
-        ip = self.connectionpoint_input
-        inputline_lengte = 10 #hoelang moet het lijntje zijn van ons icoon aan de ingang
-        if ip is None:
-            return None
         if self.stroomrichting == "horizontal":
-            return (ip[0] - inputline_lengte, ip[1])
+            # Always right center
+            return (size, size // 2) # Horizontaal OUTPUT altijd 100,50 rechterkant
         else:
-            return (ip[0], ip[1] - inputline_lengte)
+            if self.nulpunt == "top_left":
+                # Output is at bottom center (default)
+                return (size // 2, size) #vertikaal OUT = 50,100 onderkant
+            elif self.nulpunt == "bottom_left":
+                # Output is at top center (for bottom-up layouts)
+                return (size // 2, 0)  # 50,0 bovenkant
+            else:
+                # Default to top_left logic if something else
+                return (size // 2, size)
 
 
-    @property
-    def outputlinepoint(self):
-        """Return the point from which the output line ends (slightly outside the input connector)."""
-        op = self.connectionpoint_output
-        outputline_lengte = 10 #hoelang moet het lijntje zijn van ons icoon op de uitgang
-        if op is None:
-            return None
-        if self.stroomrichting == "horizontal":
-            return (op[0] +  outputline_lengte, op[1])  # x,y koppel
-        else:
-            return (op[0], op[1] + outputline_lengte)
+
 
     def contains_node(self, node):
         if self is node:
@@ -275,7 +406,6 @@ class Component:
 
     def clone(self):
         return copy.deepcopy(self)
-
 
     def oudadd_child(self, *children):
         for child in children:
@@ -311,7 +441,6 @@ class Component:
         return int(match.group()) if match else float('inf')
 
 
-
 class Differential(Component):
     def __init__(self, label, type, **kwargs):
         super().__init__(label, type, **kwargs)
@@ -323,20 +452,23 @@ class CircuitBreaker(Component):
         super().__init__(label, type, **kwargs)
         self.stroomrichting = "vertical"
 
+
 class Appliance(Component):
     def __init__(self, label, type, **kwargs):
         super().__init__(label, type, **kwargs)
-        self.stroomrichting="horizontal"
+        self.stroomrichting = "horizontal"
+
 
 class Hoofddifferentieel(Component):
     def __init__(self, label, type, **kwargs):
         super().__init__(label, type, **kwargs)
-        self.stroomrichting="horizontal"
+        self.stroomrichting = "horizontal"
+
 
 class HoofdAutomaat(Component):
     def __init__(self, label, type, **kwargs):
         super().__init__(label, type, **kwargs)
-        self.stroomrichting="horizontal"
+        self.stroomrichting = "horizontal"
 
 
 class Domomodule(Component):
@@ -344,33 +476,144 @@ class Domomodule(Component):
         super().__init__(label, type, **kwargs)
         self.stroomrichting = "horizontal"
 
+
 class Contax(Component):
     def __init__(self, label, type, **kwargs):
         super().__init__(label, type, **kwargs)
         self.stroomrichting = "horizontal"
+
 
 class Verlichting(Component):
     def __init__(self, label, type, **kwargs):
         super().__init__(label, type, **kwargs)
         self.stroomrichting = "horizontal"
 
+
 class Voeding(Component):
     def __init__(self, label, type, **kwargs):
         super().__init__(label, type, **kwargs)
         self.stroomrichting = "vertical"
+
 
 class Teller(Component):
     def __init__(self, label, type, **kwargs):
         super().__init__(label, type, **kwargs)
         self.stroomrichting = "horizontal"
 
+
+
+
+
+class Prieze(Component):
+    def __init__(self, label, type, hydro=False, kinderveiligheid=True, aarding=True, aantal=1, image_path=None,
+                 **kwargs):
+        super().__init__(label, type, **kwargs)
+        self.stroomrichting = "horizontal"
+        self.hydro = hydro
+        self.kinderveiligheid = kinderveiligheid
+        self.aarding = aarding
+        self.aantal = aantal
+        self._tk_img = None
+
+        # If no explicit path, build one from object parameters
+        if image_path is not None:
+            self.image_path = image_path
+        else:
+            self.image_path = self._build_image_path()
+
+    def _build_image_path(self):
+        """Constructs the PNG path dynamically from the parameters."""
+        filename = (
+            f"prieze_hydro_{str(self.hydro).lower()}"
+            f"_kinder_{str(self.kinderveiligheid).lower()}"
+            f"_aarding_{str(self.aarding).lower()}_{self.aantal}.png"
+        )
+        return os.path.join("symbolen/Prieze", filename)
+
+    def draw_recursive_top_left(self, canvas, x_spacing=0, y_spacing=0, swapy=False):
+        if swapy:
+            self.swapy()
+        pixel_x = self.x + x_spacing
+        pixel_y = self.y + y_spacing
+        size = self.boundarybox
+
+        try:
+            img = Image.open(self.image_path).resize((size, size), Image.LANCZOS)
+            self._tk_img = ImageTk.PhotoImage(img)
+            if not hasattr(canvas, 'persistent_images'):
+                canvas.persistent_images = []
+            canvas.persistent_images.append(self._tk_img)
+            canvas.create_image(pixel_x, pixel_y, anchor='nw', image=self._tk_img)
+        except Exception as e:
+            canvas.create_text(
+                pixel_x + size / 2, pixel_y + size / 2,
+                text="NO IMG", fill="red", font=("Arial", 8)
+            )
+            print(f"[Prieze] Failed to display image: {self.image_path} | {e}")
+
+        # If you want to draw connection points, stubs, etc., you can:
+        # super().draw_recursive_top_left(canvas, x_spacing, y_spacing, swapy=False)
+
+
+
+
+class Fotoprinten(Component):
+    """
+    Prieze: displays an image inside its boundary box on a Tkinter canvas.
+
+    Usage:
+        prieze = Prieze("prieze", "prieze")
+        ... # add to your component tree as before
+
+    Requirements:
+      - Image file (e.g. PNG) must exist at the expected path.
+      - To avoid garbage collection, a persistent reference is kept on the instance and the canvas.
+    """
+    def __init__(self, label, type, image_path="symbolen/prieze_hydro_false_kinder_true_aarding_true_1.png", **kwargs):
+        super().__init__(label, type, **kwargs)
+        self.stroomrichting = "horizontal"
+        self.image_path = image_path
+        self._tk_img = None  # holds the PhotoImage reference
+
+    def draw_recursive_top_left(self, canvas, x_spacing=0, y_spacing=0, swapy=False):
+        import os
+        if swapy:
+            self.swapy()
+        pixel_x = self.x + x_spacing
+        pixel_y = self.y + y_spacing
+        size = self.boundarybox
+
+        # Draw background rectangle first
+        #canvas.create_rectangle(pixel_x, pixel_y, pixel_x + size, pixel_y + size, fill="pink", outline="black")
+
+        # Load and show image (ensure the reference is not lost, see [5][4][1])
+        try:
+            img = Image.open(self.image_path).resize((size, size), Image.LANCZOS)
+            self._tk_img = ImageTk.PhotoImage(img)
+            if not hasattr(canvas, 'persistent_images'):
+                canvas.persistent_images = []
+            canvas.persistent_images.append(self._tk_img)  # [5][4]
+            canvas.create_image(pixel_x, pixel_y, anchor='nw', image=self._tk_img)
+        except Exception as e:
+            # fallback text if image cannot be loaded
+            canvas.create_text(pixel_x + size/2, pixel_y + size/2, text="NO IMG", fill="red", font=("Arial", 8))
+            print(f"Failed to display image: {self.image_path} | {e}")
+
+        # You can draw any additional decorations here, or call super()
+        # If you want stubs, dots, etc., call:
+        # super().draw_recursive_top_left(canvas, x_spacing, y_spacing, swapy=False)
+
+
+
+
 class Bord(Component):
     def __init__(self, label, type, **kwargs):
         super().__init__(label, type, **kwargs)
         self.stroomrichting = "vertical"
 
+
 # Example tree
-kopkwhmeter = Appliance("kopkwhmeter_H"  , "appliance")
+kopkwhmeter = Appliance("kopkwhmeter_H", "appliance")
 teller = Teller("Teller_H", "teller")
 bord1 = Bord("Bord1_V", "bord")
 bord1 = Bord("bord1_V", "bord")
@@ -378,14 +621,15 @@ dif300 = Differential("Diff300_V", "differential")
 dif30 = Differential("Diff30_V", "differential")
 dif100 = Differential("Diff100_V", "differential")
 dif3 = Differential("Diff3_V", "differential")
-
+prieze = Prieze("prieze", "prieze" , aantal=1)
+priezedub = Prieze("prieze", "prieze" , aantal=2)
 zek3001 = CircuitBreaker("zek3001_V", "circuit_breaker")
 zek3002 = CircuitBreaker("zek3002_V", "circuit_breaker")
 zek1001 = CircuitBreaker("zek1001_V", "circuit_breaker")
 zek3003 = CircuitBreaker("zek3003_V", "circuit_breaker")
 zek3004verl = CircuitBreaker("zek3004verl_V", "circuit_breaker")
 vaatwas301 = Appliance("vaatwas301_H", "appliance")
-droogkast3002 = Appliance("droogkast3002_H"  , "appliance")
+droogkast3002 = Appliance("droogkast3002_H", "appliance")
 oven3002 = Appliance("oven3002_H", "appliance")
 lamp3004 = Appliance("lamp3004_H", "appliance")
 microoven3002 = Appliance("microoven3002_H", "appliance")
@@ -397,7 +641,7 @@ verlH2 = Verlichting("Verlichting2_H", "verlichting")
 verlH3 = Verlichting("Verlichting3_H", "verlichting")
 verlH4 = Verlichting("Verlichting4_H", "verlichting")
 verlH5 = Verlichting("Verlichting5_H", "verlichting")
-zonnepaneelopdif3= Appliance("zonnepaneelopdif3_H", "appliance")
+zonnepaneelopdif3 = Appliance("zonnepaneelopdif3_H", "appliance")
 faaropcontax = Verlichting("faaropcontax_H", "verlichting")
 verlicht1 = Verlichting("Verlicht1_H", "verlichting")
 verlicht2 = Verlichting("Verlicht2_H", "verlichting")
@@ -406,15 +650,16 @@ tv = Appliance("tv_H", "appliance")
 domo2 = Appliance("domo2_H", "appliance")
 domo.add_child(verlH)
 teller.add_child(dif300, dif30, dif3)
-dif300.add_child(zek3001 , zek3002 , zek3003)
-zek3001.add_child(droogkast3002  )
-zek3002.add_child(oven3002 , microoven3002)
+dif300.add_child(zek3001, zek3002, zek3003)
+zek3001.add_child(droogkast3002)
+zek3002.add_child(oven3002, microoven3002)
 zek3003.add_child(tv, domo2, domo)
 domo2.add_child(verlH2, verlH3, verlH4, verlH5)
-zek3004verl.add_child(verlicht1, verlicht2   , verlicht3 , lamp3004 )
+zek3004verl.add_child(verlicht1, verlicht2, verlicht3, lamp3004)
 zek3004verl.add_child(contaxop3004)
 dif300.add_child(zek3004verl)
-zek1001.add_child(vaatwas301)
+zek1001.add_child(vaatwas301 , prieze , priezedub)
+
 dif300.add_child(dif100)
 contaxop3004.add_child(contaxopcontax)
 contaxopcontax.add_child(faaropcontax)
@@ -426,13 +671,16 @@ kopkwhmeter.add_child(teller)
 
 import tkinter as tk
 
+
 def draw_grid_with_objects(root_component):
     # 1. Verzamel alle nodes en bepaal grid-afmetingen
     all_nodes = []
+
     def collect(node):
         all_nodes.append(node)
         for child in node.children:
             collect(child)
+
     collect(root_component)
     max_x = max(node.x for node in all_nodes)
     max_y = max(node.y for node in all_nodes)
@@ -482,29 +730,9 @@ def draw_grid_with_objects(root_component):
     # 7. Scrollregion instellen
     grid_frame.update_idletasks()
     bbox = canvas.bbox("all")
-    canvas.config(scrollregion=bbox, width=min(1400, (max_x+1)*cell_size), height=min(700, (max_y+1)*cell_size))
+    canvas.config(scrollregion=bbox, width=min(1400, (max_x + 1) * cell_size), height=min(700, (max_y + 1) * cell_size))
 
     root.mainloop()
-
-####debug test functies
-def print_component_geometry(component):
-    print(f"Component: {component.label}")
-    print(f"  Position (x, y): ({component.x}, {component.y})")
-    print(f"  Boundary Box Size: {component.boundarybox}")
-
-    input_line = component.inputlinepoint
-    input_conn = component.connectionpoint_input
-    if input_line and input_conn:
-        print(f"  🔴 Input Line: from {input_line} to {input_conn}")
-    else:
-        print("  🔴 Input Line: Not available")
-
-    output_line = component.outputlinepoint
-    output_conn = component.connectionpoint_output
-    if output_line and output_conn:
-        print(f"  🟢 Output Line: from {output_line} to {output_conn}")
-    else:
-        print("  🟢 Output Line: Not available")
 
 
 
@@ -517,13 +745,13 @@ if __name__ == "__main__":
     te_tekenen_startpunt.multiply_coordinates(1)
 
     te_tekenen_startpunt.print_ascii_tree_with_regel()
-    #te_tekenen_startpunt.insert_kolom_at(5)
-    #te_tekenen_startpunt.insert_kolom_at(8)
+    # te_tekenen_startpunt.insert_kolom_at(5)
+    # te_tekenen_startpunt.insert_kolom_at(8)
 
-    #draw_grid_with_objects(te_tekenen_startpunt)  ##ookmooi
-    print_component_geometry(zek3001)
- 
-    exit()
+    # draw_grid_with_objects(te_tekenen_startpunt)  ##ookmooi
+
+
+    #exit()
     # --- Create a Tkinter window and canvas ---
     root = tk.Tk()
     root.title("Component Tree Drawing")
@@ -533,10 +761,14 @@ if __name__ == "__main__":
     canvas.pack(fill="both", expand=True)
 
     # Optionally, explode coordinates to canvas pixels
-    te_tekenen_startpunt.explode_coordinates_to_canvas(30, 30)
+    te_tekenen_startpunt.explode_coordinates_to_canvas() #tak en kring tussenruimte
 
     # Draw the tree
-    te_tekenen_startpunt.draw_recursive_top_left(canvas)
+    #te_tekenen_startpunt.swapy()
+    #te_tekenen_startpunt.draw_recursive_top_left(canvas)
+
+    te_tekenen_startpunt.draw_recursive_top_left(canvas  , 30 , 30 ,swapy=True)
+
 
     root.mainloop()
 

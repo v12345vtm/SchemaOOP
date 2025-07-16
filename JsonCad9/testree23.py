@@ -5,6 +5,13 @@ from PIL import Image, ImageTk
 import os
 
 
+'''"DPI","Width (px)","Height (px)"
+"72 DPI","595","842"
+"150 DPI","1240","1754"
+"300 DPI","2480","3508"
+"600 DPI","4960","7016"
+"1200 DPI","9920","14032"'''
+
 class Component:
     show_number_label = True  # Default: de nummer van de takken ,
     show_boundarybox = True
@@ -17,13 +24,31 @@ class Component:
         self.parent = None
         self.x = 0
         self.y = 0
+        self.allowed_cuts_x =  [] # waarmogenweknippen mutiipage
         self._stroomrichting = None  # "horizontal" or "vertical"
-        self.boundarybox = 50  # Default size, can be parameterized
+        self.boundarybox = 100  # Default size, can be parameterized
         self.nulpunt = "top_left" # #top_left of bottom_left
         self.kwargs = kwargs  # Store all extra arguments in a dict
         # Optionally extract common expected values
         self.volgorde = kwargs.get("volgorde", None)
 
+    def get_canvas_size(self):
+        max_x = 0
+        max_y = 0
+
+        def visit(node):
+            nonlocal max_x, max_y
+            right = node.x + node.boundarybox_hoogte
+            bottom = node.y + node.boundarybox_hoogte
+            if right > max_x:
+                max_x = right
+            if bottom > max_y:
+                max_y = bottom
+            for c in node.children:
+                visit(c)
+
+        visit(self)
+        return max_x, max_y
 
     def swapy(self):
         """
@@ -228,7 +253,9 @@ class Component:
                 fill="yellow", outline=""
             )
             canvas.create_text(pixel_x + in_cx - waarmogenweknippen , pixel_y + in_cy, text="CUT", font=("Arial", 15))
-
+            cut_x = pixel_x + in_cx - waarmogenweknippen  # as used for drawing the yellow dot
+            self.allowed_cuts_x.append(cut_x)
+            print(f"we mogen een cut doen op {cut_x}")
 
         # ----- Draw connections/lines to children -----
         stub_length_H = self.pixels_tussen_kringen_H // 2
@@ -289,7 +316,8 @@ class Component:
             parent_stub_end = child._parent_stub_end
             child_stub_end = child_stub_coords[idx]
             if child.stroomrichting == "horizontal":
-                print(f"DRAWING: {child.label} (parent: {self.label}, index: {idx})")
+                pass
+                #print(f"DRAWING: {child.label} (parent: {self.label}, index: {idx})")
 
             if self.stroomrichting == "vertical":
                 # 'bus' is the vertical extension at parent's out-stub x,
@@ -802,8 +830,40 @@ if __name__ == "__main__":
     #te_tekenen_startpunt.swapy()
     #te_tekenen_startpunt.draw_recursive_top_left(canvas)
 
-    te_tekenen_startpunt.draw_recursive_top_left(canvas  , 30 , 30 ,swapy=True)
+    te_tekenen_startpunt.draw_recursive_top_left(canvas  , 30 , 30 ,swapy=False)
+
+    canvas_width, canvas_height = te_tekenen_startpunt.get_canvas_size()
+    print(f"Canvas size needed: width={canvas_width}, height={canvas_height}")
 
 
-    root.mainloop()
 
+    canvas.update()  # Make sure drawing is finished
+
+    canvas.postscript(
+        file="full_canvas.ps",
+        colormode="color",
+        x=0,
+        y=0,
+        width=canvas_width+100,
+        height=canvas_height+100,
+        pagewidth=canvas_width*4,
+        pageheight=canvas_height*4
+    )
+
+    from PIL import Image, EpsImagePlugin
+
+    # If needed, set your Ghostscript binary (especially on Windows)
+    # EpsImagePlugin.gs_windows_binary = r'C:\Path\To\gswin64c.exe'
+
+
+    if False:
+
+        root.mainloop() #preview op laptopscherm
+    else:
+        root.withdraw()
+        root.destroy()  # Program ends, nothing appears on screen
+
+
+    img = Image.open("full_canvas.ps")
+    img.load(scale=1)  # This is what gives you a large, sharp image!
+    img.save("full_canvas_highres.png", dpi=(600, 600))  # This sets "intended print DPI" metadata

@@ -1,7 +1,5 @@
-import tkinter as tk
+# components.py
 import re
-import copy
-
 
 class Component:
     def __init__(self, label, type,  **kwargs):
@@ -12,7 +10,7 @@ class Component:
         self.x = 0
         self.y = 0
         self._stroomrichting = None   # "horizontal" or "vertical"
-        self.boundarybox = 100  # Default size, can be parameterized
+        self.COMPONENT_SIZE = 50  # Default size, can be parameterized
 
         self.kwargs = kwargs  # Store all extra arguments in a dict
         # Optionally extract common expected values
@@ -143,7 +141,7 @@ class Component:
         # Convert logical grid position to pixel position (top-left corner)
         pixel_x = self.x   + x_spacing
         pixel_y = self.y   + y_spacing
-        size = self.boundarybox
+        size = self.COMPONENT_SIZE
 
         # Draw the rectangle for the component
         canvas.create_rectangle(pixel_x, pixel_y, pixel_x + size, pixel_y + size, fill="pink", outline="black")
@@ -179,8 +177,43 @@ class Component:
             # Recursively draw the child
             child.draw_recursive_top_left(canvas, x_spacing, y_spacing)
 
+
     def limit_hoogte(self, hoogtelimiet=5):
-        pass
+        # 1. Collect all nodes
+        nodes = []
+        def collect_nodes(node):
+            nodes.append(node)
+            for child in node.children:
+                collect_nodes(child)
+        collect_nodes(self)
+        # 2. Find all columns (x) with nodes above the y-limit
+        # We'll process each column only once
+        processed_columns = set()
+        for node in nodes:
+            if node.y > hoogtelimiet and node.x not in processed_columns:
+                col_x = node.x
+                processed_columns.add(col_x)
+                # 3. Insert new column at x+1 (do this once per column)
+                self.insert_kolom_at(col_x + 1)
+                # 4. Move all nodes in col_x with y > hoogtelimiet to new column (x+1)
+                moved_nodes = []
+                for n in nodes:
+                    if n.x == col_x and n.y > hoogtelimiet:
+                        n.x += 1
+                        moved_nodes.append(n)
+                # 5. Find the lowest y in the previous column (col_x)
+                prev_col_y = [n.y for n in nodes if n.x == col_x]
+                if prev_col_y:
+                    base_y = min(prev_col_y)
+                else:
+                    base_y = 0
+                # 6. Stack moved nodes on top of base_y, preserving their original order
+                moved_nodes.sort(key=lambda n: n.y)  # Ascending order
+                for i, n in enumerate(moved_nodes):
+                    n.y = base_y + i
+        # 7. Print all coordinates for verification
+        for n in nodes:
+            print(f"{n.label}: x={n.x}, y={n.y}")
 
     def insert_kolom_at(self, kolom_index):
         """
@@ -209,8 +242,8 @@ class Component:
         """Multiply logical grid coordinates and apply offset for canvas placement."""
         #hoeveel pixels moeten tussen de kaders zijn?
         if self.x is not None and self.y is not None:
-            self.x = self.x *  (x + self.boundarybox)
-            self.y = self.y *  (y + self.boundarybox)
+            self.x = self.x *  ( x + self.COMPONENT_SIZE)
+            self.y = self.y *  (y + self.COMPONENT_SIZE)
 
             #  all children recursively
             for child in self.children:
@@ -224,10 +257,10 @@ class Component:
             return None
         if self.stroomrichting == "horizontal":
             # Input is left center
-            return (self.x, self.y + self.boundarybox // 2)
+            return (self.x, self.y + self.COMPONENT_SIZE // 2)
         else:
             # Input is bottom center
-            return (self.x + self.boundarybox // 2, self.y)
+            return (self.x + self.COMPONENT_SIZE // 2, self.y)
 
     @property
     def connectionpoint_output(self):
@@ -235,10 +268,10 @@ class Component:
             return None
         if self.stroomrichting == "horizontal":
             # Output is right center
-            return (self.x + self.boundarybox, self.y + self.boundarybox // 2)
+            return (self.x + self.COMPONENT_SIZE, self.y + self.COMPONENT_SIZE // 2)
         else:
             # Output is top center
-            return (self.x + self.boundarybox // 2, self.y + self.boundarybox)
+            return (self.x + self.COMPONENT_SIZE // 2, self.y + self.COMPONENT_SIZE)
 
     @property
     def inputlinepoint(self):
@@ -368,175 +401,3 @@ class Bord(Component):
     def __init__(self, label, type, **kwargs):
         super().__init__(label, type, **kwargs)
         self.stroomrichting = "vertical"
-
-# Example tree
-kopkwhmeter = Appliance("kopkwhmeter_H"  , "appliance")
-teller = Teller("Teller_H", "teller")
-bord1 = Bord("Bord1_V", "bord")
-bord1 = Bord("bord1_V", "bord")
-dif300 = Differential("Diff300_V", "differential")
-dif30 = Differential("Diff30_V", "differential")
-dif100 = Differential("Diff100_V", "differential")
-dif3 = Differential("Diff3_V", "differential")
-
-zek3001 = CircuitBreaker("zek3001_V", "circuit_breaker")
-zek3002 = CircuitBreaker("zek3002_V", "circuit_breaker")
-zek1001 = CircuitBreaker("zek1001_V", "circuit_breaker")
-zek3003 = CircuitBreaker("zek3003_V", "circuit_breaker")
-zek3004verl = CircuitBreaker("zek3004verl_V", "circuit_breaker")
-vaatwas301 = Appliance("vaatwas301_H", "appliance")
-droogkast3002 = Appliance("droogkast3002_H"  , "appliance")
-oven3002 = Appliance("oven3002_H", "appliance")
-lamp3004 = Appliance("lamp3004_H", "appliance")
-microoven3002 = Appliance("microoven3002_H", "appliance")
-contaxop3004 = Contax("contaxop3004_H", "appliance")
-contaxopcontax = Contax("contaxopcontax_H", "appliance")
-domo = Domomodule("Domomodule_H", "domomodule")
-verlH = Verlichting("Verlichting_H", "verlichting")
-verlH2 = Verlichting("Verlichting2_H", "verlichting")
-verlH3 = Verlichting("Verlichting3_H", "verlichting")
-verlH4 = Verlichting("Verlichting4_H", "verlichting")
-verlH5 = Verlichting("Verlichting5_H", "verlichting")
-zonnepaneelopdif3= Appliance("zonnepaneelopdif3_H", "appliance")
-faaropcontax = Verlichting("faaropcontax_H", "verlichting")
-verlicht1 = Verlichting("Verlicht1_H", "verlichting")
-verlicht2 = Verlichting("Verlicht2_H", "verlichting")
-verlicht3 = Verlichting("Verlicht3_H", "verlichting")
-tv = Appliance("tv_H", "appliance")
-domo2 = Appliance("domo2_H", "appliance")
-domo.add_child(verlH)
-teller.add_child(dif300, dif30, dif3)
-dif300.add_child(zek3001 , zek3002 , zek3003)
-zek3001.add_child(droogkast3002  )
-zek3002.add_child(oven3002 , microoven3002)
-zek3003.add_child(tv, domo2, domo)
-domo2.add_child(verlH2, verlH3, verlH4, verlH5)
-zek3004verl.add_child(verlicht1, verlicht2   , verlicht3 , lamp3004 )
-zek3004verl.add_child(contaxop3004)
-dif300.add_child(zek3004verl)
-zek1001.add_child(vaatwas301)
-dif300.add_child(dif100)
-contaxop3004.add_child(contaxopcontax)
-contaxopcontax.add_child(faaropcontax)
-dif3.add_child(zonnepaneelopdif3)
-dif100.add_child(zek1001)
-kopkwhmeter.add_child(teller)
-# ---- Drawing on Canvas ----
-
-
-import tkinter as tk
-
-def draw_grid_with_objects(root_component):
-    # 1. Verzamel alle nodes en bepaal grid-afmetingen
-    all_nodes = []
-    def collect(node):
-        all_nodes.append(node)
-        for child in node.children:
-            collect(child)
-    collect(root_component)
-    max_x = max(node.x for node in all_nodes)
-    max_y = max(node.y for node in all_nodes)
-
-    # 2. Maak hoofdvenster en canvas met scrollbars
-    root = tk.Tk()
-    root.title("Scrollable Grid of Components")
-
-    # Canvas + scrollbars
-    frame = tk.Frame(root)
-    frame.pack(fill="both", expand=True)
-
-    canvas = tk.Canvas(frame, bg="white")
-    hbar = tk.Scrollbar(frame, orient="horizontal", command=canvas.xview)
-    vbar = tk.Scrollbar(frame, orient="vertical", command=canvas.yview)
-    canvas.configure(xscrollcommand=hbar.set, yscrollcommand=vbar.set)
-
-    hbar.pack(side="bottom", fill="x")
-    vbar.pack(side="right", fill="y")
-    canvas.pack(side="left", fill="both", expand=True)
-
-    # 3. Frame in canvas voor grid
-    grid_frame = tk.Frame(canvas, bg="white")
-    canvas.create_window((0, 0), window=grid_frame, anchor="nw")
-
-    # 4. Vul grid met lege cellen
-    cell_size = 120
-    for y in range(max_y + 1):
-        for x in range(max_x + 1):
-            cell = tk.Label(grid_frame, text="", width=10, height=4, borderwidth=1, relief="solid", bg="#f8f8f8")
-            cell.grid(row=y, column=x, sticky="nsew")
-
-    # 5. Zet objecten in de juiste cellen
-    for node in all_nodes:
-        info = f"{node.label}\n({node.x},{node.y})"
-        if hasattr(node, "_regel_used"):
-            info += f"\n{node._regel_used}"
-        lbl = tk.Label(grid_frame, text=info, width=9, height=4, borderwidth=2, relief="groove", bg="#ffe0e0")
-        lbl.grid(row=node.y, column=node.x, sticky="nsew")
-
-    # 6. Zorg dat cellen zich uitrekken
-    for x in range(max_x + 1):
-        grid_frame.grid_columnconfigure(x, weight=1)
-    for y in range(max_y + 1):
-        grid_frame.grid_rowconfigure(y, weight=1)
-
-    # 7. Scrollregion instellen
-    grid_frame.update_idletasks()
-    bbox = canvas.bbox("all")
-    canvas.config(scrollregion=bbox, width=min(1400, (max_x+1)*cell_size), height=min(700, (max_y+1)*cell_size))
-
-    root.mainloop()
-
-####debug test functies
-def print_component_geometry(component):
-    print(f"Component: {component.label}")
-    print(f"  Position (x, y): ({component.x}, {component.y})")
-    print(f"  Boundary Box Size: {component.boundarybox_hoogte}")
-
-    input_line = component.inputlinepoint
-    input_conn = component.connectionpoint_input
-    if input_line and input_conn:
-        print(f"  🔴 Input Line: from {input_line} to {input_conn}")
-    else:
-        print("  🔴 Input Line: Not available")
-
-    output_line = component.outputlinepoint
-    output_conn = component.connectionpoint_output
-    if output_line and output_conn:
-        print(f"  🟢 Output Line: from {output_line} to {output_conn}")
-    else:
-        print("  🟢 Output Line: Not available")
-
-
-
-
-if __name__ == "__main__":
-    te_tekenen_startpunt = kopkwhmeter
-
-    te_tekenen_startpunt.sort_children()
-    te_tekenen_startpunt.assign_coordinates_by_rules()
-    te_tekenen_startpunt.multiply_coordinates(1)
-
-    te_tekenen_startpunt.print_ascii_tree_with_regel()
-    #te_tekenen_startpunt.insert_kolom_at(5)
-    #te_tekenen_startpunt.insert_kolom_at(8)
-
-    #draw_grid_with_objects(te_tekenen_startpunt)  ##ookmooi
-    print_component_geometry(zek3001)
- 
-    exit()
-    # --- Create a Tkinter window and canvas ---
-    root = tk.Tk()
-    root.title("Component Tree Drawing")
-
-    # Determine canvas size (example: 2000x1200)
-    canvas = tk.Canvas(root, width=2000, height=1200, bg="white")
-    canvas.pack(fill="both", expand=True)
-
-    # Optionally, explode coordinates to canvas pixels
-    te_tekenen_startpunt.explode_coordinates_to_canvas(30, 30)
-
-    # Draw the tree
-    te_tekenen_startpunt.draw_recursive_top_left(canvas)
-
-    root.mainloop()
-

@@ -324,7 +324,7 @@ def get_max_coords(component, max_x=[0], max_y=[0]):
 # ---- Drawing on Canvas ----
 
 def draw_tree(canvas, component, canvas_height, x_spacing=80, y_spacing=80):
-    size = component.boundarybox
+    size = component.boundarybox_hoogte
     x = component.x * x_spacing + 40
     y = canvas_height - (component.y * y_spacing + 40)
     # Draw rectangle

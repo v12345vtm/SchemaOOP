@@ -156,7 +156,7 @@ diff3.add_child(dif9_3)
 
 # ---- Sorting helper ----
 def print_ascii_tree(component, prefix=""):
-    print(f"{prefix}{component.label} ({component.x},{component.y})")
+    print(f"{prefix}{component.label} ({component.grid_x},{component.grid_y})")
     for i, child in enumerate(component.children):
         connector = "└── " if i == len(component.children) - 1 else "├── "
         child_prefix = prefix + ("    " if i == len(component.children) - 1 else "│   ")
@@ -179,34 +179,34 @@ def sort_children(component):
 # ---- Assign coordinates ----
 
 def assign_increasing_x(component, depth=0, counter=[0]):
-    component.y = depth
-    component.x = counter[0]
+    component.grid_y = depth
+    component.grid_x = counter[0]
     counter[0] += 1
     for child in component.children:
         assign_increasing_x(child, depth + 1, counter)
 
 def get_max_coords(component, max_x=[0], max_y=[0]):
-    if component.x > max_x[0]:
-        max_x[0] = component.x
-    if component.y > max_y[0]:
-        max_y[0] = component.y
+    if component.grid_x > max_x[0]:
+        max_x[0] = component.grid_x
+    if component.grid_y > max_y[0]:
+        max_y[0] = component.grid_y
     for child in component.children:
         get_max_coords(child, max_x, max_y)
 
 # ---- Drawing on Canvas ----
 
 def draw_tree(canvas, component, canvas_height, x_spacing=80, y_spacing=80):
-    size = component.COMPONENT_SIZE
-    x = component.x * x_spacing + 40
-    y = canvas_height - (component.y * y_spacing + 40)
+    size = component.boundarybox_hoogte
+    x = component.grid_x * x_spacing + 40
+    y = canvas_height - (component.grid_y * y_spacing + 40)
     # Draw rectangle
     canvas.create_rectangle(x, y - size, x + size, y, fill="white", outline="black")
     # Draw label
     canvas.create_text(x + size / 2, y - size / 2, text=component.label, font=("Arial", 8))
     # Draw lines to children
     for child in component.children:
-        child_x = child.x * x_spacing + 40 + size / 2
-        child_y = canvas_height - (child.y * y_spacing + 40) - size / 2
+        child_x = child.grid_x * x_spacing + 40 + size / 2
+        child_y = canvas_height - (child.grid_y * y_spacing + 40) - size / 2
         canvas.create_line(x + size / 2, y - size / 2, child_x, child_y, fill="black")
         draw_tree(canvas, child, canvas_height, x_spacing, y_spacing)
 
@@ -216,9 +216,9 @@ def assign_coords_with_stacking(component, depth=0, counter=[0], occupied=set())
     """Assign x, y coordinates to components with support for stacking."""
     if component.parent is None:
         # Root node
-        component.x = counter[0]
-        component.y = depth
-        occupied.add((component.x, component.y))
+        component.grid_x = counter[0]
+        component.grid_y = depth
+        occupied.add((component.grid_x, component.grid_y))
         counter[0] += 1
     else:
         # Determine x and y based on stacking logic
@@ -228,28 +228,28 @@ def assign_coords_with_stacking(component, depth=0, counter=[0], occupied=set())
 
         if index == 0:
             # First child gets a new x
-            component.x = counter[0]
-            component.y = parent.y + 1
-            while (component.x, component.y) in occupied:
-                component.y += 1
-            occupied.add((component.x, component.y))
+            component.grid_x = counter[0]
+            component.grid_y = parent.grid_y + 1
+            while (component.grid_x, component.grid_y) in occupied:
+                component.grid_y += 1
+            occupied.add((component.grid_x, component.grid_y))
             counter[0] += 1
         else:
             prev_sibling = siblings[index - 1]
             if component.stack_on_top_of_brother:
                 # Stack vertically on same x
-                component.x = prev_sibling.x
-                component.y = prev_sibling.y + 1
-                while (component.x, component.y) in occupied:
-                    component.y += 1
-                occupied.add((component.x, component.y))
+                component.grid_x = prev_sibling.grid_x
+                component.grid_y = prev_sibling.grid_y + 1
+                while (component.grid_x, component.grid_y) in occupied:
+                    component.grid_y += 1
+                occupied.add((component.grid_x, component.grid_y))
             else:
                 # Use next x and reset y
-                component.x = counter[0]
-                component.y = parent.y + 1
-                while (component.x, component.y) in occupied:
-                    component.y += 1
-                occupied.add((component.x, component.y))
+                component.grid_x = counter[0]
+                component.grid_y = parent.grid_y + 1
+                while (component.grid_x, component.grid_y) in occupied:
+                    component.grid_y += 1
+                occupied.add((component.grid_x, component.grid_y))
                 counter[0] += 1
 
     # Recursively assign children
@@ -265,9 +265,9 @@ def assign_coords_allow_stack_on_parent(root, counter=[0], occupied=set()):
     - Other children are placed at the next available x column.
     - Avoid collisions with already-placed components and their subtrees.
     """
-    root.x = 0
-    root.y = 0
-    occupied.add((root.x, root.y))
+    root.grid_x = 0
+    root.grid_y = 0
+    occupied.add((root.grid_x, root.grid_y))
 
     def get_subtree_width(node):
         """Returns the number of columns used by the subtree rooted at this node."""
@@ -276,25 +276,25 @@ def assign_coords_allow_stack_on_parent(root, counter=[0], occupied=set()):
         return sum(get_subtree_width(child) for child in node.children)
 
     def recurse(parent):
-        current_x = parent.x + 1  # Start from one column to the right of parent
+        current_x = parent.grid_x + 1  # Start from one column to the right of parent
         for i, child in enumerate(parent.children):
             if i == 0 and child.allow_stack_on_top_of_parent:
                 # Stack first child directly under parent
-                child.x = parent.x
-                child.y = parent.y + 1
-                while (child.x, child.y) in occupied:
-                    child.y += 1
+                child.grid_x = parent.grid_x
+                child.grid_y = parent.grid_y + 1
+                while (child.grid_x, child.grid_y) in occupied:
+                    child.grid_y += 1
             else:
                 # Find next available x position for this child
-                while any((current_x + dx, parent.y + 1) in occupied for dx in range(get_subtree_width(child))):
+                while any((current_x + dx, parent.grid_y + 1) in occupied for dx in range(get_subtree_width(child))):
                     current_x += 1
 
-                child.x = current_x
-                child.y = parent.y + 1
-                occupied.add((child.x, child.y))
+                child.grid_x = current_x
+                child.grid_y = parent.grid_y + 1
+                occupied.add((child.grid_x, child.grid_y))
                 current_x += get_subtree_width(child)
 
-            occupied.add((child.x, child.y))
+            occupied.add((child.grid_x, child.grid_y))
             recurse(child)
 
     recurse(root)
@@ -303,9 +303,9 @@ def assign_coords_combined(component, depth=0, counter=[0], occupied=set()):
     """Assign x, y coordinates combining stacking rules and parent-aligned stacking."""
     if component.parent is None:
         # Root node
-        component.x = counter[0]
-        component.y = depth
-        occupied.add((component.x, component.y))
+        component.grid_x = counter[0]
+        component.grid_y = depth
+        occupied.add((component.grid_x, component.grid_y))
         counter[0] += 1
     else:
         parent = component.parent
@@ -315,35 +315,35 @@ def assign_coords_combined(component, depth=0, counter=[0], occupied=set()):
         if index == 0:
             if component.allow_stack_on_top_of_parent:
                 # Stack directly under parent (reuse x)
-                component.x = parent.x
-                component.y = parent.y + 1
-                while (component.x, component.y) in occupied:
-                    component.y += 1
-                occupied.add((component.x, component.y))
+                component.grid_x = parent.grid_x
+                component.grid_y = parent.grid_y + 1
+                while (component.grid_x, component.grid_y) in occupied:
+                    component.grid_y += 1
+                occupied.add((component.grid_x, component.grid_y))
             else:
                 # First child in new x column
-                component.x = counter[0]
-                component.y = parent.y + 1
-                while (component.x, component.y) in occupied:
-                    component.y += 1
-                occupied.add((component.x, component.y))
+                component.grid_x = counter[0]
+                component.grid_y = parent.grid_y + 1
+                while (component.grid_x, component.grid_y) in occupied:
+                    component.grid_y += 1
+                occupied.add((component.grid_x, component.grid_y))
                 counter[0] += 1
         else:
             prev_sibling = siblings[index - 1]
             if component.stack_on_top_of_brother:
                 # Stack vertically on same x
-                component.x = prev_sibling.x
-                component.y = prev_sibling.y + 1
-                while (component.x, component.y) in occupied:
-                    component.y += 1
-                occupied.add((component.x, component.y))
+                component.grid_x = prev_sibling.grid_x
+                component.grid_y = prev_sibling.grid_y + 1
+                while (component.grid_x, component.grid_y) in occupied:
+                    component.grid_y += 1
+                occupied.add((component.grid_x, component.grid_y))
             else:
                 # Use new x column
-                component.x = counter[0]
-                component.y = parent.y + 1
-                while (component.x, component.y) in occupied:
-                    component.y += 1
-                occupied.add((component.x, component.y))
+                component.grid_x = counter[0]
+                component.grid_y = parent.grid_y + 1
+                while (component.grid_x, component.grid_y) in occupied:
+                    component.grid_y += 1
+                occupied.add((component.grid_x, component.grid_y))
                 counter[0] += 1
 
     # Recurse on children
@@ -359,9 +359,9 @@ def assign_coords_combined(component, depth=0, counter=[0], occupied=set()):
 def assign_coords_safe_stacking(component, depth=0, counter=[0], occupied=set()):
     """Assign x, y coordinates combining stacking logic with safety checks for stroomrichting."""
     if component.parent is None:
-        component.x = counter[0]
-        component.y = depth
-        occupied.add((component.x, component.y))
+        component.grid_x = counter[0]
+        component.grid_y = depth
+        occupied.add((component.grid_x, component.grid_y))
         counter[0] += 1
     else:
         parent = component.parent
@@ -384,32 +384,32 @@ def assign_coords_safe_stacking(component, depth=0, counter=[0], occupied=set())
 
         if index == 0:
             if component.allow_stack_on_top_of_parent and not is_invalid_stack_on_parent():
-                component.x = parent.x
-                component.y = parent.y + 1
-                while (component.x, component.y) in occupied:
-                    component.y += 1
-                occupied.add((component.x, component.y))
+                component.grid_x = parent.grid_x
+                component.grid_y = parent.grid_y + 1
+                while (component.grid_x, component.grid_y) in occupied:
+                    component.grid_y += 1
+                occupied.add((component.grid_x, component.grid_y))
             else:
-                component.x = counter[0]
-                component.y = parent.y + 1
-                while (component.x, component.y) in occupied:
-                    component.y += 1
-                occupied.add((component.x, component.y))
+                component.grid_x = counter[0]
+                component.grid_y = parent.grid_y + 1
+                while (component.grid_x, component.grid_y) in occupied:
+                    component.grid_y += 1
+                occupied.add((component.grid_x, component.grid_y))
                 counter[0] += 1
         else:
             prev_sibling = siblings[index - 1]
             if component.stack_on_top_of_brother and not is_invalid_stack_on_brother(prev_sibling):
-                component.x = prev_sibling.x
-                component.y = prev_sibling.y + 1
-                while (component.x, component.y) in occupied:
-                    component.y += 1
-                occupied.add((component.x, component.y))
+                component.grid_x = prev_sibling.grid_x
+                component.grid_y = prev_sibling.grid_y + 1
+                while (component.grid_x, component.grid_y) in occupied:
+                    component.grid_y += 1
+                occupied.add((component.grid_x, component.grid_y))
             else:
-                component.x = counter[0]
-                component.y = parent.y + 1
-                while (component.x, component.y) in occupied:
-                    component.y += 1
-                occupied.add((component.x, component.y))
+                component.grid_x = counter[0]
+                component.grid_y = parent.grid_y + 1
+                while (component.grid_x, component.grid_y) in occupied:
+                    component.grid_y += 1
+                occupied.add((component.grid_x, component.grid_y))
                 counter[0] += 1
 
     for child in component.children:

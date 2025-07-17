@@ -90,9 +90,9 @@ class Component:
             occupied = set()
 
         if component.parent is None:
-            component.x = counter[0]
-            component.y = depth
-            occupied.add((component.x, component.y))
+            component.grid_x = counter[0]
+            component.grid_y = depth
+            occupied.add((component.grid_x, component.grid_y))
             counter[0] += 1
         else:
             parent = component.parent
@@ -115,32 +115,32 @@ class Component:
 
             if index == 0:
                 if component.allow_stack_on_top_of_parent and not is_invalid_stack_on_parent():
-                    component.x = parent.x
-                    component.y = parent.y + 1
-                    while (component.x, component.y) in occupied:
-                        component.y += 1
-                    occupied.add((component.x, component.y))
+                    component.grid_x = parent.grid_x
+                    component.grid_y = parent.grid_y + 1
+                    while (component.grid_x, component.grid_y) in occupied:
+                        component.grid_y += 1
+                    occupied.add((component.grid_x, component.grid_y))
                 else:
-                    component.x = counter[0]
-                    component.y = parent.y + 1
-                    while (component.x, component.y) in occupied:
-                        component.y += 1
-                    occupied.add((component.x, component.y))
+                    component.grid_x = counter[0]
+                    component.grid_y = parent.grid_y + 1
+                    while (component.grid_x, component.grid_y) in occupied:
+                        component.grid_y += 1
+                    occupied.add((component.grid_x, component.grid_y))
                     counter[0] += 1
             else:
                 prev_sibling = siblings[index - 1]
                 if component.stack_on_top_of_brother and not is_invalid_stack_on_brother(prev_sibling):
-                    component.x = prev_sibling.x
-                    component.y = prev_sibling.y + 1
-                    while (component.x, component.y) in occupied:
-                        component.y += 1
-                    occupied.add((component.x, component.y))
+                    component.grid_x = prev_sibling.grid_x
+                    component.grid_y = prev_sibling.grid_y + 1
+                    while (component.grid_x, component.grid_y) in occupied:
+                        component.grid_y += 1
+                    occupied.add((component.grid_x, component.grid_y))
                 else:
-                    component.x = counter[0]
-                    component.y = parent.y + 1
-                    while (component.x, component.y) in occupied:
-                        component.y += 1
-                    occupied.add((component.x, component.y))
+                    component.grid_x = counter[0]
+                    component.grid_y = parent.grid_y + 1
+                    while (component.grid_x, component.grid_y) in occupied:
+                        component.grid_y += 1
+                    occupied.add((component.grid_x, component.grid_y))
                     counter[0] += 1
 
         for child in component.children:
@@ -259,7 +259,7 @@ diff3.add_child(ct1 , ct2 , ct3 , ct4 , ct5 )
 
 
 def print_all_coordinates(component):
-    print(f"{component.label}: x={component.x}, y={component.y}")
+    print(f"{component.label}: x={component.grid_x}, y={component.grid_y}")
     for child in component.children:
         print_all_coordinates(child)
 
@@ -267,10 +267,10 @@ def print_all_coordinates(component):
 
 
 def get_max_coords(component, max_x=[0], max_y=[0]):
-    if component.x > max_x[0]:
-        max_x[0] = component.x
-    if component.y > max_y[0]:
-        max_y[0] = component.y
+    if component.grid_x > max_x[0]:
+        max_x[0] = component.grid_x
+    if component.grid_y > max_y[0]:
+        max_y[0] = component.grid_y
     for child in component.children:
         get_max_coords(child, max_x, max_y)
         pass
@@ -278,17 +278,17 @@ def get_max_coords(component, max_x=[0], max_y=[0]):
 # ---- Drawing on Canvas ----
 
 def draw_tree(canvas, component, canvas_height, x_spacing=80, y_spacing=80):
-    size = component.COMPONENT_SIZE
-    x = component.x * x_spacing + 40
-    y = canvas_height - (component.y * y_spacing + 40)
+    size = component.boundarybox_hoogte
+    x = component.grid_x * x_spacing + 40
+    y = canvas_height - (component.grid_y * y_spacing + 40)
     # Draw rectangle
     canvas.create_rectangle(x, y - size, x + size, y, fill="white", outline="black")
     # Draw label
     canvas.create_text(x + size / 2, y - size / 2, text=component.label, font=("Arial", 8))
     # Draw lines to children
     for child in component.children:
-        child_x = child.x * x_spacing + 40 + size / 2
-        child_y = canvas_height - (child.y * y_spacing + 40) - size / 2
+        child_x = child.grid_x * x_spacing + 40 + size / 2
+        child_y = canvas_height - (child.grid_y * y_spacing + 40) - size / 2
         canvas.create_line(x + size / 2, y - size / 2, child_x, child_y, fill="black")
         draw_tree(canvas, child, canvas_height, x_spacing, y_spacing)
 
@@ -314,7 +314,7 @@ def draw_grid(canvas, width, height, x_spacing, y_spacing, font=("Arial", 8)):
 
 ####################
 def print_all_coordinates(component):
-    print(f"{component.label}: x={component.x}, y={component.y}")
+    print(f"{component.label}: x={component.grid_x}, y={component.grid_y}")
     for child in component.children:
         print_all_coordinates(child)
 ################

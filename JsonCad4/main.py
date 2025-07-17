@@ -3,22 +3,22 @@ from components import *
 from example_tree import te_tekenen_startpunt
 
 def get_max_coords(component, max_x=[0], max_y=[0]):
-    if component.x > max_x[0]:
-        max_x[0] = component.x
-    if component.y > max_y[0]:
-        max_y[0] = component.y
+    if component.grid_x > max_x[0]:
+        max_x[0] = component.grid_x
+    if component.grid_y > max_y[0]:
+        max_y[0] = component.grid_y
     for child in component.children:
         get_max_coords(child, max_x, max_y)
 
 def draw_tree(canvas, component, canvas_height, x_spacing=60, y_spacing=60):
-    size = component.COMPONENT_SIZE
-    x = component.x * x_spacing + 30
-    y = canvas_height - (component.y * y_spacing + 30)
+    size = component.boundarybox_hoogte
+    x = component.grid_x * x_spacing + 30
+    y = canvas_height - (component.grid_y * y_spacing + 30)
     canvas.create_rectangle(x, y - size, x + size, y, fill="white", outline="black")
     canvas.create_text(x + size / 2, y - size / 2, text=component.label, font=("Arial", 8))
     for child in component.children:
-        child_x = child.x * x_spacing + 30 + size / 2
-        child_y = canvas_height - (child.y * y_spacing + 30) - size / 2
+        child_x = child.grid_x * x_spacing + 30 + size / 2
+        child_y = canvas_height - (child.grid_y * y_spacing + 30) - size / 2
         canvas.create_line(x + size / 2, y - size / 2, child_x, child_y, fill="black")
         draw_tree(canvas, child, canvas_height, x_spacing, y_spacing)
 

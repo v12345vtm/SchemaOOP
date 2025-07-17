@@ -88,9 +88,9 @@ class Component:
             occupied = set()
 
         if component.parent is None:
-            component.x = counter[0]
-            component.y = depth
-            occupied.add((component.x, component.y))
+            component.grid_x = counter[0]
+            component.grid_y = depth
+            occupied.add((component.grid_x, component.grid_y))
             counter[0] += 1
         else:
             parent = component.parent
@@ -113,32 +113,32 @@ class Component:
 
             if index == 0:
                 if component.allow_stack_on_top_of_parent and not is_invalid_stack_on_parent():
-                    component.x = parent.x
-                    component.y = parent.y + 1
-                    while (component.x, component.y) in occupied:
-                        component.y += 1
-                    occupied.add((component.x, component.y))
+                    component.grid_x = parent.grid_x
+                    component.grid_y = parent.grid_y + 1
+                    while (component.grid_x, component.grid_y) in occupied:
+                        component.grid_y += 1
+                    occupied.add((component.grid_x, component.grid_y))
                 else:
-                    component.x = counter[0]
-                    component.y = parent.y + 1
-                    while (component.x, component.y) in occupied:
-                        component.y += 1
-                    occupied.add((component.x, component.y))
+                    component.grid_x = counter[0]
+                    component.grid_y = parent.grid_y + 1
+                    while (component.grid_x, component.grid_y) in occupied:
+                        component.grid_y += 1
+                    occupied.add((component.grid_x, component.grid_y))
                     counter[0] += 1
             else:
                 prev_sibling = siblings[index - 1]
                 if component.stack_on_top_of_brother and not is_invalid_stack_on_brother(prev_sibling):
-                    component.x = prev_sibling.x
-                    component.y = prev_sibling.y + 1
-                    while (component.x, component.y) in occupied:
-                        component.y += 1
-                    occupied.add((component.x, component.y))
+                    component.grid_x = prev_sibling.grid_x
+                    component.grid_y = prev_sibling.grid_y + 1
+                    while (component.grid_x, component.grid_y) in occupied:
+                        component.grid_y += 1
+                    occupied.add((component.grid_x, component.grid_y))
                 else:
-                    component.x = counter[0]
-                    component.y = parent.y + 1
-                    while (component.x, component.y) in occupied:
-                        component.y += 1
-                    occupied.add((component.x, component.y))
+                    component.grid_x = counter[0]
+                    component.grid_y = parent.grid_y + 1
+                    while (component.grid_x, component.grid_y) in occupied:
+                        component.grid_y += 1
+                    occupied.add((component.grid_x, component.grid_y))
                     counter[0] += 1
 
         for child in component.children:

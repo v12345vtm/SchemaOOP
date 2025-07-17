@@ -2,8 +2,8 @@ import os
 import re
 
 def assign_coordinates(component, x=0, y=0):
-    component.x = x
-    component.y = y
+    component.grid_x = x
+    component.grid_y = y
 
     if not component.children:
         return 1  # subtree height/width = 1 grid unit

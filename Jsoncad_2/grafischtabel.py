@@ -74,7 +74,7 @@ def print_connection_tree(component, coords, path=None, prefix="", output_lines=
 
     node_path_str = ".".join(map(str, path))
     x, y = coords[id(component)]
-    label = f"NodePath {node_path_str} | {component.label} ({component.type}) (x={x}, y={y})"
+    label = f"NodePath {node_path_str} | {component.label} ({component.component_type}) (x={x}, y={y})"
     if not component.children:
         label += " [Leaf]"
     output_lines.append(prefix + label)

@@ -127,7 +127,7 @@ def draw_tree(c, component):
         draw_tree(c, child)
 
 def print_connection_tree(component, prefix=""):
-    print(f"{prefix}{component.label} ({component.type})")
+    print(f"{prefix}{component.label} ({component.component_type})")
     for i, child in enumerate(component.children):
         last = (i == len(component.children) - 1)
         connector = "└── " if last else "├── "

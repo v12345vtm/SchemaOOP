@@ -6,14 +6,14 @@ class Node:
         self.y = None
 
 def assign_increasing_x(node, depth=0, counter=[0]):
-    node.y = depth
-    node.x = counter[0]
+    node.grid_y = depth
+    node.grid_x = counter[0]
     counter[0] += 1
     for child in node.children:
         assign_increasing_x(child, depth+1, counter)
 
 def print_ascii_tree(node, prefix=""):
-    print(f"{prefix}{node.name} ({node.x},{node.y})")
+    print(f"{prefix}{node.name} ({node.grid_x},{node.grid_y})")
     for i, child in enumerate(node.children):
         connector = "└── " if i == len(node.children) - 1 else "├── "
         child_prefix = prefix + ("    " if i == len(node.children) - 1 else "│   ")

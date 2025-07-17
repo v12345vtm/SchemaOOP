@@ -39,7 +39,7 @@ class Component:
 
         def deepest_descendant_x(node):
             """Find the largest x among all descendants, or node.x if no descendants."""
-            xs = [node.x]
+            xs = [node.grid_x]
             for child in node.children:
                 xs.append(deepest_descendant_x(child))
             return max(xs)
@@ -47,7 +47,7 @@ class Component:
         def visit(node, parent=None, prev_sibling=None):
             # Regel 1: Root node
             if parent is None:
-                node.x, node.y = 0, 0
+                node.grid_x, node.grid_y = 0, 0
                 node._regel_used = "regel 1"
             else:
                 # Determine types
@@ -56,8 +56,8 @@ class Component:
 
                 # Find the previous sibling if any
                 if prev_sibling is not None:
-                    prev_x = prev_sibling.x
-                    prev_y = prev_sibling.y
+                    prev_x = prev_sibling.grid_x
+                    prev_y = prev_sibling.grid_y
                     prev_far_x = deepest_descendant_x(prev_sibling)
                 else:
                     prev_x = prev_y = prev_far_x = None
@@ -66,57 +66,57 @@ class Component:
                 if pdir == "vertical" and ndir == "vertical":
                     if prev_sibling:
                         # regel 2a
-                        node.x = prev_far_x + 1
-                        node.y = prev_y
+                        node.grid_x = prev_far_x + 1
+                        node.grid_y = prev_y
                         node._regel_used = "regel 2a"
                     else:
                         # regel 2b
-                        node.x = parent.x
-                        node.y = parent.y + 1
+                        node.grid_x = parent.grid_x
+                        node.grid_y = parent.grid_y + 1
                         node._regel_used = "regel 2b"
 
                 # H child with V parent
                 elif pdir == "vertical" and ndir == "horizontal":
                     if prev_sibling:
                         # regel 3a
-                        node.x = prev_x
-                        node.y = prev_y + 1
+                        node.grid_x = prev_x
+                        node.grid_y = prev_y + 1
                         node._regel_used = "regel 3a"
                     else:
                         # regel 3b
-                        node.x = parent.x + 1
-                        node.y = parent.y + 1
+                        node.grid_x = parent.grid_x + 1
+                        node.grid_y = parent.grid_y + 1
                         node._regel_used = "regel 3b"
 
                 # H child with H parent
                 elif pdir == "horizontal" and ndir == "horizontal":
                     if prev_sibling:
                         # regel 4a
-                        node.x = prev_x
-                        node.y = prev_y + 1
+                        node.grid_x = prev_x
+                        node.grid_y = prev_y + 1
                         node._regel_used = "regel 4a"
                     else:
                         # regel 4b
-                        node.x = parent.x + 1
-                        node.y = parent.y
+                        node.grid_x = parent.grid_x + 1
+                        node.grid_y = parent.grid_y
                         node._regel_used = "regel 4b"
 
                 # V child with H parent
                 elif pdir == "horizontal" and ndir == "vertical":
                     if prev_sibling:
                         # regel 5a
-                        node.x = parent.x + 2
-                        node.y = parent.y + 2
+                        node.grid_x = parent.grid_x + 2
+                        node.grid_y = parent.grid_y + 2
                         node._regel_used = "regel 5a"
                     else:
                         # regel 5b
-                        node.x = parent.x + 3
-                        node.y = parent.y + 2
+                        node.grid_x = parent.grid_x + 3
+                        node.grid_y = parent.grid_y + 2
                         node._regel_used = "regel 5b"
                 else:
                     # Fallback
-                    node.x = parent.x + 1
-                    node.y = parent.y + 1
+                    node.grid_x = parent.grid_x + 1
+                    node.grid_y = parent.grid_y + 1
                     node._regel_used = "fallback"
 
             # Now recursively assign to children, keeping track of previous sibling
@@ -161,8 +161,8 @@ class Component:
         for child in self.children:
             x1 = (self.x + 0.5)   + x_spacing
             y1 = (self.y + 0.5)  + y_spacing
-            x2 = (child.x + 0.5)  + x_spacing
-            y2 = (child.y + 0.5)  + y_spacing
+            x2 = (child.grid_x + 0.5) + x_spacing
+            y2 = (child.grid_y + 0.5) + y_spacing
             canvas.create_line(x1, y1, x2, y2, fill="black", width=2)
 
             # Recursively draw the child
@@ -181,30 +181,30 @@ class Component:
         # We'll process each column only once
         processed_columns = set()
         for node in nodes:
-            if node.y > hoogtelimiet and node.x not in processed_columns:
-                col_x = node.x
+            if node.grid_y > hoogtelimiet and node.grid_x not in processed_columns:
+                col_x = node.grid_x
                 processed_columns.add(col_x)
                 # 3. Insert new column at x+1 (do this once per column)
                 self.insert_kolom_at(col_x + 1)
                 # 4. Move all nodes in col_x with y > hoogtelimiet to new column (x+1)
                 moved_nodes = []
                 for n in nodes:
-                    if n.x == col_x and n.y > hoogtelimiet:
-                        n.x += 1
+                    if n.grid_x == col_x and n.grid_y > hoogtelimiet:
+                        n.grid_x += 1
                         moved_nodes.append(n)
                 # 5. Find the lowest y in the previous column (col_x)
-                prev_col_y = [n.y for n in nodes if n.x == col_x]
+                prev_col_y = [n.grid_y for n in nodes if n.grid_x == col_x]
                 if prev_col_y:
                     base_y = min(prev_col_y)
                 else:
                     base_y = 0
                 # 6. Stack moved nodes on top of base_y, preserving their original order
-                moved_nodes.sort(key=lambda n: n.y)  # Ascending order
+                moved_nodes.sort(key=lambda n: n.grid_y)  # Ascending order
                 for i, n in enumerate(moved_nodes):
-                    n.y = base_y + i
+                    n.grid_y = base_y + i
         # 7. Print all coordinates for verification
         for n in nodes:
-            print(f"{n.label}: x={n.x}, y={n.y}")
+            print(f"{n.label}: x={n.grid_x}, y={n.grid_y}")
 
     def insert_kolom_at(self, kolom_index):
         """
@@ -212,8 +212,8 @@ class Component:
         Prints all nodes with their new x and y values.
         """
         def update_x(component):
-            if component.x >= kolom_index:
-                component.x += 1
+            if component.grid_x >= kolom_index:
+                component.grid_x += 1
             for child in component.children:
                 update_x(child)
         update_x(self)
@@ -416,8 +416,8 @@ dif100.add_child(zek1001)
 # ---- Drawing on Canvas ----
 
 def assign_increasing_x(component, depth=0, counter=[0]):
-    component.y = depth
-    component.x = counter[0]
+    component.grid_y = depth
+    component.grid_x = counter[0]
     counter[0] += 1
     for child in component.children:
         assign_increasing_x(child, depth + 1, counter)
@@ -431,7 +431,7 @@ def assign_increasing_x(component, depth=0, counter=[0]):
 
 ####################
 def print_all_coordinates(component):
-    print(f"{component.label}: x={component.x}, y={component.y}")
+    print(f"{component.label}: x={component.grid_x}, y={component.grid_y}")
     for child in component.children:
         print_all_coordinates(child)
 ################
@@ -459,7 +459,7 @@ def print_relationships(node, processed=None):
 
     # Coordinates of processed elements so far
     processed.append(node)
-    coords = [(n.label, n.x, n.y) for n in processed]
+    coords = [(n.label, n.grid_x, n.grid_y) for n in processed]
 
     # Print info
     print(f"{node.label}={node.stroomrichting} ; parent={parent_label}={parent_stroomrichting} ; "
@@ -490,7 +490,7 @@ def print_preorder_relationships(node, processed=None):
 
     # Coordinates of processed elements so far
     processed.append(node)
-    coords = [(n.label, n.x, n.y) for n in processed]
+    coords = [(n.label, n.grid_x, n.grid_y) for n in processed]
 
     # Print info in your requested format
     print(f"{node.label}={node.stroomrichting} ; parent={parent_label}={parent_stroomrichting} ; "
@@ -519,8 +519,8 @@ def post_order_relationships(node, processed=None):
         # Find this child's index among horizontal siblings
         horizontal_siblings = [c for c in parent.children if c.stroomrichting == "horizontal"]
         counter = horizontal_siblings.index(node)
-        node.x = parent.x + 1
-        node.y = parent.y + counter + 1
+        node.grid_x = parent.grid_x + 1
+        node.grid_y = parent.grid_y + counter + 1
 
     # Siblings (brothers)
     brothers = []
@@ -531,7 +531,7 @@ def post_order_relationships(node, processed=None):
     num_vertical_brothers = sum(1 for b in brothers if b.stroomrichting == "vertical")
 
     processed.append(node)
-    coords = [(n.label, n.x, n.y) for n in processed]
+    coords = [(n.label, n.grid_x, n.grid_y) for n in processed]
 
     print(f"{node.label}={node.stroomrichting} ; parent={parent_label}={parent_stroomrichting} ; "
           f"number of horizontal brothers={num_horizontal_brothers} ; number of vertical brothers={num_vertical_brothers} ; "
@@ -561,31 +561,31 @@ def post_order_deepest_first_with_assignment(node, visit):
         print(child.label)
         # Condition 1: child is horizontal, parent is vertical
         if child.stroomrichting == "horizontal" and node.stroomrichting == "vertical":
-            child.x = node.x + 1
-            child.y = node.y + horizontal_counter + 1
+            child.grid_x = node.grid_x + 1
+            child.grid_y = node.grid_y + horizontal_counter + 1
             horizontal_counter += 1
         # Condition 2: child is horizontal, parent is horizontal
         elif child.stroomrichting == "horizontal" and node.stroomrichting == "horizontal":
             h_ancestors = count_horizontal_ancestors(node)
-            child.x = node.x + 1
-            child.y = node.y + h_ancestors + 0
+            child.grid_x = node.grid_x + 1
+            child.grid_y = node.grid_y + h_ancestors + 0
             grandgrandchildcounter += 1
         # Default: assign coordinates if not already set
         else:
-            child.x = node.x
-            child.y = node.y + 1
+            child.grid_x = node.grid_x
+            child.grid_y = node.grid_y + 1
         post_order_deepest_first_with_assignment(child, visit)
     visit(node, num_children)
 
 def print_node_with_children_count(node, num_children):
     parent = node.parent.label if node.parent else None
-    print(f"{node.label}: x={node.x}, y={node.y}, parent={parent}, children={num_children}")
+    print(f"{node.label}: x={node.grid_x}, y={node.grid_y}, parent={parent}, children={num_children}")
 
 
 # Example visit function to print the node and its assigned coordinates
 def print_node_with_children_count(node, num_children):
     parent = node.parent.label if node.parent else None
-    print(f"{node.label}: x={node.x}, y={node.y}, parent={parent}, children={num_children}")
+    print(f"{node.label}: x={node.grid_x}, y={node.grid_y}, parent={parent}, children={num_children}")
 
 
 def get_nodes_deepest_first(root):

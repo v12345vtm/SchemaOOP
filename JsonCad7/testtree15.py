@@ -35,14 +35,14 @@ class Component:
 
         def deepest_descendant_x(node):
             """Grootste x in de subboom."""
-            xs = [node.x]
+            xs = [node.grid_x]
             for child in node.children:
                 xs.append(deepest_descendant_x(child))
             return max(xs)
 
         def deepest_descendant_y(node):
             """Grootste y in de subboom."""
-            ys = [node.y]
+            ys = [node.grid_y]
             for child in node.children:
                 ys.append(deepest_descendant_y(child))
             return max(ys)
@@ -50,7 +50,7 @@ class Component:
         def visit(node, parent=None, prev_sibling=None):
             # Regel 1: root
             if parent is None:
-                node.x, node.y = 0, 0
+                node.grid_x, node.grid_y = 0, 0
                 node._regel_used = "regel 1"
             else:
                 pdir = parent.stroomrichting
@@ -58,8 +58,8 @@ class Component:
 
                 # vorige broer info
                 if prev_sibling is not None:
-                    prev_x = prev_sibling.x
-                    prev_y = prev_sibling.y
+                    prev_x = prev_sibling.grid_x
+                    prev_y = prev_sibling.grid_y
                     prev_far_x = deepest_descendant_x(prev_sibling)
                     prev_far_y = deepest_descendant_y(prev_sibling)
                 else:
@@ -69,57 +69,57 @@ class Component:
                 if pdir == "vertical" and ndir == "vertical":
                     if prev_sibling:
                         # regel 2a
-                        node.x = prev_far_x + 1
-                        node.y = prev_y
+                        node.grid_x = prev_far_x + 1
+                        node.grid_y = prev_y
                         node._regel_used = "regel 2a"
                     else:
                         # regel 2b
-                        node.x = parent.x
-                        node.y = parent.y + 1
+                        node.grid_x = parent.grid_x
+                        node.grid_y = parent.grid_y + 1
                         node._regel_used = "regel 2b"
 
                 # Regel 3: H kind met V ouder
                 elif pdir == "vertical" and ndir == "horizontal":
                     if prev_sibling:
                         # regel 3a
-                        node.x = prev_x
-                        node.y = prev_far_y + 1  # aangepaste regel!
+                        node.grid_x = prev_x
+                        node.grid_y = prev_far_y + 1  # aangepaste regel!
                         node._regel_used = "regel 3a"
                     else:
                         # regel 3b
-                        node.x = parent.x + 1
-                        node.y = parent.y + 1
+                        node.grid_x = parent.grid_x + 1
+                        node.grid_y = parent.grid_y + 1
                         node._regel_used = "regel 3b"
 
                 # Regel 4: H kind met H ouder
                 elif pdir == "horizontal" and ndir == "horizontal":
                     if prev_sibling:
                         # regel 4a
-                        node.x = prev_x
-                        node.y = prev_y + 1
+                        node.grid_x = prev_x
+                        node.grid_y = prev_y + 1
                         node._regel_used = "regel 4a"
                     else:
                         # regel 4b
-                        node.x = parent.x + 1
-                        node.y = parent.y
+                        node.grid_x = parent.grid_x + 1
+                        node.grid_y = parent.grid_y
                         node._regel_used = "regel 4b"
 
                 # Regel 5: V kind met H ouder
                 elif pdir == "horizontal" and ndir == "vertical":
                     if prev_sibling:
                         # regel 5a
-                        node.x = prev_far_x + 1
-                        node.y = parent.y + 1
+                        node.grid_x = prev_far_x + 1
+                        node.grid_y = parent.grid_y + 1
                         node._regel_used = "regel 5a"
                     else:
                         # regel 5b
-                        node.x = parent.x + 1
-                        node.y = parent.y + 1
+                        node.grid_x = parent.grid_x + 1
+                        node.grid_y = parent.grid_y + 1
                         node._regel_used = "regel 5b"
                 else:
                     # fallback
-                    node.x = parent.x + 1
-                    node.y = parent.y + 1
+                    node.grid_x = parent.grid_x + 1
+                    node.grid_y = parent.grid_y + 1
                     node._regel_used = "fallback"
 
             # Recursief voor kinderen, met bijhouden van vorige broer
@@ -172,8 +172,8 @@ class Component:
         for child in self.children:
             x1 = (self.x + 0.5)   + x_spacing
             y1 = (self.y + 0.5)  + y_spacing
-            x2 = (child.x + 0.5)  + x_spacing
-            y2 = (child.y + 0.5)  + y_spacing
+            x2 = (child.grid_x + 0.5) + x_spacing
+            y2 = (child.grid_y + 0.5) + y_spacing
             canvas.create_line(x1, y1, x2, y2, fill="black", width=2)
 
             # Recursively draw the child
@@ -192,30 +192,30 @@ class Component:
         # We'll process each column only once
         processed_columns = set()
         for node in nodes:
-            if node.y > hoogtelimiet and node.x not in processed_columns:
-                col_x = node.x
+            if node.grid_y > hoogtelimiet and node.grid_x not in processed_columns:
+                col_x = node.grid_x
                 processed_columns.add(col_x)
                 # 3. Insert new column at x+1 (do this once per column)
                 self.insert_kolom_at(col_x + 1)
                 # 4. Move all nodes in col_x with y > hoogtelimiet to new column (x+1)
                 moved_nodes = []
                 for n in nodes:
-                    if n.x == col_x and n.y > hoogtelimiet:
-                        n.x += 1
+                    if n.grid_x == col_x and n.grid_y > hoogtelimiet:
+                        n.grid_x += 1
                         moved_nodes.append(n)
                 # 5. Find the lowest y in the previous column (col_x)
-                prev_col_y = [n.y for n in nodes if n.x == col_x]
+                prev_col_y = [n.grid_y for n in nodes if n.grid_x == col_x]
                 if prev_col_y:
                     base_y = min(prev_col_y)
                 else:
                     base_y = 0
                 # 6. Stack moved nodes on top of base_y, preserving their original order
-                moved_nodes.sort(key=lambda n: n.y)  # Ascending order
+                moved_nodes.sort(key=lambda n: n.grid_y)  # Ascending order
                 for i, n in enumerate(moved_nodes):
-                    n.y = base_y + i
+                    n.grid_y = base_y + i
         # 7. Print all coordinates for verification
         for n in nodes:
-            print(f"{n.label}: x={n.x}, y={n.y}")
+            print(f"{n.label}: x={n.grid_x}, y={n.grid_y}")
 
     def insert_kolom_at(self, kolom_index):
         """
@@ -223,8 +223,8 @@ class Component:
         Prints all nodes with their new x and y values.
         """
         def update_x(component):
-            if component.x >= kolom_index:
-                component.x += 1
+            if component.grid_x >= kolom_index:
+                component.grid_x += 1
             for child in component.children:
                 update_x(child)
         update_x(self)
@@ -469,8 +469,8 @@ def draw_grid_with_objects(root_component):
         for child in node.children:
             collect(child)
     collect(root_component)
-    max_x = max(node.x for node in all_nodes)
-    max_y = max(node.y for node in all_nodes)
+    max_x = max(node.grid_x for node in all_nodes)
+    max_y = max(node.grid_y for node in all_nodes)
 
     # 2. Maak hoofdvenster en canvas met scrollbars
     root = tk.Tk()
@@ -502,11 +502,11 @@ def draw_grid_with_objects(root_component):
 
     # 5. Zet objecten in de juiste cellen
     for node in all_nodes:
-        info = f"{node.label}\n({node.x},{node.y})"
+        info = f"{node.label}\n({node.grid_x},{node.grid_y})"
         if hasattr(node, "_regel_used"):
             info += f"\n{node._regel_used}"
         lbl = tk.Label(grid_frame, text=info, width=14, height=4, borderwidth=2, relief="groove", bg="#ffe0e0")
-        lbl.grid(row=node.y, column=node.x, sticky="nsew")
+        lbl.grid(row=node.grid_y, column=node.grid_x, sticky="nsew")
 
     # 6. Zorg dat cellen zich uitrekken
     for x in range(max_x + 1):

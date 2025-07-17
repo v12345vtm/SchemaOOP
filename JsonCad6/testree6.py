@@ -32,30 +32,30 @@ class Component:
         # We'll process each column only once
         processed_columns = set()
         for node in nodes:
-            if node.y > hoogtelimiet and node.x not in processed_columns:
-                col_x = node.x
+            if node.grid_y > hoogtelimiet and node.grid_x not in processed_columns:
+                col_x = node.grid_x
                 processed_columns.add(col_x)
                 # 3. Insert new column at x+1 (do this once per column)
                 self.insert_kolom_at(col_x + 1)
                 # 4. Move all nodes in col_x with y > hoogtelimiet to new column (x+1)
                 moved_nodes = []
                 for n in nodes:
-                    if n.x == col_x and n.y > hoogtelimiet:
-                        n.x += 1
+                    if n.grid_x == col_x and n.grid_y > hoogtelimiet:
+                        n.grid_x += 1
                         moved_nodes.append(n)
                 # 5. Find the lowest y in the previous column (col_x)
-                prev_col_y = [n.y for n in nodes if n.x == col_x]
+                prev_col_y = [n.grid_y for n in nodes if n.grid_x == col_x]
                 if prev_col_y:
                     base_y = min(prev_col_y)
                 else:
                     base_y = 0
                 # 6. Stack moved nodes on top of base_y, preserving their original order
-                moved_nodes.sort(key=lambda n: n.y)  # Ascending order
+                moved_nodes.sort(key=lambda n: n.grid_y)  # Ascending order
                 for i, n in enumerate(moved_nodes):
-                    n.y = base_y + i
+                    n.grid_y = base_y + i
         # 7. Print all coordinates for verification
         for n in nodes:
-            print(f"{n.label}: x={n.x}, y={n.y}")
+            print(f"{n.label}: x={n.grid_x}, y={n.grid_y}")
 
     def insert_kolom_at(self, kolom_index):
         """
@@ -63,8 +63,8 @@ class Component:
         Prints all nodes with their new x and y values.
         """
         def update_x(component):
-            if component.x >= kolom_index:
-                component.x += 1
+            if component.grid_x >= kolom_index:
+                component.grid_x += 1
             for child in component.children:
                 update_x(child)
         update_x(self)
@@ -138,9 +138,9 @@ class Component:
             occupied = set()
 
         if component.parent is None:
-            component.x = counter[0]
-            component.y = depth
-            occupied.add((component.x, component.y))
+            component.grid_x = counter[0]
+            component.grid_y = depth
+            occupied.add((component.grid_x, component.grid_y))
             counter[0] += 1
         else:
             parent = component.parent
@@ -163,32 +163,32 @@ class Component:
 
             if index == 0:
                 if component.allow_stack_on_top_of_parent and not is_invalid_stack_on_parent():
-                    component.x = parent.x
-                    component.y = parent.y + 1
-                    while (component.x, component.y) in occupied:
-                        component.y += 1
-                    occupied.add((component.x, component.y))
+                    component.grid_x = parent.grid_x
+                    component.grid_y = parent.grid_y + 1
+                    while (component.grid_x, component.grid_y) in occupied:
+                        component.grid_y += 1
+                    occupied.add((component.grid_x, component.grid_y))
                 else:
-                    component.x = counter[0]
-                    component.y = parent.y + 1
-                    while (component.x, component.y) in occupied:
-                        component.y += 1
-                    occupied.add((component.x, component.y))
+                    component.grid_x = counter[0]
+                    component.grid_y = parent.grid_y + 1
+                    while (component.grid_x, component.grid_y) in occupied:
+                        component.grid_y += 1
+                    occupied.add((component.grid_x, component.grid_y))
                     counter[0] += 1
             else:
                 prev_sibling = siblings[index - 1]
                 if component.stack_on_top_of_brother and not is_invalid_stack_on_brother(prev_sibling):
-                    component.x = prev_sibling.x
-                    component.y = prev_sibling.y + 1
-                    while (component.x, component.y) in occupied:
-                        component.y += 1
-                    occupied.add((component.x, component.y))
+                    component.grid_x = prev_sibling.grid_x
+                    component.grid_y = prev_sibling.grid_y + 1
+                    while (component.grid_x, component.grid_y) in occupied:
+                        component.grid_y += 1
+                    occupied.add((component.grid_x, component.grid_y))
                 else:
-                    component.x = counter[0]
-                    component.y = parent.y + 1
-                    while (component.x, component.y) in occupied:
-                        component.y += 1
-                    occupied.add((component.x, component.y))
+                    component.grid_x = counter[0]
+                    component.grid_y = parent.grid_y + 1
+                    while (component.grid_x, component.grid_y) in occupied:
+                        component.grid_y += 1
+                    occupied.add((component.grid_x, component.grid_y))
                     counter[0] += 1
 
         for child in component.children:
@@ -313,10 +313,10 @@ ct2.add_child(verlichtingct2)
 
 
 def get_max_coords(component, max_x=[0], max_y=[0]):
-    if component.x > max_x[0]:
-        max_x[0] = component.x
-    if component.y > max_y[0]:
-        max_y[0] = component.y
+    if component.grid_x > max_x[0]:
+        max_x[0] = component.grid_x
+    if component.grid_y > max_y[0]:
+        max_y[0] = component.grid_y
     for child in component.children:
         get_max_coords(child, max_x, max_y)
         pass
@@ -325,16 +325,16 @@ def get_max_coords(component, max_x=[0], max_y=[0]):
 
 def draw_tree(canvas, component, canvas_height, x_spacing=80, y_spacing=80):
     size = component.boundarybox_hoogte
-    x = component.x * x_spacing + 40
-    y = canvas_height - (component.y * y_spacing + 40)
+    x = component.grid_x * x_spacing + 40
+    y = canvas_height - (component.grid_y * y_spacing + 40)
     # Draw rectangle
     canvas.create_rectangle(x, y - size, x + size, y, fill="white", outline="black")
     # Draw label
     canvas.create_text(x + size / 2, y - size / 2, text=component.label, font=("Arial", 8))
     # Draw lines to children
     for child in component.children:
-        child_x = child.x * x_spacing + 40 + size / 2
-        child_y = canvas_height - (child.y * y_spacing + 40) - size / 2
+        child_x = child.grid_x * x_spacing + 40 + size / 2
+        child_y = canvas_height - (child.grid_y * y_spacing + 40) - size / 2
         canvas.create_line(x + size / 2, y - size / 2, child_x, child_y, fill="black")
         draw_tree(canvas, child, canvas_height, x_spacing, y_spacing)
 
@@ -360,7 +360,7 @@ def draw_grid(canvas, width, height, x_spacing, y_spacing, font=("Arial", 8)):
 
 ####################
 def print_all_coordinates(component):
-    print(f"{component.label}: x={component.x}, y={component.y}")
+    print(f"{component.label}: x={component.grid_x}, y={component.grid_y}")
     for child in component.children:
         print_all_coordinates(child)
 ################

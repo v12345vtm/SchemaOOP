@@ -14,8 +14,8 @@ def draw_grid_with_objects(root_component):
         for child in node.children:
             collect(child)
     collect(root_component)
-    max_x = max(node.x for node in all_nodes)
-    max_y = max(node.y for node in all_nodes)
+    max_x = max(node.grid_x for node in all_nodes)
+    max_y = max(node.grid_y for node in all_nodes)
 
     # 2. Maak hoofdvenster en canvas met scrollbars
     root = tk.Tk()
@@ -47,11 +47,11 @@ def draw_grid_with_objects(root_component):
 
     # 5. Zet objecten in de juiste cellen
     for node in all_nodes:
-        info = f"{node.label}\n({node.x},{node.y})"
+        info = f"{node.label}\n({node.grid_x},{node.grid_y})"
         if hasattr(node, "_regel_used"):
             info += f"\n{node._regel_used}"
         lbl = tk.Label(grid_frame, text=info, width=14, height=4, borderwidth=2, relief="groove", bg="#ffe0e0")
-        lbl.grid(row=node.y, column=node.x, sticky="nsew")
+        lbl.grid(row=node.grid_y, column=node.grid_x, sticky="nsew")
 
     # 6. Zorg dat cellen zich uitrekken
     for x in range(max_x + 1):

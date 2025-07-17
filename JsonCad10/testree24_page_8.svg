@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     width="297" height="870" viewBox="0 0 297 870">
+<defs>
+</defs>
+<rect x="-1253" y="750" width="50" height="50" fill="pink" stroke="black" stroke-width="1" />
+<text x="-1228" y="742" font-size="15" fill="black" text-anchor="middle" dominant-baseline="central">kopkwhmeter_H</text>
+<circle cx="-1253" cy="775" r="5" fill="red" />
+<text x="-1253" y="790" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">IN</text>
+<circle cx="-1203" cy="775" r="5" fill="green" />
+<text x="-1203" y="790" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">OUT</text>
+<path d="M-1203,775 L-1183,775" stroke="black" stroke-width="2" />
+<path d="M-1163,775 L-1183,775" stroke="black" stroke-width="2" />
+<rect x="-1163" y="750" width="50" height="50" fill="pink" stroke="black" stroke-width="1" />
+<text x="-1138" y="742" font-size="15" fill="black" text-anchor="middle" dominant-baseline="central">Teller_H</text>
+<circle cx="-1163" cy="775" r="5" fill="red" />
+<text x="-1163" y="790" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">IN</text>
+<circle cx="-1113" cy="775" r="5" fill="green" />
+<text x="-1113" y="790" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">OUT</text>
+<path d="M-1113,775 L-1093,775" stroke="black" stroke-width="2" />
+<path d="M-1048,710 L-1048,730" stroke="black" stroke-width="2" />
+<path d="M-1113,775 L-1093,775" stroke="black" stroke-width="2" />
+<path d="M-868,710 L-868,730" stroke="black" stroke-width="2" />
+<path d="M-1113,775 L-1093,775" stroke="black" stroke-width="2" />
+<path d="M-778,710 L-778,730" stroke="black" stroke-width="2" />
+<path d="M-1093,775 L-1048,775" stroke="black" stroke-width="2" />
+<path d="M-1048,775 L-1048,730" stroke="black" stroke-width="2" />
+<path d="M-1093,775 L-868,775" stroke="black" stroke-width="2" />
+<path d="M-868,775 L-868,730" stroke="black" stroke-width="2" />
+<path d="M-1093,775 L-778,775" stroke="black" stroke-width="2" />
+<path d="M-778,775 L-778,730" stroke="black" stroke-width="2" />
+<rect x="-1073" y="660" width="50" height="50" fill="pink" stroke="black" stroke-width="1" />
+<text x="-1048" y="652" font-size="15" fill="black" text-anchor="middle" dominant-baseline="central">Diff3_V</text>
+<circle cx="-1048" cy="710" r="5" fill="red" />
+<text x="-1048" y="725" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">IN</text>
+<circle cx="-1048" cy="660" r="5" fill="green" />
+<text x="-1048" y="675" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">OUT</text>
+<circle cx="-1080" cy="710" r="5" fill="yellow" />
+<text x="-1080" y="725" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">CUT</text>
+<path d="M-1048,660 L-1048,640" stroke="black" stroke-width="2" />
+<path d="M-983,595 L-1003,595" stroke="black" stroke-width="2" />
+<path d="M-1048,640 L-1048,595" stroke="black" stroke-width="2" />
+<path d="M-1048,595 L-1003,595" stroke="black" stroke-width="2" />
+<text x="-1038" y="610" font-size="15" fill="blue" text-anchor="middle" dominant-baseline="central">1</text>
+<rect x="-983" y="570" width="50" height="50" fill="pink" stroke="black" stroke-width="1" />
+<text x="-958" y="562" font-size="15" fill="black" text-anchor="middle" dominant-baseline="central">zonnepaneelopdif3_H</text>
+<circle cx="-983" cy="595" r="5" fill="red" />
+<text x="-983" y="610" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">IN</text>
+<circle cx="-933" cy="595" r="5" fill="green" />
+<text x="-933" y="610" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">OUT</text>
+<rect x="-893" y="660" width="50" height="50" fill="pink" stroke="black" stroke-width="1" />
+<text x="-868" y="652" font-size="15" fill="black" text-anchor="middle" dominant-baseline="central">Diff30_V</text>
+<circle cx="-868" cy="710" r="5" fill="red" />
+<text x="-868" y="725" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">IN</text>
+<circle cx="-868" cy="660" r="5" fill="green" />
+<text x="-868" y="675" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">OUT</text>
+<circle cx="-900" cy="710" r="5" fill="yellow" />
+<text x="-900" y="725" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">CUT</text>
+<rect x="-803" y="660" width="50" height="50" fill="pink" stroke="black" stroke-width="1" />
+<text x="-778" y="652" font-size="15" fill="black" text-anchor="middle" dominant-baseline="central">Diff300_V</text>
+<circle cx="-778" cy="710" r="5" fill="red" />
+<text x="-778" y="725" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">IN</text>
+<circle cx="-778" cy="660" r="5" fill="green" />
+<text x="-778" y="675" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">OUT</text>
+<circle cx="-810" cy="710" r="5" fill="yellow" />
+<text x="-810" y="725" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">CUT</text>
+<path d="M-778,660 L-778,640" stroke="black" stroke-width="2" />
+<path d="M-778,620 L-778,640" stroke="black" stroke-width="2" />
+<path d="M-778,660 L-778,640" stroke="black" stroke-width="2" />
+<path d="M-598,620 L-598,640" stroke="black" stroke-width="2" />
+<path d="M-778,660 L-778,640" stroke="black" stroke-width="2" />
+<path d="M-418,620 L-418,640" stroke="black" stroke-width="2" />
+<path d="M-778,660 L-778,640" stroke="black" stroke-width="2" />
+<path d="M-238,620 L-238,640" stroke="black" stroke-width="2" />
+<path d="M-778,660 L-778,640" stroke="black" stroke-width="2" />
+<path d="M32,620 L32,640" stroke="black" stroke-width="2" />
+<path d="M-778,640 L-778,640" stroke="black" stroke-width="2" />
+<path d="M-778,640 L-778,640" stroke="black" stroke-width="2" />
+<path d="M-778,640 L-778,640" stroke="black" stroke-width="2" />
+<path d="M-778,640 L-598,640" stroke="black" stroke-width="2" />
+<path d="M-778,640 L-778,640" stroke="black" stroke-width="2" />
+<path d="M-778,640 L-418,640" stroke="black" stroke-width="2" />
+<path d="M-778,640 L-778,640" stroke="black" stroke-width="2" />
+<path d="M-778,640 L-238,640" stroke="black" stroke-width="2" />
+<path d="M-778,640 L-778,640" stroke="black" stroke-width="2" />
+<path d="M-778,640 L32,640" stroke="black" stroke-width="2" />
+<rect x="-803" y="570" width="50" height="50" fill="pink" stroke="black" stroke-width="1" />
+<text x="-778" y="562" font-size="15" fill="black" text-anchor="middle" dominant-baseline="central">Diff100_V</text>
+<circle cx="-778" cy="620" r="5" fill="red" />
+<text x="-778" y="635" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">IN</text>
+<circle cx="-778" cy="570" r="5" fill="green" />
+<text x="-778" y="585" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">OUT</text>
+<circle cx="-810" cy="620" r="5" fill="yellow" />
+<text x="-810" y="635" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">CUT</text>
+<path d="M-778,570 L-778,550" stroke="black" stroke-width="2" />
+<path d="M-778,530 L-778,550" stroke="black" stroke-width="2" />
+<path d="M-778,550 L-778,550" stroke="black" stroke-width="2" />
+<path d="M-778,550 L-778,550" stroke="black" stroke-width="2" />
+<rect x="-803" y="480" width="50" height="50" fill="pink" stroke="black" stroke-width="1" />
+<text x="-778" y="472" font-size="15" fill="black" text-anchor="middle" dominant-baseline="central">zek1001_V</text>
+<circle cx="-778" cy="530" r="5" fill="red" />
+<text x="-778" y="545" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">IN</text>
+<circle cx="-778" cy="480" r="5" fill="green" />
+<text x="-778" y="495" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">OUT</text>
+<circle cx="-810" cy="530" r="5" fill="yellow" />
+<text x="-810" y="545" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">CUT</text>
+<path d="M-778,480 L-778,460" stroke="black" stroke-width="2" />
+<path d="M-713,415 L-733,415" stroke="black" stroke-width="2" />
+<path d="M-778,480 L-778,460" stroke="black" stroke-width="2" />
+<path d="M-713,325 L-733,325" stroke="black" stroke-width="2" />
+<path d="M-778,480 L-778,460" stroke="black" stroke-width="2" />
+<path d="M-713,235 L-733,235" stroke="black" stroke-width="2" />
+<path d="M-778,480 L-778,460" stroke="black" stroke-width="2" />
+<path d="M-713,145 L-733,145" stroke="black" stroke-width="2" />
+<path d="M-778,460 L-778,415" stroke="black" stroke-width="2" />
+<path d="M-778,415 L-733,415" stroke="black" stroke-width="2" />
+<text x="-768" y="430" font-size="15" fill="blue" text-anchor="middle" dominant-baseline="central">1</text>
+<path d="M-778,460 L-778,325" stroke="black" stroke-width="2" />
+<path d="M-778,325 L-733,325" stroke="black" stroke-width="2" />
+<text x="-768" y="340" font-size="15" fill="blue" text-anchor="middle" dominant-baseline="central">2</text>
+<path d="M-778,460 L-778,235" stroke="black" stroke-width="2" />
+<path d="M-778,235 L-733,235" stroke="black" stroke-width="2" />
+<text x="-768" y="250" font-size="15" fill="blue" text-anchor="middle" dominant-baseline="central">3</text>
+<path d="M-778,460 L-778,145" stroke="black" stroke-width="2" />
+<path d="M-778,145 L-733,145" stroke="black" stroke-width="2" />
+<text x="-768" y="160" font-size="15" fill="blue" text-anchor="middle" dominant-baseline="central">4</text>
+<rect x="-713" y="390" width="50" height="50" fill="pink" stroke="black" stroke-width="1" />
+<text x="-688" y="382" font-size="15" fill="black" text-anchor="middle" dominant-baseline="central">Verlichting6_H</text>
+<circle cx="-713" cy="415" r="5" fill="red" />
+<text x="-713" y="430" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">IN</text>
+<circle cx="-663" cy="415" r="5" fill="green" />
+<text x="-663" y="430" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">OUT</text>
+<rect x="-713" y="300" width="50" height="50" fill="pink" stroke="black" stroke-width="1" />
+<text x="-688" y="292" font-size="15" fill="black" text-anchor="middle" dominant-baseline="central">vaatwas301_H</text>
+<circle cx="-713" cy="325" r="5" fill="red" />
+<text x="-713" y="340" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">IN</text>
+<circle cx="-663" cy="325" r="5" fill="green" />
+<text x="-663" y="340" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">OUT</text>
+<image x="-713" y="210" width="50" height="50" xlink:href="symbolen/Prieze\prieze_hydro_false_kinder_true_aarding_true_1.svg" />
+<text x="-688.0" y="235.0" font-size="12" fill="red" text-anchor="middle" dominant-baseline="central">prieze</text>
+<text x="-688" y="202" font-size="15" fill="black" text-anchor="middle" dominant-baseline="central">prieze</text>
+<circle cx="-713" cy="235" r="5" fill="red" />
+<text x="-713" y="250" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">IN</text>
+<circle cx="-663" cy="235" r="5" fill="green" />
+<text x="-663" y="250" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">OUT</text>
+<image x="-713" y="120" width="50" height="50" xlink:href="symbolen/Prieze\prieze_hydro_false_kinder_true_aarding_true_2.svg" />
+<text x="-688.0" y="145.0" font-size="12" fill="red" text-anchor="middle" dominant-baseline="central">prieze</text>
+<text x="-688" y="112" font-size="15" fill="black" text-anchor="middle" dominant-baseline="central">prieze</text>
+<circle cx="-713" cy="145" r="5" fill="red" />
+<text x="-713" y="160" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">IN</text>
+<circle cx="-663" cy="145" r="5" fill="green" />
+<text x="-663" y="160" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">OUT</text>
+<rect x="-623" y="570" width="50" height="50" fill="pink" stroke="black" stroke-width="1" />
+<text x="-598" y="562" font-size="15" fill="black" text-anchor="middle" dominant-baseline="central">zek3001_V</text>
+<circle cx="-598" cy="620" r="5" fill="red" />
+<text x="-598" y="635" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">IN</text>
+<circle cx="-598" cy="570" r="5" fill="green" />
+<text x="-598" y="585" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">OUT</text>
+<circle cx="-630" cy="620" r="5" fill="yellow" />
+<text x="-630" y="635" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">CUT</text>
+<path d="M-598,570 L-598,550" stroke="black" stroke-width="2" />
+<path d="M-533,505 L-553,505" stroke="black" stroke-width="2" />
+<path d="M-598,550 L-598,505" stroke="black" stroke-width="2" />
+<path d="M-598,505 L-553,505" stroke="black" stroke-width="2" />
+<text x="-588" y="520" font-size="15" fill="blue" text-anchor="middle" dominant-baseline="central">1</text>
+<rect x="-533" y="480" width="50" height="50" fill="pink" stroke="black" stroke-width="1" />
+<text x="-508" y="472" font-size="15" fill="black" text-anchor="middle" dominant-baseline="central">droogkast3002_H</text>
+<circle cx="-533" cy="505" r="5" fill="red" />
+<text x="-533" y="520" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">IN</text>
+<circle cx="-483" cy="505" r="5" fill="green" />
+<text x="-483" y="520" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">OUT</text>
+<rect x="-443" y="570" width="50" height="50" fill="pink" stroke="black" stroke-width="1" />
+<text x="-418" y="562" font-size="15" fill="black" text-anchor="middle" dominant-baseline="central">zek3002_V</text>
+<circle cx="-418" cy="620" r="5" fill="red" />
+<text x="-418" y="635" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">IN</text>
+<circle cx="-418" cy="570" r="5" fill="green" />
+<text x="-418" y="585" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">OUT</text>
+<circle cx="-450" cy="620" r="5" fill="yellow" />
+<text x="-450" y="635" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">CUT</text>
+<path d="M-418,570 L-418,550" stroke="black" stroke-width="2" />
+<path d="M-353,505 L-373,505" stroke="black" stroke-width="2" />
+<path d="M-418,570 L-418,550" stroke="black" stroke-width="2" />
+<path d="M-353,415 L-373,415" stroke="black" stroke-width="2" />
+<path d="M-418,550 L-418,505" stroke="black" stroke-width="2" />
+<path d="M-418,505 L-373,505" stroke="black" stroke-width="2" />
+<text x="-408" y="520" font-size="15" fill="blue" text-anchor="middle" dominant-baseline="central">1</text>
+<path d="M-418,550 L-418,415" stroke="black" stroke-width="2" />
+<path d="M-418,415 L-373,415" stroke="black" stroke-width="2" />
+<text x="-408" y="430" font-size="15" fill="blue" text-anchor="middle" dominant-baseline="central">2</text>
+<rect x="-353" y="480" width="50" height="50" fill="pink" stroke="black" stroke-width="1" />
+<text x="-328" y="472" font-size="15" fill="black" text-anchor="middle" dominant-baseline="central">microoven3002_H</text>
+<circle cx="-353" cy="505" r="5" fill="red" />
+<text x="-353" y="520" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">IN</text>
+<circle cx="-303" cy="505" r="5" fill="green" />
+<text x="-303" y="520" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">OUT</text>
+<rect x="-353" y="390" width="50" height="50" fill="pink" stroke="black" stroke-width="1" />
+<text x="-328" y="382" font-size="15" fill="black" text-anchor="middle" dominant-baseline="central">oven3002_H</text>
+<circle cx="-353" cy="415" r="5" fill="red" />
+<text x="-353" y="430" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">IN</text>
+<circle cx="-303" cy="415" r="5" fill="green" />
+<text x="-303" y="430" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">OUT</text>
+<rect x="-263" y="570" width="50" height="50" fill="pink" stroke="black" stroke-width="1" />
+<text x="-238" y="562" font-size="15" fill="black" text-anchor="middle" dominant-baseline="central">zek3003_V</text>
+<circle cx="-238" cy="620" r="5" fill="red" />
+<text x="-238" y="635" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">IN</text>
+<circle cx="-238" cy="570" r="5" fill="green" />
+<text x="-238" y="585" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">OUT</text>
+<circle cx="-270" cy="620" r="5" fill="yellow" />
+<text x="-270" y="635" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">CUT</text>
+<path d="M-238,570 L-238,550" stroke="black" stroke-width="2" />
+<path d="M-173,505 L-193,505" stroke="black" stroke-width="2" />
+<path d="M-238,570 L-238,550" stroke="black" stroke-width="2" />
+<path d="M-173,145 L-193,145" stroke="black" stroke-width="2" />
+<path d="M-238,570 L-238,550" stroke="black" stroke-width="2" />
+<path d="M-173,55 L-193,55" stroke="black" stroke-width="2" />
+<path d="M-238,550 L-238,505" stroke="black" stroke-width="2" />
+<path d="M-238,505 L-193,505" stroke="black" stroke-width="2" />
+<text x="-228" y="520" font-size="15" fill="blue" text-anchor="middle" dominant-baseline="central">1</text>
+<path d="M-238,550 L-238,145" stroke="black" stroke-width="2" />
+<path d="M-238,145 L-193,145" stroke="black" stroke-width="2" />
+<text x="-228" y="160" font-size="15" fill="blue" text-anchor="middle" dominant-baseline="central">2</text>
+<path d="M-238,550 L-238,55" stroke="black" stroke-width="2" />
+<path d="M-238,55 L-193,55" stroke="black" stroke-width="2" />
+<text x="-228" y="70" font-size="15" fill="blue" text-anchor="middle" dominant-baseline="central">3</text>
+<rect x="-173" y="480" width="50" height="50" fill="pink" stroke="black" stroke-width="1" />
+<text x="-148" y="472" font-size="15" fill="black" text-anchor="middle" dominant-baseline="central">domo2_H</text>
+<circle cx="-173" cy="505" r="5" fill="red" />
+<text x="-173" y="520" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">IN</text>
+<circle cx="-123" cy="505" r="5" fill="green" />
+<text x="-123" y="520" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">OUT</text>
+<path d="M-123,505 L-103,505" stroke="black" stroke-width="2" />
+<path d="M-83,505 L-103,505" stroke="black" stroke-width="2" />
+<path d="M-123,505 L-103,505" stroke="black" stroke-width="2" />
+<path d="M-83,415 L-103,415" stroke="black" stroke-width="2" />
+<path d="M-123,505 L-103,505" stroke="black" stroke-width="2" />
+<path d="M-83,325 L-103,325" stroke="black" stroke-width="2" />
+<path d="M-123,505 L-103,505" stroke="black" stroke-width="2" />
+<path d="M-83,235 L-103,235" stroke="black" stroke-width="2" />
+<path d="M-103,505 L-103,505" stroke="black" stroke-width="2" />
+<path d="M-103,505 L-103,415" stroke="black" stroke-width="2" />
+<path d="M-103,505 L-103,505" stroke="black" stroke-width="2" />
+<path d="M-103,505 L-103,325" stroke="black" stroke-width="2" />
+<path d="M-103,505 L-103,505" stroke="black" stroke-width="2" />
+<path d="M-103,505 L-103,235" stroke="black" stroke-width="2" />
+<rect x="-83" y="480" width="50" height="50" fill="pink" stroke="black" stroke-width="1" />
+<text x="-58" y="472" font-size="15" fill="black" text-anchor="middle" dominant-baseline="central">Verlichting2_H</text>
+<circle cx="-83" cy="505" r="5" fill="red" />
+<text x="-83" y="520" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">IN</text>
+<circle cx="-33" cy="505" r="5" fill="green" />
+<text x="-33" y="520" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">OUT</text>
+<rect x="-83" y="390" width="50" height="50" fill="pink" stroke="black" stroke-width="1" />
+<text x="-58" y="382" font-size="15" fill="black" text-anchor="middle" dominant-baseline="central">Verlichting3_H</text>
+<circle cx="-83" cy="415" r="5" fill="red" />
+<text x="-83" y="430" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">IN</text>
+<circle cx="-33" cy="415" r="5" fill="green" />
+<text x="-33" y="430" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">OUT</text>
+<rect x="-83" y="300" width="50" height="50" fill="pink" stroke="black" stroke-width="1" />
+<text x="-58" y="292" font-size="15" fill="black" text-anchor="middle" dominant-baseline="central">Verlichting4_H</text>
+<circle cx="-83" cy="325" r="5" fill="red" />
+<text x="-83" y="340" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">IN</text>
+<circle cx="-33" cy="325" r="5" fill="green" />
+<text x="-33" y="340" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">OUT</text>
+<rect x="-83" y="210" width="50" height="50" fill="pink" stroke="black" stroke-width="1" />
+<text x="-58" y="202" font-size="15" fill="black" text-anchor="middle" dominant-baseline="central">Verlichting5_H</text>
+<circle cx="-83" cy="235" r="5" fill="red" />
+<text x="-83" y="250" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">IN</text>
+<circle cx="-33" cy="235" r="5" fill="green" />
+<text x="-33" y="250" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">OUT</text>
+<rect x="-173" y="120" width="50" height="50" fill="pink" stroke="black" stroke-width="1" />
+<text x="-148" y="112" font-size="15" fill="black" text-anchor="middle" dominant-baseline="central">Domomodule_H</text>
+<circle cx="-173" cy="145" r="5" fill="red" />
+<text x="-173" y="160" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">IN</text>
+<circle cx="-123" cy="145" r="5" fill="green" />
+<text x="-123" y="160" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">OUT</text>
+<path d="M-123,145 L-103,145" stroke="black" stroke-width="2" />
+<path d="M-83,145 L-103,145" stroke="black" stroke-width="2" />
+<rect x="-83" y="120" width="50" height="50" fill="pink" stroke="black" stroke-width="1" />
+<text x="-58" y="112" font-size="15" fill="black" text-anchor="middle" dominant-baseline="central">Verlichting_H</text>
+<circle cx="-83" cy="145" r="5" fill="red" />
+<text x="-83" y="160" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">IN</text>
+<circle cx="-33" cy="145" r="5" fill="green" />
+<text x="-33" y="160" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">OUT</text>
+<rect x="-173" y="30" width="50" height="50" fill="pink" stroke="black" stroke-width="1" />
+<text x="-148" y="22" font-size="15" fill="black" text-anchor="middle" dominant-baseline="central">tv_H</text>
+<circle cx="-173" cy="55" r="5" fill="red" />
+<text x="-173" y="70" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">IN</text>
+<circle cx="-123" cy="55" r="5" fill="green" />
+<text x="-123" y="70" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">OUT</text>
+<rect x="7" y="570" width="50" height="50" fill="pink" stroke="black" stroke-width="1" />
+<text x="32" y="562" font-size="15" fill="black" text-anchor="middle" dominant-baseline="central">zek3004verl_V</text>
+<circle cx="32" cy="620" r="5" fill="red" />
+<text x="32" y="635" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">IN</text>
+<circle cx="32" cy="570" r="5" fill="green" />
+<text x="32" y="585" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">OUT</text>
+<circle cx="0" cy="620" r="5" fill="yellow" />
+<text x="0" y="635" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">CUT</text>
+<path d="M32,570 L32,550" stroke="black" stroke-width="2" />
+<path d="M97,505 L77,505" stroke="black" stroke-width="2" />
+<path d="M32,570 L32,550" stroke="black" stroke-width="2" />
+<path d="M97,415 L77,415" stroke="black" stroke-width="2" />
+<path d="M32,570 L32,550" stroke="black" stroke-width="2" />
+<path d="M97,325 L77,325" stroke="black" stroke-width="2" />
+<path d="M32,570 L32,550" stroke="black" stroke-width="2" />
+<path d="M97,235 L77,235" stroke="black" stroke-width="2" />
+<path d="M32,570 L32,550" stroke="black" stroke-width="2" />
+<path d="M97,145 L77,145" stroke="black" stroke-width="2" />
+<path d="M32,550 L32,505" stroke="black" stroke-width="2" />
+<path d="M32,505 L77,505" stroke="black" stroke-width="2" />
+<text x="42" y="520" font-size="15" fill="blue" text-anchor="middle" dominant-baseline="central">1</text>
+<path d="M32,550 L32,415" stroke="black" stroke-width="2" />
+<path d="M32,415 L77,415" stroke="black" stroke-width="2" />
+<text x="42" y="430" font-size="15" fill="blue" text-anchor="middle" dominant-baseline="central">2</text>
+<path d="M32,550 L32,325" stroke="black" stroke-width="2" />
+<path d="M32,325 L77,325" stroke="black" stroke-width="2" />
+<text x="42" y="340" font-size="15" fill="blue" text-anchor="middle" dominant-baseline="central">3</text>
+<path d="M32,550 L32,235" stroke="black" stroke-width="2" />
+<path d="M32,235 L77,235" stroke="black" stroke-width="2" />
+<text x="42" y="250" font-size="15" fill="blue" text-anchor="middle" dominant-baseline="central">4</text>
+<path d="M32,550 L32,145" stroke="black" stroke-width="2" />
+<path d="M32,145 L77,145" stroke="black" stroke-width="2" />
+<text x="42" y="160" font-size="15" fill="blue" text-anchor="middle" dominant-baseline="central">5</text>
+<rect x="97" y="480" width="50" height="50" fill="pink" stroke="black" stroke-width="1" />
+<text x="122" y="472" font-size="15" fill="black" text-anchor="middle" dominant-baseline="central">Verlicht1_H</text>
+<circle cx="97" cy="505" r="5" fill="red" />
+<text x="97" y="520" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">IN</text>
+<circle cx="147" cy="505" r="5" fill="green" />
+<text x="147" y="520" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">OUT</text>
+<rect x="97" y="390" width="50" height="50" fill="pink" stroke="black" stroke-width="1" />
+<text x="122" y="382" font-size="15" fill="black" text-anchor="middle" dominant-baseline="central">Verlicht2_H</text>
+<circle cx="97" cy="415" r="5" fill="red" />
+<text x="97" y="430" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">IN</text>
+<circle cx="147" cy="415" r="5" fill="green" />
+<text x="147" y="430" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">OUT</text>
+<rect x="97" y="300" width="50" height="50" fill="pink" stroke="black" stroke-width="1" />
+<text x="122" y="292" font-size="15" fill="black" text-anchor="middle" dominant-baseline="central">Verlicht3_H</text>
+<circle cx="97" cy="325" r="5" fill="red" />
+<text x="97" y="340" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">IN</text>
+<circle cx="147" cy="325" r="5" fill="green" />
+<text x="147" y="340" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">OUT</text>
+<rect x="97" y="210" width="50" height="50" fill="pink" stroke="black" stroke-width="1" />
+<text x="122" y="202" font-size="15" fill="black" text-anchor="middle" dominant-baseline="central">contaxop3004_H</text>
+<circle cx="97" cy="235" r="5" fill="red" />
+<text x="97" y="250" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">IN</text>
+<circle cx="147" cy="235" r="5" fill="green" />
+<text x="147" y="250" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">OUT</text>
+<path d="M147,235 L167,235" stroke="black" stroke-width="2" />
+<path d="M187,235 L167,235" stroke="black" stroke-width="2" />
+<rect x="187" y="210" width="50" height="50" fill="pink" stroke="black" stroke-width="1" />
+<text x="212" y="202" font-size="15" fill="black" text-anchor="middle" dominant-baseline="central">contaxopcontax_H</text>
+<circle cx="187" cy="235" r="5" fill="red" />
+<text x="187" y="250" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">IN</text>
+<circle cx="237" cy="235" r="5" fill="green" />
+<text x="237" y="250" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">OUT</text>
+<path d="M237,235 L257,235" stroke="black" stroke-width="2" />
+<path d="M277,235 L257,235" stroke="black" stroke-width="2" />
+<rect x="277" y="210" width="50" height="50" fill="pink" stroke="black" stroke-width="1" />
+<text x="302" y="202" font-size="15" fill="black" text-anchor="middle" dominant-baseline="central">faaropcontax_H</text>
+<circle cx="277" cy="235" r="5" fill="red" />
+<text x="277" y="250" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">IN</text>
+<circle cx="327" cy="235" r="5" fill="green" />
+<text x="327" y="250" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">OUT</text>
+<rect x="97" y="120" width="50" height="50" fill="pink" stroke="black" stroke-width="1" />
+<text x="122" y="112" font-size="15" fill="black" text-anchor="middle" dominant-baseline="central">lamp3004_H</text>
+<circle cx="97" cy="145" r="5" fill="red" />
+<text x="97" y="160" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">IN</text>
+<circle cx="147" cy="145" r="5" fill="green" />
+<text x="147" y="160" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">OUT</text>
+</svg>

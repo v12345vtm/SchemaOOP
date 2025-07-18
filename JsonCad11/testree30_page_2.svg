@@ -41,8 +41,12 @@
 <text x="0" y="905" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">CUT</text>
 <path d="M32,840 L32,825" stroke="black" stroke-width="2" />
 <path d="M97,775 L82,775" stroke="black" stroke-width="2" />
-<path d="M32,825 L32,775" stroke="orange" stroke-width="6" />
-<path d="M32,775 L82,775" stroke="yellow" stroke-width="5" />
+<path d="M32,825 L32,775" stroke="black" stroke-width="2" />
+<text x="12" y="825" font-size="10" fill="orange" valign="top" text-anchor="middle" dominant-baseline="central">van(32,825)&gt;</text>
+<text x="12" y="775" font-size="10" fill="orange" valign="top" text-anchor="middle" dominant-baseline="central">naar(32,775)&gt;</text>
+<path d="M32,825 L32,775" stroke="orange" stroke-width="2" />
+<path d="M32,775 L82,775" stroke="black" stroke-width="2" />
+<path d="M32,775 L82,775" stroke="yellow" stroke-width="2" />
 <text x="42" y="785" font-size="17" fill="blue" text-anchor="middle" dominant-baseline="central">1</text>
 <rect x="97" y="750" width="50" height="50" fill="pink" stroke="black" stroke-width="1" />
 <text x="122" y="742" font-size="15" fill="black" text-anchor="middle" dominant-baseline="central">zonnepaneelopdif3_H</text>
@@ -76,16 +80,36 @@
 <path d="M842,800 L842,815" stroke="black" stroke-width="2" />
 <path d="M302,840 L302,825" stroke="black" stroke-width="2" />
 <path d="M1112,800 L1112,815" stroke="black" stroke-width="2" />
-<path d="M302,825 L302,815" stroke="orange" stroke-width="6" />
-<path d="M302,815 L302,815" stroke="yellow" stroke-width="5" />
-<path d="M302,825 L302,815" stroke="orange" stroke-width="6" />
-<path d="M302,815 L482,815" stroke="yellow" stroke-width="5" />
-<path d="M302,825 L302,815" stroke="orange" stroke-width="6" />
-<path d="M302,815 L662,815" stroke="yellow" stroke-width="5" />
-<path d="M302,825 L302,815" stroke="orange" stroke-width="6" />
-<path d="M302,815 L842,815" stroke="yellow" stroke-width="5" />
-<path d="M302,825 L302,815" stroke="orange" stroke-width="6" />
-<path d="M302,815 L1112,815" stroke="yellow" stroke-width="5" />
+<path d="M302,825 L302,815" stroke="black" stroke-width="2" />
+<text x="282" y="825" font-size="10" fill="orange" valign="top" text-anchor="middle" dominant-baseline="central">van(302,825)&gt;</text>
+<text x="282" y="815" font-size="10" fill="orange" valign="top" text-anchor="middle" dominant-baseline="central">naar(302,815)&gt;</text>
+<path d="M302,825 L302,815" stroke="orange" stroke-width="2" />
+<path d="M302,815 L302,815" stroke="black" stroke-width="2" />
+<path d="M302,815 L302,815" stroke="yellow" stroke-width="2" />
+<path d="M302,825 L302,815" stroke="black" stroke-width="2" />
+<text x="282" y="825" font-size="10" fill="orange" valign="top" text-anchor="middle" dominant-baseline="central">van(302,825)&gt;</text>
+<text x="282" y="815" font-size="10" fill="orange" valign="top" text-anchor="middle" dominant-baseline="central">naar(302,815)&gt;</text>
+<path d="M302,825 L302,815" stroke="orange" stroke-width="2" />
+<path d="M302,815 L482,815" stroke="black" stroke-width="2" />
+<path d="M302,815 L482,815" stroke="yellow" stroke-width="2" />
+<path d="M302,825 L302,815" stroke="black" stroke-width="2" />
+<text x="282" y="825" font-size="10" fill="orange" valign="top" text-anchor="middle" dominant-baseline="central">van(302,825)&gt;</text>
+<text x="282" y="815" font-size="10" fill="orange" valign="top" text-anchor="middle" dominant-baseline="central">naar(302,815)&gt;</text>
+<path d="M302,825 L302,815" stroke="orange" stroke-width="2" />
+<path d="M302,815 L662,815" stroke="black" stroke-width="2" />
+<path d="M302,815 L662,815" stroke="yellow" stroke-width="2" />
+<path d="M302,825 L302,815" stroke="black" stroke-width="2" />
+<text x="282" y="825" font-size="10" fill="orange" valign="top" text-anchor="middle" dominant-baseline="central">van(302,825)&gt;</text>
+<text x="282" y="815" font-size="10" fill="orange" valign="top" text-anchor="middle" dominant-baseline="central">naar(302,815)&gt;</text>
+<path d="M302,825 L302,815" stroke="orange" stroke-width="2" />
+<path d="M302,815 L842,815" stroke="black" stroke-width="2" />
+<path d="M302,815 L842,815" stroke="yellow" stroke-width="2" />
+<path d="M302,825 L302,815" stroke="black" stroke-width="2" />
+<text x="282" y="825" font-size="10" fill="orange" valign="top" text-anchor="middle" dominant-baseline="central">van(302,825)&gt;</text>
+<text x="282" y="815" font-size="10" fill="orange" valign="top" text-anchor="middle" dominant-baseline="central">naar(302,815)&gt;</text>
+<path d="M302,825 L302,815" stroke="orange" stroke-width="2" />
+<path d="M302,815 L1112,815" stroke="black" stroke-width="2" />
+<path d="M302,815 L1112,815" stroke="yellow" stroke-width="2" />
 <rect x="277" y="750" width="50" height="50" fill="pink" stroke="black" stroke-width="1" />
 <text x="302" y="742" font-size="15" fill="black" text-anchor="middle" dominant-baseline="central">Diff100_V</text>
 <circle cx="302" cy="800" r="5" fill="red" />
@@ -96,14 +120,17 @@
 <text x="270" y="815" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">CUT</text>
 <path d="M302,750 L302,735" stroke="black" stroke-width="2" />
 <path d="M302,710 L302,725" stroke="black" stroke-width="2" />
-<path d="M302,735 L302,725" stroke="orange" stroke-width="6" />
-<path d="M302,725 L302,725" stroke="yellow" stroke-width="5" />
+<path d="M302,735 L302,725" stroke="black" stroke-width="2" />
+<text x="282" y="735" font-size="10" fill="orange" valign="top" text-anchor="middle" dominant-baseline="central">van(302,735)&gt;</text>
+<text x="282" y="725" font-size="10" fill="orange" valign="top" text-anchor="middle" dominant-baseline="central">naar(302,725)&gt;</text>
+<path d="M302,735 L302,725" stroke="orange" stroke-width="2" />
+<path d="M302,725 L302,725" stroke="black" stroke-width="2" />
+<path d="M302,725 L302,725" stroke="yellow" stroke-width="2" />
 <image x="277" y="660" width="50" height="50" xlink:href="symbolen/CircuitBreaker\circuit_breaker.svg" />
-<text x="302.0" y="650" font-size="12" fill="black" text-anchor="middle" dominant-baseline="central">zek1001_V (2p, 16A)</text>
-<text x="357" y="710" font-size="20" fill="black" text-anchor="middle" dominant-baseline="central">zek1001_V</text>
-<text x="357" y="680" font-size="20" fill="black" text-anchor="middle" dominant-baseline="central">16A</text>
-<circle cx="302" cy="560" r="8" fill="pink" />
-<text x="302" y="560" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">302 560</text>
+<text x="377" y="710" font-size="25" fill="black" text-anchor="middle" dominant-baseline="central">zek1001_V</text>
+<text x="347" y="675" font-size="15" fill="black" text-anchor="middle" dominant-baseline="central">16A</text>
+<circle cx="302" cy="510" r="8" fill="pink" />
+<text x="282" y="510" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">302 510</text>
 <text x="302" y="652" font-size="15" fill="black" text-anchor="middle" dominant-baseline="central">zek1001_V</text>
 <circle cx="302" cy="710" r="5" fill="red" />
 <text x="302" y="725" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">IN</text>
@@ -118,19 +145,35 @@
 <path d="M302,660 L302,645" stroke="black" stroke-width="2" />
 <path d="M457,415 L442,415" stroke="black" stroke-width="2" />
 <path d="M302,660 L302,645" stroke="black" stroke-width="2" />
-<path d="M547,325 L532,325" stroke="black" stroke-width="2" />
-<path d="M302,645 L302,415" stroke="orange" stroke-width="6" />
-<path d="M302,415 L352,415" stroke="yellow" stroke-width="5" />
+<path d="M367,145 L352,145" stroke="black" stroke-width="2" />
+<path d="M302,645 L302,415" stroke="black" stroke-width="2" />
+<text x="282" y="645" font-size="10" fill="orange" valign="top" text-anchor="middle" dominant-baseline="central">van(302,645)&gt;</text>
+<text x="282" y="415" font-size="10" fill="orange" valign="top" text-anchor="middle" dominant-baseline="central">naar(302,415)&gt;</text>
+<path d="M302,645 L302,415" stroke="orange" stroke-width="2" />
+<path d="M302,415 L352,415" stroke="black" stroke-width="2" />
+<path d="M302,415 L352,415" stroke="yellow" stroke-width="2" />
 <text x="312" y="425" font-size="17" fill="blue" text-anchor="middle" dominant-baseline="central">1</text>
-<path d="M302,645 L302,325" stroke="orange" stroke-width="6" />
-<path d="M302,325 L352,325" stroke="yellow" stroke-width="5" />
+<path d="M302,645 L302,325" stroke="black" stroke-width="2" />
+<text x="282" y="645" font-size="10" fill="orange" valign="top" text-anchor="middle" dominant-baseline="central">van(302,645)&gt;</text>
+<text x="282" y="325" font-size="10" fill="orange" valign="top" text-anchor="middle" dominant-baseline="central">naar(302,325)&gt;</text>
+<path d="M302,645 L302,325" stroke="orange" stroke-width="2" />
+<path d="M302,325 L352,325" stroke="black" stroke-width="2" />
+<path d="M302,325 L352,325" stroke="yellow" stroke-width="2" />
 <text x="312" y="335" font-size="17" fill="blue" text-anchor="middle" dominant-baseline="central">2</text>
-<path d="M302,560 L442,560" stroke="red" stroke-width="12" />
-<path d="M442,560 L442,415" stroke="green" stroke-width="12" />
+<path d="M302,510 L442,510" stroke="black" stroke-width="2" />
+<path d="M442,510 L442,415" stroke="black" stroke-width="2" />
+<text x="352" y="510" font-size="10" fill="green" valign="top" text-anchor="middle" dominant-baseline="central">van(442,510)&gt;</text>
+<text x="362" y="415" font-size="10" fill="green" valign="top" text-anchor="middle" dominant-baseline="central">naar(442,415)&gt;</text>
+<path d="M302,510 L442,510" stroke="red" stroke-width="2" />
+<path d="M442,510 L442,415" stroke="green" stroke-width="2" />
 <text x="452" y="425" font-size="17" fill="blue" text-anchor="middle" dominant-baseline="central">3</text>
-<path d="M302,560 L532,560" stroke="red" stroke-width="12" />
-<path d="M532,560 L532,325" stroke="green" stroke-width="12" />
-<text x="542" y="335" font-size="17" fill="blue" text-anchor="middle" dominant-baseline="central">4</text>
+<path d="M302,645 L302,145" stroke="black" stroke-width="2" />
+<text x="282" y="645" font-size="10" fill="orange" valign="top" text-anchor="middle" dominant-baseline="central">van(302,645)&gt;</text>
+<text x="282" y="145" font-size="10" fill="orange" valign="top" text-anchor="middle" dominant-baseline="central">naar(302,145)&gt;</text>
+<path d="M302,645 L302,145" stroke="orange" stroke-width="2" />
+<path d="M302,145 L352,145" stroke="black" stroke-width="2" />
+<path d="M302,145 L352,145" stroke="yellow" stroke-width="2" />
+<text x="312" y="155" font-size="17" fill="blue" text-anchor="middle" dominant-baseline="central">4</text>
 <rect x="367" y="390" width="50" height="50" fill="pink" stroke="black" stroke-width="1" />
 <text x="392" y="382" font-size="15" fill="black" text-anchor="middle" dominant-baseline="central">Verlichting6_H</text>
 <circle cx="367" cy="415" r="5" fill="red" />
@@ -150,19 +193,18 @@
 <text x="457" y="430" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">IN</text>
 <circle cx="507" cy="415" r="5" fill="green" />
 <text x="507" y="430" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">OUT</text>
-<image x="547" y="300" width="50" height="50" xlink:href="symbolen/Prieze\prieze_hydro_false_kinder_true_aarding_true_2.svg" />
-<text x="572.0" y="325.0" font-size="12" fill="red" text-anchor="middle" dominant-baseline="central">priezedub</text>
-<text x="572" y="292" font-size="15" fill="black" text-anchor="middle" dominant-baseline="central">priezedub</text>
-<circle cx="547" cy="325" r="5" fill="red" />
-<text x="547" y="340" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">IN</text>
-<circle cx="597" cy="325" r="5" fill="green" />
-<text x="597" y="340" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">OUT</text>
+<image x="367" y="120" width="50" height="50" xlink:href="symbolen/Prieze\prieze_hydro_false_kinder_true_aarding_true_2.svg" />
+<text x="392.0" y="145.0" font-size="12" fill="red" text-anchor="middle" dominant-baseline="central">priezedub</text>
+<text x="392" y="112" font-size="15" fill="black" text-anchor="middle" dominant-baseline="central">priezedub</text>
+<circle cx="367" cy="145" r="5" fill="red" />
+<text x="367" y="160" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">IN</text>
+<circle cx="417" cy="145" r="5" fill="green" />
+<text x="417" y="160" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">OUT</text>
 <image x="457" y="750" width="50" height="50" xlink:href="symbolen/CircuitBreaker\circuit_breaker.svg" />
-<text x="482.0" y="740" font-size="12" fill="black" text-anchor="middle" dominant-baseline="central">zek3001_V (2p, 16A)</text>
-<text x="537" y="800" font-size="20" fill="black" text-anchor="middle" dominant-baseline="central">zek3001_V</text>
-<text x="537" y="770" font-size="20" fill="black" text-anchor="middle" dominant-baseline="central">16A</text>
-<circle cx="482" cy="650" r="8" fill="pink" />
-<text x="482" y="650" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">482 650</text>
+<text x="557" y="800" font-size="25" fill="black" text-anchor="middle" dominant-baseline="central">zek3001_V</text>
+<text x="527" y="765" font-size="15" fill="black" text-anchor="middle" dominant-baseline="central">16A</text>
+<circle cx="482" cy="600" r="8" fill="pink" />
+<text x="462" y="600" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">482 600</text>
 <text x="482" y="742" font-size="15" fill="black" text-anchor="middle" dominant-baseline="central">zek3001_V</text>
 <circle cx="482" cy="800" r="5" fill="red" />
 <text x="482" y="815" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">IN</text>
@@ -172,8 +214,12 @@
 <text x="450" y="815" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">CUT</text>
 <path d="M482,750 L482,735" stroke="black" stroke-width="2" />
 <path d="M547,505 L532,505" stroke="black" stroke-width="2" />
-<path d="M482,735 L482,505" stroke="orange" stroke-width="6" />
-<path d="M482,505 L532,505" stroke="yellow" stroke-width="5" />
+<path d="M482,735 L482,505" stroke="black" stroke-width="2" />
+<text x="462" y="735" font-size="10" fill="orange" valign="top" text-anchor="middle" dominant-baseline="central">van(482,735)&gt;</text>
+<text x="462" y="505" font-size="10" fill="orange" valign="top" text-anchor="middle" dominant-baseline="central">naar(482,505)&gt;</text>
+<path d="M482,735 L482,505" stroke="orange" stroke-width="2" />
+<path d="M482,505 L532,505" stroke="black" stroke-width="2" />
+<path d="M482,505 L532,505" stroke="yellow" stroke-width="2" />
 <text x="492" y="515" font-size="17" fill="blue" text-anchor="middle" dominant-baseline="central">1</text>
 <rect x="547" y="480" width="50" height="50" fill="pink" stroke="black" stroke-width="1" />
 <text x="572" y="472" font-size="15" fill="black" text-anchor="middle" dominant-baseline="central">droogkast3002_H</text>
@@ -182,11 +228,10 @@
 <circle cx="597" cy="505" r="5" fill="green" />
 <text x="597" y="520" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">OUT</text>
 <image x="637" y="750" width="50" height="50" xlink:href="symbolen/CircuitBreaker\circuit_breaker.svg" />
-<text x="662.0" y="740" font-size="12" fill="black" text-anchor="middle" dominant-baseline="central">zek3002_V (2p, 16A)</text>
-<text x="717" y="800" font-size="20" fill="black" text-anchor="middle" dominant-baseline="central">zek3002_V</text>
-<text x="717" y="770" font-size="20" fill="black" text-anchor="middle" dominant-baseline="central">16A</text>
-<circle cx="662" cy="650" r="8" fill="pink" />
-<text x="662" y="650" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">662 650</text>
+<text x="737" y="800" font-size="25" fill="black" text-anchor="middle" dominant-baseline="central">zek3002_V</text>
+<text x="707" y="765" font-size="15" fill="black" text-anchor="middle" dominant-baseline="central">16A</text>
+<circle cx="662" cy="600" r="8" fill="pink" />
+<text x="642" y="600" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">662 600</text>
 <text x="662" y="742" font-size="15" fill="black" text-anchor="middle" dominant-baseline="central">zek3002_V</text>
 <circle cx="662" cy="800" r="5" fill="red" />
 <text x="662" y="815" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">IN</text>
@@ -198,11 +243,19 @@
 <path d="M727,505 L712,505" stroke="black" stroke-width="2" />
 <path d="M662,750 L662,735" stroke="black" stroke-width="2" />
 <path d="M727,415 L712,415" stroke="black" stroke-width="2" />
-<path d="M662,735 L662,505" stroke="orange" stroke-width="6" />
-<path d="M662,505 L712,505" stroke="yellow" stroke-width="5" />
+<path d="M662,735 L662,505" stroke="black" stroke-width="2" />
+<text x="642" y="735" font-size="10" fill="orange" valign="top" text-anchor="middle" dominant-baseline="central">van(662,735)&gt;</text>
+<text x="642" y="505" font-size="10" fill="orange" valign="top" text-anchor="middle" dominant-baseline="central">naar(662,505)&gt;</text>
+<path d="M662,735 L662,505" stroke="orange" stroke-width="2" />
+<path d="M662,505 L712,505" stroke="black" stroke-width="2" />
+<path d="M662,505 L712,505" stroke="yellow" stroke-width="2" />
 <text x="672" y="515" font-size="17" fill="blue" text-anchor="middle" dominant-baseline="central">1</text>
-<path d="M662,735 L662,415" stroke="orange" stroke-width="6" />
-<path d="M662,415 L712,415" stroke="yellow" stroke-width="5" />
+<path d="M662,735 L662,415" stroke="black" stroke-width="2" />
+<text x="642" y="735" font-size="10" fill="orange" valign="top" text-anchor="middle" dominant-baseline="central">van(662,735)&gt;</text>
+<text x="642" y="415" font-size="10" fill="orange" valign="top" text-anchor="middle" dominant-baseline="central">naar(662,415)&gt;</text>
+<path d="M662,735 L662,415" stroke="orange" stroke-width="2" />
+<path d="M662,415 L712,415" stroke="black" stroke-width="2" />
+<path d="M662,415 L712,415" stroke="yellow" stroke-width="2" />
 <text x="672" y="425" font-size="17" fill="blue" text-anchor="middle" dominant-baseline="central">2</text>
 <rect x="727" y="480" width="50" height="50" fill="pink" stroke="black" stroke-width="1" />
 <text x="752" y="472" font-size="15" fill="black" text-anchor="middle" dominant-baseline="central">microoven3002_H</text>
@@ -217,11 +270,10 @@
 <circle cx="777" cy="415" r="5" fill="green" />
 <text x="777" y="430" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">OUT</text>
 <image x="817" y="750" width="50" height="50" xlink:href="symbolen/CircuitBreaker\circuit_breaker.svg" />
-<text x="842.0" y="740" font-size="12" fill="black" text-anchor="middle" dominant-baseline="central">zek3003_V (2p, 16A)</text>
-<text x="897" y="800" font-size="20" fill="black" text-anchor="middle" dominant-baseline="central">zek3003_V</text>
-<text x="897" y="770" font-size="20" fill="black" text-anchor="middle" dominant-baseline="central">16A</text>
-<circle cx="842" cy="650" r="8" fill="pink" />
-<text x="842" y="650" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">842 650</text>
+<text x="917" y="800" font-size="25" fill="black" text-anchor="middle" dominant-baseline="central">zek3003_V</text>
+<text x="887" y="765" font-size="15" fill="black" text-anchor="middle" dominant-baseline="central">16A</text>
+<circle cx="842" cy="600" r="8" fill="pink" />
+<text x="822" y="600" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">842 600</text>
 <text x="842" y="742" font-size="15" fill="black" text-anchor="middle" dominant-baseline="central">zek3003_V</text>
 <circle cx="842" cy="800" r="5" fill="red" />
 <text x="842" y="815" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">IN</text>
@@ -235,14 +287,26 @@
 <path d="M907,145 L892,145" stroke="black" stroke-width="2" />
 <path d="M842,750 L842,735" stroke="black" stroke-width="2" />
 <path d="M907,55 L892,55" stroke="black" stroke-width="2" />
-<path d="M842,735 L842,505" stroke="orange" stroke-width="6" />
-<path d="M842,505 L892,505" stroke="yellow" stroke-width="5" />
+<path d="M842,735 L842,505" stroke="black" stroke-width="2" />
+<text x="822" y="735" font-size="10" fill="orange" valign="top" text-anchor="middle" dominant-baseline="central">van(842,735)&gt;</text>
+<text x="822" y="505" font-size="10" fill="orange" valign="top" text-anchor="middle" dominant-baseline="central">naar(842,505)&gt;</text>
+<path d="M842,735 L842,505" stroke="orange" stroke-width="2" />
+<path d="M842,505 L892,505" stroke="black" stroke-width="2" />
+<path d="M842,505 L892,505" stroke="yellow" stroke-width="2" />
 <text x="852" y="515" font-size="17" fill="blue" text-anchor="middle" dominant-baseline="central">1</text>
-<path d="M842,735 L842,145" stroke="orange" stroke-width="6" />
-<path d="M842,145 L892,145" stroke="yellow" stroke-width="5" />
+<path d="M842,735 L842,145" stroke="black" stroke-width="2" />
+<text x="822" y="735" font-size="10" fill="orange" valign="top" text-anchor="middle" dominant-baseline="central">van(842,735)&gt;</text>
+<text x="822" y="145" font-size="10" fill="orange" valign="top" text-anchor="middle" dominant-baseline="central">naar(842,145)&gt;</text>
+<path d="M842,735 L842,145" stroke="orange" stroke-width="2" />
+<path d="M842,145 L892,145" stroke="black" stroke-width="2" />
+<path d="M842,145 L892,145" stroke="yellow" stroke-width="2" />
 <text x="852" y="155" font-size="17" fill="blue" text-anchor="middle" dominant-baseline="central">2</text>
-<path d="M842,735 L842,55" stroke="orange" stroke-width="6" />
-<path d="M842,55 L892,55" stroke="yellow" stroke-width="5" />
+<path d="M842,735 L842,55" stroke="black" stroke-width="2" />
+<text x="822" y="735" font-size="10" fill="orange" valign="top" text-anchor="middle" dominant-baseline="central">van(842,735)&gt;</text>
+<text x="822" y="55" font-size="10" fill="orange" valign="top" text-anchor="middle" dominant-baseline="central">naar(842,55)&gt;</text>
+<path d="M842,735 L842,55" stroke="orange" stroke-width="2" />
+<path d="M842,55 L892,55" stroke="black" stroke-width="2" />
+<path d="M842,55 L892,55" stroke="yellow" stroke-width="2" />
 <text x="852" y="65" font-size="17" fill="blue" text-anchor="middle" dominant-baseline="central">3</text>
 <rect x="907" y="480" width="50" height="50" fill="pink" stroke="black" stroke-width="1" />
 <text x="932" y="472" font-size="15" fill="black" text-anchor="middle" dominant-baseline="central">domo2_H</text>
@@ -313,11 +377,10 @@
 <circle cx="957" cy="55" r="5" fill="green" />
 <text x="957" y="70" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">OUT</text>
 <image x="1087" y="750" width="50" height="50" xlink:href="symbolen/CircuitBreaker\circuit_breaker.svg" />
-<text x="1112.0" y="740" font-size="12" fill="black" text-anchor="middle" dominant-baseline="central">zek3004verl_V (2p, 16A)</text>
-<text x="1167" y="800" font-size="20" fill="black" text-anchor="middle" dominant-baseline="central">zek3004verl_V</text>
-<text x="1167" y="770" font-size="20" fill="black" text-anchor="middle" dominant-baseline="central">16A</text>
-<circle cx="1112" cy="650" r="8" fill="pink" />
-<text x="1112" y="650" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">1112 650</text>
+<text x="1187" y="800" font-size="25" fill="black" text-anchor="middle" dominant-baseline="central">zek3004verl_V</text>
+<text x="1157" y="765" font-size="15" fill="black" text-anchor="middle" dominant-baseline="central">16A</text>
+<circle cx="1112" cy="600" r="8" fill="pink" />
+<text x="1092" y="600" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">1112 600</text>
 <text x="1112" y="742" font-size="15" fill="black" text-anchor="middle" dominant-baseline="central">zek3004verl_V</text>
 <circle cx="1112" cy="800" r="5" fill="red" />
 <text x="1112" y="815" font-size="12" fill="black" valign="top" text-anchor="middle" dominant-baseline="central">IN</text>
@@ -335,20 +398,40 @@
 <path d="M1177,235 L1162,235" stroke="black" stroke-width="2" />
 <path d="M1112,750 L1112,735" stroke="black" stroke-width="2" />
 <path d="M1177,145 L1162,145" stroke="black" stroke-width="2" />
-<path d="M1112,735 L1112,505" stroke="orange" stroke-width="6" />
-<path d="M1112,505 L1162,505" stroke="yellow" stroke-width="5" />
+<path d="M1112,735 L1112,505" stroke="black" stroke-width="2" />
+<text x="1092" y="735" font-size="10" fill="orange" valign="top" text-anchor="middle" dominant-baseline="central">van(1112,735)&gt;</text>
+<text x="1092" y="505" font-size="10" fill="orange" valign="top" text-anchor="middle" dominant-baseline="central">naar(1112,505)&gt;</text>
+<path d="M1112,735 L1112,505" stroke="orange" stroke-width="2" />
+<path d="M1112,505 L1162,505" stroke="black" stroke-width="2" />
+<path d="M1112,505 L1162,505" stroke="yellow" stroke-width="2" />
 <text x="1122" y="515" font-size="17" fill="blue" text-anchor="middle" dominant-baseline="central">1</text>
-<path d="M1112,735 L1112,415" stroke="orange" stroke-width="6" />
-<path d="M1112,415 L1162,415" stroke="yellow" stroke-width="5" />
+<path d="M1112,735 L1112,415" stroke="black" stroke-width="2" />
+<text x="1092" y="735" font-size="10" fill="orange" valign="top" text-anchor="middle" dominant-baseline="central">van(1112,735)&gt;</text>
+<text x="1092" y="415" font-size="10" fill="orange" valign="top" text-anchor="middle" dominant-baseline="central">naar(1112,415)&gt;</text>
+<path d="M1112,735 L1112,415" stroke="orange" stroke-width="2" />
+<path d="M1112,415 L1162,415" stroke="black" stroke-width="2" />
+<path d="M1112,415 L1162,415" stroke="yellow" stroke-width="2" />
 <text x="1122" y="425" font-size="17" fill="blue" text-anchor="middle" dominant-baseline="central">2</text>
-<path d="M1112,735 L1112,325" stroke="orange" stroke-width="6" />
-<path d="M1112,325 L1162,325" stroke="yellow" stroke-width="5" />
+<path d="M1112,735 L1112,325" stroke="black" stroke-width="2" />
+<text x="1092" y="735" font-size="10" fill="orange" valign="top" text-anchor="middle" dominant-baseline="central">van(1112,735)&gt;</text>
+<text x="1092" y="325" font-size="10" fill="orange" valign="top" text-anchor="middle" dominant-baseline="central">naar(1112,325)&gt;</text>
+<path d="M1112,735 L1112,325" stroke="orange" stroke-width="2" />
+<path d="M1112,325 L1162,325" stroke="black" stroke-width="2" />
+<path d="M1112,325 L1162,325" stroke="yellow" stroke-width="2" />
 <text x="1122" y="335" font-size="17" fill="blue" text-anchor="middle" dominant-baseline="central">3</text>
-<path d="M1112,735 L1112,235" stroke="orange" stroke-width="6" />
-<path d="M1112,235 L1162,235" stroke="yellow" stroke-width="5" />
+<path d="M1112,735 L1112,235" stroke="black" stroke-width="2" />
+<text x="1092" y="735" font-size="10" fill="orange" valign="top" text-anchor="middle" dominant-baseline="central">van(1112,735)&gt;</text>
+<text x="1092" y="235" font-size="10" fill="orange" valign="top" text-anchor="middle" dominant-baseline="central">naar(1112,235)&gt;</text>
+<path d="M1112,735 L1112,235" stroke="orange" stroke-width="2" />
+<path d="M1112,235 L1162,235" stroke="black" stroke-width="2" />
+<path d="M1112,235 L1162,235" stroke="yellow" stroke-width="2" />
 <text x="1122" y="245" font-size="17" fill="blue" text-anchor="middle" dominant-baseline="central">4</text>
-<path d="M1112,735 L1112,145" stroke="orange" stroke-width="6" />
-<path d="M1112,145 L1162,145" stroke="yellow" stroke-width="5" />
+<path d="M1112,735 L1112,145" stroke="black" stroke-width="2" />
+<text x="1092" y="735" font-size="10" fill="orange" valign="top" text-anchor="middle" dominant-baseline="central">van(1112,735)&gt;</text>
+<text x="1092" y="145" font-size="10" fill="orange" valign="top" text-anchor="middle" dominant-baseline="central">naar(1112,145)&gt;</text>
+<path d="M1112,735 L1112,145" stroke="orange" stroke-width="2" />
+<path d="M1112,145 L1162,145" stroke="black" stroke-width="2" />
+<path d="M1112,145 L1162,145" stroke="yellow" stroke-width="2" />
 <text x="1122" y="155" font-size="17" fill="blue" text-anchor="middle" dominant-baseline="central">5</text>
 <rect x="1177" y="480" width="50" height="50" fill="pink" stroke="black" stroke-width="1" />
 <text x="1202" y="472" font-size="15" fill="black" text-anchor="middle" dominant-baseline="central">Verlicht1_H</text>

@@ -5,6 +5,7 @@ from PIL import Image, ImageTk
 import os
 import drawsvg as draw
 
+DEBUG = True  # Set to False for normal operation
 
 
 class Component:
@@ -36,6 +37,21 @@ class Component:
         self.kwargs = kwargs  # Store all extra arguments in a dict
         # Optionally extract common expected values
         self.volgorde = kwargs.get("volgorde", None)
+
+
+    # ---- Usage example:
+    # find_and_move_subtree(domo, te_tekenen_startpunt, tempymover=-2, tempxmover_start=1)
+
+    def move_element_met_kinderen(self, dx, dy):
+        """
+        Shift this node and all descendants by (dx, dy).
+        dx: integer - offset in x-direction (relative)
+        dy: integer - offset in y-direction (relative)
+        """
+        self.x += dx
+        self.y += dy
+        for child in self.children:
+            child.move_element_met_kinderen(dx, dy)
 
     def get_bus_start_coords(self, child, parent_stub_end):
         """
@@ -80,7 +96,7 @@ class Component:
         dot_radius = 5
 
         # Input dot (red)
-        if self.connectionpoint_input:
+        if self.connectionpoint_input and DEBUG:
             in_cx, in_cy = self.connectionpoint_input
             in_x = pixel_x + in_cx
             in_y = pixel_y + in_cy
@@ -88,7 +104,7 @@ class Component:
             drawing.append(draw.Text("IN", 12, in_x, in_y + 15, center=True, fill='black', valign='top'))
 
         # Output dot (green)
-        if self.connectionpoint_output:
+        if self.connectionpoint_output and DEBUG:
             out_cx, out_cy = self.connectionpoint_output
             out_x = pixel_x + out_cx
             out_y = pixel_y + out_cy
@@ -101,9 +117,11 @@ class Component:
             waarmogenweknippen = sizex // 2 + 7
             cut_x = pixel_x + in_cx - waarmogenweknippen
             cut_y = pixel_y + in_cy
-            drawing.append(draw.Circle(cut_x, cut_y, dot_radius, fill='yellow'))
-            drawing.append(draw.Text("CUT", 12, cut_x, cut_y + 15, center=True, fill='black', valign='top'))
             self.allowed_cuts_x.append(cut_x)
+            if DEBUG:
+                drawing.append(draw.Circle(cut_x, cut_y, dot_radius, fill='yellow'))
+                drawing.append(draw.Text("CUT", 12, cut_x, cut_y + 15, center=True, fill='black', valign='top'))
+
 
         # Draw connections/lines to children
         stub_length_H = self.pixels_tussen_kringen_H // 2
@@ -173,14 +191,20 @@ class Component:
                 if use_secondary:
                     bus_x, bus_y0 = self.secundary_aftakpunt
                     # Go horizontally first, then vertically to child
-                    drawing.append(draw.Line(bus_x, bus_y0, child_stub_end[0], bus_y0, stroke='red', stroke_width=12))
-                    drawing.append(draw.Line(child_stub_end[0], bus_y0, child_stub_end[0], child_stub_end[1], stroke='green', stroke_width=12))
-                    van = f"van({child_stub_end[0]},{bus_y0})>"
-                    naar = f"naar({child_stub_end[0]},{child_stub_end[1]})>"
+                    drawing.append(draw.Line(bus_x, bus_y0, child_stub_end[0], bus_y0, stroke='black', stroke_width=2))
+                    drawing.append(draw.Line(child_stub_end[0], bus_y0, child_stub_end[0], child_stub_end[1], stroke='black', stroke_width=2))
+
                     self.taknummer_x = child_stub_end[0]
                     self.taknummer_y = child_stub_end[1]
-                    #drawing.append(draw.Text(van, 20, child_stub_end[0]-90, bus_y0, center=True, fill='green',valign='top'))
-                    #drawing.append(draw.Text(naar, 20, child_stub_end[0]-80, child_stub_end[1], center=True, fill='green',valign='top'))
+                    if DEBUG:
+                        van = f"van({child_stub_end[0]},{bus_y0})>"
+                        naar = f"naar({child_stub_end[0]},{child_stub_end[1]})>"
+                        drawing.append(draw.Text(van, 10, child_stub_end[0]-90, bus_y0, center=True, fill='green',valign='top'))
+                        drawing.append(draw.Text(naar, 10, child_stub_end[0]-80, child_stub_end[1], center=True, fill='green',valign='top'))
+                        drawing.append(
+                        draw.Line(bus_x, bus_y0, child_stub_end[0], bus_y0, stroke='red', stroke_width=2))
+                        drawing.append(
+                        draw.Line(child_stub_end[0], bus_y0, child_stub_end[0], child_stub_end[1], stroke='green',stroke_width=2))
 
 
 
@@ -188,15 +212,20 @@ class Component:
                     bus_x = parent_stub_end[0]
                     bus_y0 = parent_stub_end[1]
                     bus_y1 = child_stub_end[1]
-                    drawing.append(draw.Line(bus_x, bus_y0, bus_x, bus_y1, stroke='orange', stroke_width=6))
+                    drawing.append(draw.Line(bus_x, bus_y0, bus_x, bus_y1, stroke='black', stroke_width=2))
                     van = f"van({bus_x},{bus_y0})>"
                     naar = f"naar({bus_x},{bus_y1})>"
                     self.taknummer_x = bus_x
                     self.taknummer_y = bus_y1
-                    #drawing.append(draw.Text(van, 20, bus_x-90, bus_y0, center=True, fill='orange',valign='top'))
-                    #drawing.append(draw.Text(naar, 20, bus_x-100, bus_y1, center=True, fill='orange',valign='top'))
+                    if  DEBUG:
+                        drawing.append(draw.Text(van, 10, bus_x-20, bus_y0, center=True, fill='orange',valign='top'))
+                        drawing.append(draw.Text(naar, 10, bus_x-20, bus_y1, center=True, fill='orange',valign='top'))
+                        drawing.append(draw.Line(bus_x, bus_y0, bus_x, bus_y1, stroke='orange', stroke_width=2))
 
-                    drawing.append(draw.Line(bus_x, bus_y1, child_stub_end[0], bus_y1, stroke='yellow', stroke_width=5))
+                    drawing.append(draw.Line(bus_x, bus_y1, child_stub_end[0], bus_y1, stroke='black', stroke_width=2))
+                    if DEBUG:
+                        drawing.append(draw.Line(bus_x, bus_y1, child_stub_end[0], bus_y1, stroke='yellow', stroke_width=2))
+
                     if (child_stub_end[0], bus_y1) != (child_stub_end[0], child_stub_end[1]):
                         drawing.append(draw.Line(child_stub_end[0], bus_y1, child_stub_end[0], child_stub_end[1], stroke='black',stroke_width=2))
 
@@ -284,7 +313,7 @@ class Component:
 
     def print_ascii_tree_with_regel(self, prefix=" "):
         regel = getattr(self, "_regel_used", "?")
-        print(f"{prefix}{self.label} ({self.grid_x},{self.grid_y})\t\t{regel}")
+        print(f"{prefix}{self.label} SVG({self.grid_x},{self.grid_y})  core({self.x},{self.y})\t\t{regel}")
         for i, child in enumerate(self.children):
             connector = "└── " if i == len(self.children) - 1 else "├── "
             child_prefix = prefix + ("    " if i == len(self.children) - 1 else "│   ")
@@ -413,8 +442,8 @@ class Component:
         Prints all nodes with their new x and y values.
         """
         def update_x(component):
-            if component.grid_x >= kolom_index:
-                component.grid_x += 1
+            if component.x >= kolom_index:
+                component.x += 1
             for child in component.children:
                 update_x(child)
         update_x(self)
@@ -513,13 +542,7 @@ class Component:
         for child in self.children:
             child.sort_children()
 
-    def print_ascii_tree(self, prefix=" "):
-        print(f"{prefix}{self.label} ({self.grid_x},{self.grid_y})")
-        for i, child in enumerate(self.children):
-            connector = "└── " if i == len(self.children) - 1 else "├── "
-            child_prefix = prefix + ("    " if i == len(self.children) - 1 else "│   ")
-            print(f"{prefix}{connector}", end="")
-            child.print_ascii_tree(child_prefix)
+
 
     @staticmethod
     def extract_int(label):
@@ -578,29 +601,31 @@ class CircuitBreaker(Component):
         # Draw the SVG symbol
         drawing.append(draw.Image(pixel_x, pixel_y, size_x, size_y, self.image_path))
 
-        # Label (optional, can include amperage/polen)
-        label_str = f"{self.label} ({self.polen}p, {self.amperage}A)"
-        drawing.append(draw.Text(
-            label_str, 12, pixel_x + size_x / 2, pixel_y - 10,
-            center=True, fill="black"
-        ))
+        if DEBUG:
+            # Label (optional, can include amperage/polen)
+            #label_str = f"{self.label} ({self.polen}p, {self.amperage}A)"
+            #drawing.append(draw.Text(label_str, 29, pixel_x + size_x / 2, pixel_y - 10,center=True, fill="black"))
+            pass
 
 
         # Label (optional, can include amperage/polen)
-        amp_str = f"{self.amperage}A"
-        drawing.append(draw.Text(self.label, 20, pixel_x + self.boundarybox_breedte  + 30, pixel_y + self.boundarybox_hoogte,center=True, fill="black"))
-        drawing.append(draw.Text(amp_str, 20, pixel_x + self.boundarybox_breedte  + 30, pixel_y + self.boundarybox_hoogte - 30 ,center=True, fill="black"))
+        label_naam_cicuitbreaker = f"{self.label}"
+        drawing.append(draw.Text(label_naam_cicuitbreaker, 25, pixel_x + self.boundarybox_breedte  + 50, pixel_y + self.boundarybox_hoogte,center=True, fill="black"))
+
+        label_stroomsterkte_cicuitbreaker = f"{self.amperage}A"
+        drawing.append(draw.Text(label_stroomsterkte_cicuitbreaker, 15, pixel_x + self.boundarybox_breedte  + 20, pixel_y + self.boundarybox_hoogte - 35 ,center=True, fill="black"))
 
         # Output extra aftakpunt
         if self.connectionpoint_output:
             out_cx, out_cy = self.connectionpoint_output
             out_x = pixel_x + out_cx
             out_y = pixel_y + out_cy
-            hoehoogaftakkenvdzekering = 100
+            hoehoogaftakkenvdzekering = 150
             self.secundary_aftakpunt = (out_x, out_y -hoehoogaftakkenvdzekering)
-            drawing.append(draw.Circle(out_x, out_y-hoehoogaftakkenvdzekering, 8, fill='pink'))
-            text = f"{out_x} {out_y - hoehoogaftakkenvdzekering}"
-            drawing.append(draw.Text(text, 12, out_x, out_y - hoehoogaftakkenvdzekering, center=True, fill='black', valign='top'))
+            if DEBUG:
+                drawing.append(draw.Circle(out_x, out_y-hoehoogaftakkenvdzekering, 8, fill='pink'))
+                text = f"{out_x} {out_y - hoehoogaftakkenvdzekering}"
+                drawing.append(draw.Text(text, 12, out_x-20, out_y - hoehoogaftakkenvdzekering, center=True, fill='black', valign='top'))
 
         # Draw children recursively MOET
         super().draw_svg(drawing, x_spacing, y_spacing, swapy=False)
@@ -705,10 +730,7 @@ class Prieze(Component):
         drawing.append(draw.Image(pixel_x, pixel_y, size, size, self.image_path))
 
         # Draw the label (centered)
-        drawing.append(draw.Text(
-            self.label, 12, pixel_x + size / 2, pixel_y + size / 2,
-            center=True, fill="red"
-        ))
+        drawing.append(draw.Text(self.label, 12, pixel_x + size / 2, pixel_y + size / 2,center=True, fill="red"))
 
         # Continue to recursively draw children/links
         super().draw_svg(drawing, x_spacing, y_spacing, swapy=False)
@@ -802,9 +824,8 @@ def increment_y_for_circuitbreaker_descendants(node):
 
 def verste_afstammeling_x(node):
     if not node.children:
-        return node.grid_x
-    return max([node.grid_x] + [verste_afstammeling_x(child) for child in node.children])
-
+        return node.x
+    return max([node.x] + [verste_afstammeling_x(child) for child in node.children])
 
 
 if __name__ == "__main__":
@@ -813,18 +834,19 @@ if __name__ == "__main__":
 
 
     te_tekenen_startpunt.assign_coordinates_by_rules()
-    prieze.x = prieze.x + 1
-    prieze.y = prieze.y - 2
 
-    priezedub.x = priezedub.x + 2
-    priezedub.y = priezedub.y - 2
-
+    print(f"X pos verste afstamming : {verste_afstammeling_x(prieze)}")
+    print(f"X pos eigen : {prieze.x}")
+    afstand = verste_afstammeling_x(prieze) - prieze.x
+    print(f"verschil (afstand): {afstand}")
+    prieze.move_element_met_kinderen(1 , -2)
 
     # << Add this line to adjust y coordinates >>
     increment_y_for_circuitbreaker_descendants(te_tekenen_startpunt)
 
     te_tekenen_startpunt.multiply_coordinates(1)
     te_tekenen_startpunt.print_ascii_tree_with_regel()
+    #exit()
 
 
     #te_tekenen_startpunt.insert_kolom_at(7)

@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     width="1700" height="710" viewBox="0 0 1 1">
+<defs>
+</defs>
+<path d="M50,50 L1650,50" stroke="lightgray" stroke-width="0.5" stroke-dasharray="2,2" />
+<path d="M50,120 L1650,120" stroke="lightgray" stroke-width="0.5" stroke-dasharray="2,2" />
+<path d="M50,190 L1650,190" stroke="lightgray" stroke-width="0.5" stroke-dasharray="2,2" />
+<path d="M50,260 L1650,260" stroke="lightgray" stroke-width="0.5" stroke-dasharray="2,2" />
+<path d="M50,330 L1650,330" stroke="lightgray" stroke-width="0.5" stroke-dasharray="2,2" />
+<path d="M50,400 L1650,400" stroke="lightgray" stroke-width="0.5" stroke-dasharray="2,2" />
+<path d="M50,470 L1650,470" stroke="lightgray" stroke-width="0.5" stroke-dasharray="2,2" />
+<path d="M50,540 L1650,540" stroke="lightgray" stroke-width="0.5" stroke-dasharray="2,2" />
+<path d="M50,610 L1650,610" stroke="lightgray" stroke-width="0.5" stroke-dasharray="2,2" />
+<path d="M50,680 L1650,680" stroke="lightgray" stroke-width="0.5" stroke-dasharray="2,2" />
+<path d="M50,50 L50,680" stroke="lightgray" stroke-width="0.5" stroke-dasharray="2,2" />
+<path d="M120,50 L120,680" stroke="lightgray" stroke-width="0.5" stroke-dasharray="2,2" />
+<path d="M190,50 L190,680" stroke="lightgray" stroke-width="0.5" stroke-dasharray="2,2" />
+<path d="M260,50 L260,680" stroke="lightgray" stroke-width="0.5" stroke-dasharray="2,2" />
+<path d="M330,50 L330,680" stroke="lightgray" stroke-width="0.5" stroke-dasharray="2,2" />
+<path d="M400,50 L400,680" stroke="lightgray" stroke-width="0.5" stroke-dasharray="2,2" />
+<path d="M470,50 L470,680" stroke="lightgray" stroke-width="0.5" stroke-dasharray="2,2" />
+<path d="M540,50 L540,680" stroke="lightgray" stroke-width="0.5" stroke-dasharray="2,2" />
+<path d="M660,50 L660,680" stroke="lightgray" stroke-width="0.5" stroke-dasharray="2,2" />
+<path d="M730,50 L730,680" stroke="lightgray" stroke-width="0.5" stroke-dasharray="2,2" />
+<path d="M800,50 L800,680" stroke="lightgray" stroke-width="0.5" stroke-dasharray="2,2" />
+<path d="M870,50 L870,680" stroke="lightgray" stroke-width="0.5" stroke-dasharray="2,2" />
+<path d="M940,50 L940,680" stroke="lightgray" stroke-width="0.5" stroke-dasharray="2,2" />
+<path d="M1010,50 L1010,680" stroke="lightgray" stroke-width="0.5" stroke-dasharray="2,2" />
+<path d="M1080,50 L1080,680" stroke="lightgray" stroke-width="0.5" stroke-dasharray="2,2" />
+<path d="M1150,50 L1150,680" stroke="lightgray" stroke-width="0.5" stroke-dasharray="2,2" />
+<path d="M1270,50 L1270,680" stroke="lightgray" stroke-width="0.5" stroke-dasharray="2,2" />
+<path d="M1340,50 L1340,680" stroke="lightgray" stroke-width="0.5" stroke-dasharray="2,2" />
+<path d="M1460,50 L1460,680" stroke="lightgray" stroke-width="0.5" stroke-dasharray="2,2" />
+<path d="M1530,50 L1530,680" stroke="lightgray" stroke-width="0.5" stroke-dasharray="2,2" />
+<path d="M1650,50 L1650,680" stroke="lightgray" stroke-width="0.5" stroke-dasharray="2,2" />
+<rect x="50" y="50" width="50" height="50" fill="lightblue" stroke="blue" stroke-width="1" opacity="0.3" rx="5" ry="5" />
+<text x="75.0" y="80.0" font-size="12" text-anchor="middle" fill="black" font-family="sans-serif">kop</text>
+<path d="M30,75.0 L50,75.0" stroke="black" stroke-width="1.5" />
+<path d="M100,75.0 L120,75.0" stroke="black" stroke-width="1.5" />
+<rect x="120" y="50" width="50" height="50" fill="lightblue" stroke="blue" stroke-width="1" opacity="0.3" rx="5" ry="5" />
+<path d="M100,75.0 L120,75.0" stroke="black" stroke-width="1.5" />
+<path d="M170,75.0 L190,75.0" stroke="black" stroke-width="1.5" />
+<path d="M120,75.0 L120,75.0" stroke="red" stroke-width="1.5" />
+<path d="M120,75.0 L120,75.0" stroke="red" stroke-width="1.5" />
+<path d="M120,75.0 L100,75.0" stroke="red" stroke-width="1.5" />
+<rect x="190" y="120" width="50" height="50" fill="lightblue" stroke="blue" stroke-width="1" opacity="0.3" rx="5" ry="5" />
+<text x="215.0" y="150.0" font-size="12" text-anchor="middle" fill="black" font-family="sans-serif">Diff3_V</text>
+<path d="M170,145.0 L190,145.0" stroke="black" stroke-width="1.5" />
+<path d="M240,145.0 L260,145.0" stroke="black" stroke-width="1.5" />
+<path d="M190,75.0 L190,75.0" stroke="red" stroke-width="1.5" />
+<path d="M190,75.0 L190,145.0" stroke="red" stroke-width="1.5" />
+<path d="M190,145.0 L170,145.0" stroke="red" stroke-width="1.5" />
+<rect x="260" y="190" width="50" height="50" fill="lightblue" stroke="blue" stroke-width="1" opacity="0.3" rx="5" ry="5" />
+<text x="285.0" y="220.0" font-size="12" text-anchor="middle" fill="black" font-family="sans-serif">zonnepaneelopdif3_H</text>
+<path d="M240,215.0 L260,215.0" stroke="black" stroke-width="1.5" />
+<path d="M310,215.0 L330,215.0" stroke="black" stroke-width="1.5" />
+<path d="M260,145.0 L260,145.0" stroke="red" stroke-width="1.5" />
+<path d="M260,145.0 L260,215.0" stroke="red" stroke-width="1.5" />
+<path d="M260,215.0 L240,215.0" stroke="red" stroke-width="1.5" />
+<rect x="330" y="120" width="50" height="50" fill="lightblue" stroke="blue" stroke-width="1" opacity="0.3" rx="5" ry="5" />
+<text x="355.0" y="150.0" font-size="12" text-anchor="middle" fill="black" font-family="sans-serif">Diff30_V</text>
+<path d="M310,145.0 L330,145.0" stroke="black" stroke-width="1.5" />
+<path d="M380,145.0 L400,145.0" stroke="black" stroke-width="1.5" />
+<path d="M190,75.0 L190,75.0" stroke="red" stroke-width="1.5" />
+<path d="M190,75.0 L190,145.0" stroke="red" stroke-width="1.5" />
+<path d="M190,145.0 L310,145.0" stroke="red" stroke-width="1.5" />
+<rect x="400" y="190" width="50" height="50" fill="lightblue" stroke="blue" stroke-width="1" opacity="0.3" rx="5" ry="5" />
+<text x="425.0" y="220.0" font-size="12" text-anchor="middle" fill="black" font-family="sans-serif">reserve_H</text>
+<path d="M380,215.0 L400,215.0" stroke="black" stroke-width="1.5" />
+<path d="M450,215.0 L470,215.0" stroke="black" stroke-width="1.5" />
+<path d="M400,145.0 L400,145.0" stroke="red" stroke-width="1.5" />
+<path d="M400,145.0 L400,215.0" stroke="red" stroke-width="1.5" />
+<path d="M400,215.0 L380,215.0" stroke="red" stroke-width="1.5" />
+<rect x="470" y="120" width="50" height="50" fill="lightblue" stroke="blue" stroke-width="1" opacity="0.3" rx="5" ry="5" />
+<text x="495.0" y="150.0" font-size="12" text-anchor="middle" fill="black" font-family="sans-serif">Diff300_V</text>
+<path d="M450,145.0 L470,145.0" stroke="black" stroke-width="1.5" />
+<path d="M520,145.0 L540,145.0" stroke="black" stroke-width="1.5" />
+<path d="M190,75.0 L190,75.0" stroke="red" stroke-width="1.5" />
+<path d="M190,75.0 L190,145.0" stroke="red" stroke-width="1.5" />
+<path d="M190,145.0 L450,145.0" stroke="red" stroke-width="1.5" />
+<rect x="470" y="190" width="50" height="50" fill="lightblue" stroke="blue" stroke-width="1" opacity="0.3" rx="5" ry="5" />
+<text x="495.0" y="220.0" font-size="12" text-anchor="middle" fill="black" font-family="sans-serif">Diff100_V</text>
+<path d="M450,215.0 L470,215.0" stroke="black" stroke-width="1.5" />
+<path d="M520,215.0 L540,215.0" stroke="black" stroke-width="1.5" />
+<path d="M540,145.0 L540,145.0" stroke="red" stroke-width="1.5" />
+<path d="M540,145.0 L540,215.0" stroke="red" stroke-width="1.5" />
+<path d="M540,215.0 L450,215.0" stroke="red" stroke-width="1.5" />
+<rect x="470" y="260" width="50" height="50" fill="lightblue" stroke="blue" stroke-width="1" opacity="0.3" rx="5" ry="5" />
+<text x="495.0" y="290.0" font-size="12" text-anchor="middle" fill="black" font-family="sans-serif">zek1001_V</text>
+<path d="M450,285.0 L470,285.0" stroke="black" stroke-width="1.5" />
+<path d="M520,285.0 L540,285.0" stroke="black" stroke-width="1.5" />
+<path d="M540,215.0 L540,215.0" stroke="red" stroke-width="1.5" />
+<path d="M540,215.0 L540,285.0" stroke="red" stroke-width="1.5" />
+<path d="M540,285.0 L450,285.0" stroke="red" stroke-width="1.5" />
+<rect x="540" y="410" width="50" height="50" fill="lightblue" stroke="blue" stroke-width="1" opacity="0.3" rx="5" ry="5" />
+<text x="565.0" y="440.0" font-size="12" text-anchor="middle" fill="black" font-family="sans-serif">vaatwas301_H met een langenaam</text>
+<path d="M520,435.0 L540,435.0" stroke="black" stroke-width="1.5" />
+<path d="M590,435.0 L610,435.0" stroke="black" stroke-width="1.5" />
+<path d="M540,285.0 L540,285.0" stroke="red" stroke-width="1.5" />
+<path d="M540,285.0 L540,435.0" stroke="red" stroke-width="1.5" />
+<path d="M540,435.0 L520,435.0" stroke="red" stroke-width="1.5" />
+<rect x="540" y="400" width="100" height="50" fill="lightblue" stroke="blue" stroke-width="1" opacity="0.3" rx="5" ry="5" />
+<text x="590.0" y="430.0" font-size="12" text-anchor="middle" fill="black" font-family="sans-serif">centraal</text>
+<path d="M520,425.0 L540,425.0" stroke="black" stroke-width="1.5" />
+<path d="M640,425.0 L660,425.0" stroke="black" stroke-width="1.5" />
+<path d="M540,285.0 L540,285.0" stroke="red" stroke-width="1.5" />
+<path d="M540,285.0 L540,425.0" stroke="red" stroke-width="1.5" />
+<path d="M540,425.0 L520,425.0" stroke="red" stroke-width="1.5" />
+<rect x="540" y="470" width="100" height="50" fill="lightblue" stroke="blue" stroke-width="1" opacity="0.3" rx="5" ry="5" />
+<text x="590.0" y="500.0" font-size="12" text-anchor="middle" fill="black" font-family="sans-serif">inkom</text>
+<path d="M520,495.0 L540,495.0" stroke="black" stroke-width="1.5" />
+<path d="M640,495.0 L660,495.0" stroke="black" stroke-width="1.5" />
+<path d="M540,285.0 L540,285.0" stroke="red" stroke-width="1.5" />
+<path d="M540,285.0 L540,495.0" stroke="red" stroke-width="1.5" />
+<path d="M540,495.0 L520,495.0" stroke="red" stroke-width="1.5" />
+<rect x="540" y="540" width="50" height="50" fill="lightblue" stroke="blue" stroke-width="1" opacity="0.3" rx="5" ry="5" />
+<text x="565.0" y="570.0" font-size="12" text-anchor="middle" fill="black" font-family="sans-serif">prieze_H</text>
+<path d="M520,565.0 L540,565.0" stroke="black" stroke-width="1.5" />
+<path d="M590,565.0 L610,565.0" stroke="black" stroke-width="1.5" />
+<path d="M540,285.0 L540,285.0" stroke="red" stroke-width="1.5" />
+<path d="M540,285.0 L540,565.0" stroke="red" stroke-width="1.5" />
+<path d="M540,565.0 L520,565.0" stroke="red" stroke-width="1.5" />
+<rect x="660" y="540" width="50" height="50" fill="lightblue" stroke="blue" stroke-width="1" opacity="0.3" rx="5" ry="5" />
+<text x="685.0" y="570.0" font-size="12" text-anchor="middle" fill="black" font-family="sans-serif">dompelpomp_H</text>
+<path d="M640,565.0 L660,565.0" stroke="black" stroke-width="1.5" />
+<path d="M710,565.0 L730,565.0" stroke="black" stroke-width="1.5" />
+<path d="M610,565.0 L610,565.0" stroke="red" stroke-width="1.5" />
+<path d="M610,565.0 L610,565.0" stroke="red" stroke-width="1.5" />
+<path d="M610,565.0 L640,565.0" stroke="red" stroke-width="1.5" />
+<rect x="540" y="610" width="50" height="50" fill="lightblue" stroke="blue" stroke-width="1" opacity="0.3" rx="5" ry="5" />
+<text x="565.0" y="640.0" font-size="12" text-anchor="middle" fill="black" font-family="sans-serif">priezedub_H</text>
+<path d="M520,635.0 L540,635.0" stroke="black" stroke-width="1.5" />
+<path d="M590,635.0 L610,635.0" stroke="black" stroke-width="1.5" />
+<path d="M540,285.0 L540,285.0" stroke="red" stroke-width="1.5" />
+<path d="M540,285.0 L540,635.0" stroke="red" stroke-width="1.5" />
+<path d="M540,635.0 L520,635.0" stroke="red" stroke-width="1.5" />
+<rect x="730" y="190" width="50" height="50" fill="lightblue" stroke="blue" stroke-width="1" opacity="0.3" rx="5" ry="5" />
+<text x="755.0" y="220.0" font-size="12" text-anchor="middle" fill="black" font-family="sans-serif">zek3001_V</text>
+<path d="M710,215.0 L730,215.0" stroke="black" stroke-width="1.5" />
+<path d="M780,215.0 L800,215.0" stroke="black" stroke-width="1.5" />
+<path d="M540,145.0 L540,145.0" stroke="red" stroke-width="1.5" />
+<path d="M540,145.0 L540,215.0" stroke="red" stroke-width="1.5" />
+<path d="M540,215.0 L710,215.0" stroke="red" stroke-width="1.5" />
+<rect x="800" y="340" width="50" height="50" fill="lightblue" stroke="blue" stroke-width="1" opacity="0.3" rx="5" ry="5" />
+<text x="825.0" y="370.0" font-size="12" text-anchor="middle" fill="black" font-family="sans-serif">droogkast3002_H</text>
+<path d="M780,365.0 L800,365.0" stroke="black" stroke-width="1.5" />
+<path d="M850,365.0 L870,365.0" stroke="black" stroke-width="1.5" />
+<path d="M800,215.0 L800,215.0" stroke="red" stroke-width="1.5" />
+<path d="M800,215.0 L800,365.0" stroke="red" stroke-width="1.5" />
+<path d="M800,365.0 L780,365.0" stroke="red" stroke-width="1.5" />
+<rect x="870" y="190" width="50" height="50" fill="lightblue" stroke="blue" stroke-width="1" opacity="0.3" rx="5" ry="5" />
+<text x="895.0" y="220.0" font-size="12" text-anchor="middle" fill="black" font-family="sans-serif">zek3002_V</text>
+<path d="M850,215.0 L870,215.0" stroke="black" stroke-width="1.5" />
+<path d="M920,215.0 L940,215.0" stroke="black" stroke-width="1.5" />
+<path d="M540,145.0 L540,145.0" stroke="red" stroke-width="1.5" />
+<path d="M540,145.0 L540,215.0" stroke="red" stroke-width="1.5" />
+<path d="M540,215.0 L850,215.0" stroke="red" stroke-width="1.5" />
+<rect x="940" y="340" width="50" height="50" fill="lightblue" stroke="blue" stroke-width="1" opacity="0.3" rx="5" ry="5" />
+<text x="965.0" y="370.0" font-size="12" text-anchor="middle" fill="black" font-family="sans-serif">microoven3002_H</text>
+<path d="M920,365.0 L940,365.0" stroke="black" stroke-width="1.5" />
+<path d="M990,365.0 L1010,365.0" stroke="black" stroke-width="1.5" />
+<path d="M940,215.0 L940,215.0" stroke="red" stroke-width="1.5" />
+<path d="M940,215.0 L940,365.0" stroke="red" stroke-width="1.5" />
+<path d="M940,365.0 L920,365.0" stroke="red" stroke-width="1.5" />
+<rect x="940" y="330" width="50" height="50" fill="lightblue" stroke="blue" stroke-width="1" opacity="0.3" rx="5" ry="5" />
+<text x="965.0" y="360.0" font-size="12" text-anchor="middle" fill="black" font-family="sans-serif">oven3002_H</text>
+<path d="M920,355.0 L940,355.0" stroke="black" stroke-width="1.5" />
+<path d="M990,355.0 L1010,355.0" stroke="black" stroke-width="1.5" />
+<path d="M940,215.0 L940,215.0" stroke="red" stroke-width="1.5" />
+<path d="M940,215.0 L940,355.0" stroke="red" stroke-width="1.5" />
+<path d="M940,355.0 L920,355.0" stroke="red" stroke-width="1.5" />
+<rect x="1010" y="190" width="50" height="50" fill="lightblue" stroke="blue" stroke-width="1" opacity="0.3" rx="5" ry="5" />
+<text x="1035.0" y="220.0" font-size="12" text-anchor="middle" fill="black" font-family="sans-serif">zek3003_V</text>
+<path d="M990,215.0 L1010,215.0" stroke="black" stroke-width="1.5" />
+<path d="M1060,215.0 L1080,215.0" stroke="black" stroke-width="1.5" />
+<path d="M540,145.0 L540,145.0" stroke="red" stroke-width="1.5" />
+<path d="M540,145.0 L540,215.0" stroke="red" stroke-width="1.5" />
+<path d="M540,215.0 L990,215.0" stroke="red" stroke-width="1.5" />
+<rect x="1080" y="340" width="50" height="50" fill="lightblue" stroke="blue" stroke-width="1" opacity="0.3" rx="5" ry="5" />
+<text x="1105.0" y="370.0" font-size="12" text-anchor="middle" fill="black" font-family="sans-serif">domo2_H</text>
+<path d="M1060,365.0 L1080,365.0" stroke="black" stroke-width="1.5" />
+<path d="M1130,365.0 L1150,365.0" stroke="black" stroke-width="1.5" />
+<path d="M1080,215.0 L1080,215.0" stroke="red" stroke-width="1.5" />
+<path d="M1080,215.0 L1080,365.0" stroke="red" stroke-width="1.5" />
+<path d="M1080,365.0 L1060,365.0" stroke="red" stroke-width="1.5" />
+<rect x="1150" y="260" width="100" height="50" fill="lightblue" stroke="blue" stroke-width="1" opacity="0.3" rx="5" ry="5" />
+<text x="1200.0" y="290.0" font-size="12" text-anchor="middle" fill="black" font-family="sans-serif">centraal</text>
+<path d="M1130,285.0 L1150,285.0" stroke="black" stroke-width="1.5" />
+<path d="M1250,285.0 L1270,285.0" stroke="black" stroke-width="1.5" />
+<path d="M1150,365.0 L1150,365.0" stroke="red" stroke-width="1.5" />
+<path d="M1150,365.0 L1150,285.0" stroke="red" stroke-width="1.5" />
+<path d="M1150,285.0 L1130,285.0" stroke="red" stroke-width="1.5" />
+<rect x="1150" y="330" width="100" height="50" fill="lightblue" stroke="blue" stroke-width="1" opacity="0.3" rx="5" ry="5" />
+<text x="1200.0" y="360.0" font-size="12" text-anchor="middle" fill="black" font-family="sans-serif">dressoir</text>
+<path d="M1130,355.0 L1150,355.0" stroke="black" stroke-width="1.5" />
+<path d="M1250,355.0 L1270,355.0" stroke="black" stroke-width="1.5" />
+<path d="M1150,365.0 L1150,365.0" stroke="red" stroke-width="1.5" />
+<path d="M1150,365.0 L1150,355.0" stroke="red" stroke-width="1.5" />
+<path d="M1150,355.0 L1130,355.0" stroke="red" stroke-width="1.5" />
+<rect x="1150" y="400" width="100" height="50" fill="lightblue" stroke="blue" stroke-width="1" opacity="0.3" rx="5" ry="5" />
+<text x="1200.0" y="430.0" font-size="12" text-anchor="middle" fill="black" font-family="sans-serif">kot</text>
+<path d="M1130,425.0 L1150,425.0" stroke="black" stroke-width="1.5" />
+<path d="M1250,425.0 L1270,425.0" stroke="black" stroke-width="1.5" />
+<path d="M1150,365.0 L1150,365.0" stroke="red" stroke-width="1.5" />
+<path d="M1150,365.0 L1150,425.0" stroke="red" stroke-width="1.5" />
+<path d="M1150,425.0 L1130,425.0" stroke="red" stroke-width="1.5" />
+<rect x="1150" y="470" width="100" height="50" fill="lightblue" stroke="blue" stroke-width="1" opacity="0.3" rx="5" ry="5" />
+<text x="1200.0" y="500.0" font-size="12" text-anchor="middle" fill="black" font-family="sans-serif">phaar</text>
+<path d="M1130,495.0 L1150,495.0" stroke="black" stroke-width="1.5" />
+<path d="M1250,495.0 L1270,495.0" stroke="black" stroke-width="1.5" />
+<path d="M1150,365.0 L1150,365.0" stroke="red" stroke-width="1.5" />
+<path d="M1150,365.0 L1150,495.0" stroke="red" stroke-width="1.5" />
+<path d="M1150,495.0 L1130,495.0" stroke="red" stroke-width="1.5" />
+<rect x="1080" y="540" width="50" height="50" fill="lightblue" stroke="blue" stroke-width="1" opacity="0.3" rx="5" ry="5" />
+<text x="1105.0" y="570.0" font-size="12" text-anchor="middle" fill="black" font-family="sans-serif">Domomodule_H</text>
+<path d="M1060,565.0 L1080,565.0" stroke="black" stroke-width="1.5" />
+<path d="M1130,565.0 L1150,565.0" stroke="black" stroke-width="1.5" />
+<path d="M1080,215.0 L1080,215.0" stroke="red" stroke-width="1.5" />
+<path d="M1080,215.0 L1080,565.0" stroke="red" stroke-width="1.5" />
+<path d="M1080,565.0 L1060,565.0" stroke="red" stroke-width="1.5" />
+<rect x="1150" y="540" width="100" height="50" fill="lightblue" stroke="blue" stroke-width="1" opacity="0.3" rx="5" ry="5" />
+<text x="1200.0" y="570.0" font-size="12" text-anchor="middle" fill="black" font-family="sans-serif">eettafel</text>
+<path d="M1130,565.0 L1150,565.0" stroke="black" stroke-width="1.5" />
+<path d="M1250,565.0 L1270,565.0" stroke="black" stroke-width="1.5" />
+<path d="M1150,565.0 L1150,565.0" stroke="red" stroke-width="1.5" />
+<path d="M1150,565.0 L1150,565.0" stroke="red" stroke-width="1.5" />
+<path d="M1150,565.0 L1130,565.0" stroke="red" stroke-width="1.5" />
+<rect x="1080" y="610" width="50" height="50" fill="lightblue" stroke="blue" stroke-width="1" opacity="0.3" rx="5" ry="5" />
+<text x="1105.0" y="640.0" font-size="12" text-anchor="middle" fill="black" font-family="sans-serif">tv_H</text>
+<path d="M1060,635.0 L1080,635.0" stroke="black" stroke-width="1.5" />
+<path d="M1130,635.0 L1150,635.0" stroke="black" stroke-width="1.5" />
+<path d="M1080,215.0 L1080,215.0" stroke="red" stroke-width="1.5" />
+<path d="M1080,215.0 L1080,635.0" stroke="red" stroke-width="1.5" />
+<path d="M1080,635.0 L1060,635.0" stroke="red" stroke-width="1.5" />
+<rect x="1270" y="190" width="50" height="50" fill="lightblue" stroke="blue" stroke-width="1" opacity="0.3" rx="5" ry="5" />
+<text x="1295.0" y="220.0" font-size="12" text-anchor="middle" fill="black" font-family="sans-serif">zek3004verl_V</text>
+<path d="M1250,215.0 L1270,215.0" stroke="black" stroke-width="1.5" />
+<path d="M1320,215.0 L1340,215.0" stroke="black" stroke-width="1.5" />
+<path d="M540,145.0 L540,145.0" stroke="red" stroke-width="1.5" />
+<path d="M540,145.0 L540,215.0" stroke="red" stroke-width="1.5" />
+<path d="M540,215.0 L1250,215.0" stroke="red" stroke-width="1.5" />
+<rect x="1340" y="340" width="100" height="50" fill="lightblue" stroke="blue" stroke-width="1" opacity="0.3" rx="5" ry="5" />
+<text x="1390.0" y="370.0" font-size="12" text-anchor="middle" fill="black" font-family="sans-serif">Verlicht2_H</text>
+<path d="M1320,365.0 L1340,365.0" stroke="black" stroke-width="1.5" />
+<path d="M1440,365.0 L1460,365.0" stroke="black" stroke-width="1.5" />
+<path d="M1340,215.0 L1340,215.0" stroke="red" stroke-width="1.5" />
+<path d="M1340,215.0 L1340,365.0" stroke="red" stroke-width="1.5" />
+<path d="M1340,365.0 L1320,365.0" stroke="red" stroke-width="1.5" />
+<rect x="1340" y="330" width="100" height="50" fill="lightblue" stroke="blue" stroke-width="1" opacity="0.3" rx="5" ry="5" />
+<text x="1390.0" y="360.0" font-size="12" text-anchor="middle" fill="black" font-family="sans-serif">Verlicht3_H</text>
+<path d="M1320,355.0 L1340,355.0" stroke="black" stroke-width="1.5" />
+<path d="M1440,355.0 L1460,355.0" stroke="black" stroke-width="1.5" />
+<path d="M1340,215.0 L1340,215.0" stroke="red" stroke-width="1.5" />
+<path d="M1340,215.0 L1340,355.0" stroke="red" stroke-width="1.5" />
+<path d="M1340,355.0 L1320,355.0" stroke="red" stroke-width="1.5" />
+<rect x="1340" y="400" width="50" height="50" fill="lightblue" stroke="blue" stroke-width="1" opacity="0.3" rx="5" ry="5" />
+<text x="1365.0" y="430.0" font-size="12" text-anchor="middle" fill="black" font-family="sans-serif">contaxop3004_H</text>
+<path d="M1320,425.0 L1340,425.0" stroke="black" stroke-width="1.5" />
+<path d="M1390,425.0 L1410,425.0" stroke="black" stroke-width="1.5" />
+<path d="M1340,215.0 L1340,215.0" stroke="red" stroke-width="1.5" />
+<path d="M1340,215.0 L1340,425.0" stroke="red" stroke-width="1.5" />
+<path d="M1340,425.0 L1320,425.0" stroke="red" stroke-width="1.5" />
+<rect x="1460" y="400" width="50" height="50" fill="lightblue" stroke="blue" stroke-width="1" opacity="0.3" rx="5" ry="5" />
+<text x="1485.0" y="430.0" font-size="12" text-anchor="middle" fill="black" font-family="sans-serif">contaxopcontax_H</text>
+<path d="M1440,425.0 L1460,425.0" stroke="black" stroke-width="1.5" />
+<path d="M1510,425.0 L1530,425.0" stroke="black" stroke-width="1.5" />
+<path d="M1410,425.0 L1410,425.0" stroke="red" stroke-width="1.5" />
+<path d="M1410,425.0 L1410,425.0" stroke="red" stroke-width="1.5" />
+<path d="M1410,425.0 L1440,425.0" stroke="red" stroke-width="1.5" />
+<rect x="1530" y="400" width="100" height="50" fill="lightblue" stroke="blue" stroke-width="1" opacity="0.3" rx="5" ry="5" />
+<text x="1580.0" y="430.0" font-size="12" text-anchor="middle" fill="black" font-family="sans-serif">faaropcontax_H</text>
+<path d="M1510,425.0 L1530,425.0" stroke="black" stroke-width="1.5" />
+<path d="M1630,425.0 L1650,425.0" stroke="black" stroke-width="1.5" />
+<path d="M1530,425.0 L1530,425.0" stroke="red" stroke-width="1.5" />
+<path d="M1530,425.0 L1530,425.0" stroke="red" stroke-width="1.5" />
+<path d="M1530,425.0 L1510,425.0" stroke="red" stroke-width="1.5" />
+<rect x="1340" y="470" width="50" height="50" fill="lightblue" stroke="blue" stroke-width="1" opacity="0.3" rx="5" ry="5" />
+<text x="1365.0" y="500.0" font-size="12" text-anchor="middle" fill="black" font-family="sans-serif">lamp3004_H</text>
+<path d="M1320,495.0 L1340,495.0" stroke="black" stroke-width="1.5" />
+<path d="M1390,495.0 L1410,495.0" stroke="black" stroke-width="1.5" />
+<path d="M1340,215.0 L1340,215.0" stroke="red" stroke-width="1.5" />
+<path d="M1340,215.0 L1340,495.0" stroke="red" stroke-width="1.5" />
+<path d="M1340,495.0 L1320,495.0" stroke="red" stroke-width="1.5" />
+</svg>

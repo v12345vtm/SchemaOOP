@@ -1,0 +1,114 @@
+<svg width="2045" height="990" xmlns="http://www.w3.org/2000/svg">
+<style>
+    .component-box { stroke: black; stroke-width: 2; fill: #f8f9fa; }
+    .component-label { font-family: Arial, sans-serif; font-size: 10px; text-anchor: middle; alignment-baseline: middle; }
+    .connector-line { stroke: #343a40; stroke-width: 1.5; fill: none; }
+</style>
+<path class="connector-line" d="M120.0,95.0 L215.0,95.0 L215.0,95.0" />
+<path class="connector-line" d="M215.0,95.0 L310.0,95.0 L310.0,195.0" />
+<path class="connector-line" d="M215.0,95.0 L500.0,95.0 L500.0,195.0" />
+<path class="connector-line" d="M215.0,95.0 L690.0,95.0 L690.0,195.0" />
+<path class="connector-line" d="M310.0,195.0 L310.0,295.0 M310.0,295.0 L405.0,295.0" />
+<path class="connector-line" d="M500.0,195.0 L500.0,295.0 M500.0,295.0 L595.0,295.0" />
+<path class="connector-line" d="M690.0,195.0 L690.0,295.0 M690.0,295.0 L690.0,295.0" />
+<path class="connector-line" d="M690.0,195.0 L690.0,295.0 M690.0,295.0 L975.0,295.0" />
+<path class="connector-line" d="M690.0,195.0 L690.0,295.0 M690.0,295.0 L1165.0,295.0" />
+<path class="connector-line" d="M690.0,195.0 L690.0,295.0 M690.0,295.0 L1355.0,295.0" />
+<path class="connector-line" d="M690.0,195.0 L690.0,295.0 M690.0,295.0 L1640.0,295.0" />
+<path class="connector-line" d="M690.0,295.0 L690.0,395.0 M690.0,395.0 L690.0,395.0" />
+<path class="connector-line" d="M975.0,295.0 L975.0,395.0 M975.0,395.0 L1070.0,395.0" />
+<path class="connector-line" d="M1165.0,295.0 L1165.0,395.0 M1165.0,395.0 L1260.0,395.0" />
+<path class="connector-line" d="M1165.0,295.0 L1165.0,495.0 M1165.0,495.0 L1260.0,495.0" />
+<path class="connector-line" d="M1355.0,295.0 L1355.0,395.0 M1355.0,395.0 L1450.0,395.0" />
+<path class="connector-line" d="M1355.0,295.0 L1355.0,795.0 M1355.0,795.0 L1450.0,795.0" />
+<path class="connector-line" d="M1355.0,295.0 L1355.0,895.0 M1355.0,895.0 L1450.0,895.0" />
+<path class="connector-line" d="M1640.0,295.0 L1640.0,395.0 M1640.0,395.0 L1735.0,395.0" />
+<path class="connector-line" d="M1640.0,295.0 L1640.0,495.0 M1640.0,495.0 L1735.0,495.0" />
+<path class="connector-line" d="M1640.0,295.0 L1640.0,595.0 M1640.0,595.0 L1735.0,595.0" />
+<path class="connector-line" d="M1640.0,295.0 L1640.0,695.0 M1640.0,695.0 L1735.0,695.0" />
+<path class="connector-line" d="M690.0,395.0 L690.0,495.0 M690.0,495.0 L785.0,495.0" />
+<path class="connector-line" d="M690.0,395.0 L690.0,595.0 M690.0,595.0 L785.0,595.0" />
+<path class="connector-line" d="M690.0,395.0 L690.0,695.0 M690.0,695.0 L785.0,695.0" />
+<path class="connector-line" d="M690.0,395.0 L690.0,795.0 M690.0,795.0 L785.0,795.0" />
+<path class="connector-line" d="M690.0,395.0 L690.0,895.0 M690.0,895.0 L785.0,895.0" />
+<path class="connector-line" d="M1450.0,395.0 L1545.0,395.0 L1545.0,395.0" />
+<path class="connector-line" d="M1450.0,395.0 L1545.0,395.0 L1545.0,495.0" />
+<path class="connector-line" d="M1450.0,395.0 L1545.0,395.0 L1545.0,595.0" />
+<path class="connector-line" d="M1450.0,395.0 L1545.0,395.0 L1545.0,695.0" />
+<path class="connector-line" d="M1450.0,795.0 L1545.0,795.0 L1545.0,795.0" />
+<path class="connector-line" d="M1735.0,595.0 L1830.0,595.0 L1830.0,595.0" />
+<path class="connector-line" d="M785.0,795.0 L880.0,795.0 L880.0,795.0" />
+<path class="connector-line" d="M1830.0,595.0 L1925.0,595.0 L1925.0,595.0" />
+<rect x="70.0" y="70.0" width="100" height="50" class="component-box" rx="5"></rect>
+<text x="120.0" y="95.0" class="component-label">kop</text>
+<rect x="165.0" y="70.0" width="100" height="50" class="component-box" rx="5"></rect>
+<text x="215.0" y="95.0" class="component-label">Teller</text>
+<rect x="260.0" y="170.0" width="100" height="50" class="component-box" rx="5"></rect>
+<text x="310.0" y="195.0" class="component-label">Diff3</text>
+<rect x="450.0" y="170.0" width="100" height="50" class="component-box" rx="5"></rect>
+<text x="500.0" y="195.0" class="component-label">Diff30</text>
+<rect x="640.0" y="170.0" width="100" height="50" class="component-box" rx="5"></rect>
+<text x="690.0" y="195.0" class="component-label">Diff300</text>
+<rect x="355.0" y="270.0" width="100" height="50" class="component-box" rx="5"></rect>
+<text x="405.0" y="295.0" class="component-label">zonnepaneelopdif3</text>
+<rect x="545.0" y="270.0" width="100" height="50" class="component-box" rx="5"></rect>
+<text x="595.0" y="295.0" class="component-label">reserve</text>
+<rect x="640.0" y="270.0" width="100" height="50" class="component-box" rx="5"></rect>
+<text x="690.0" y="295.0" class="component-label">dif100</text>
+<rect x="925.0" y="270.0" width="100" height="50" class="component-box" rx="5"></rect>
+<text x="975.0" y="295.0" class="component-label">zek3001</text>
+<rect x="1115.0" y="270.0" width="100" height="50" class="component-box" rx="5"></rect>
+<text x="1165.0" y="295.0" class="component-label">zek3002</text>
+<rect x="1305.0" y="270.0" width="100" height="50" class="component-box" rx="5"></rect>
+<text x="1355.0" y="295.0" class="component-label">zek3003</text>
+<rect x="1590.0" y="270.0" width="100" height="50" class="component-box" rx="5"></rect>
+<text x="1640.0" y="295.0" class="component-label">zek3004verl</text>
+<rect x="640.0" y="370.0" width="100" height="50" class="component-box" rx="5"></rect>
+<text x="690.0" y="395.0" class="component-label">zek1001</text>
+<rect x="1020.0" y="370.0" width="100" height="50" class="component-box" rx="5"></rect>
+<text x="1070.0" y="395.0" class="component-label">droogkast3002</text>
+<rect x="1210.0" y="370.0" width="100" height="50" class="component-box" rx="5"></rect>
+<text x="1260.0" y="395.0" class="component-label">microoven3002</text>
+<rect x="1210.0" y="470.0" width="100" height="50" class="component-box" rx="5"></rect>
+<text x="1260.0" y="495.0" class="component-label">oven3002</text>
+<rect x="1400.0" y="370.0" width="100" height="50" class="component-box" rx="5"></rect>
+<text x="1450.0" y="395.0" class="component-label">domo2</text>
+<rect x="1400.0" y="770.0" width="100" height="50" class="component-box" rx="5"></rect>
+<text x="1450.0" y="795.0" class="component-label">Domomodule</text>
+<rect x="1400.0" y="870.0" width="100" height="50" class="component-box" rx="5"></rect>
+<text x="1450.0" y="895.0" class="component-label">tv</text>
+<rect x="1685.0" y="370.0" width="100" height="50" class="component-box" rx="5"></rect>
+<text x="1735.0" y="395.0" class="component-label">Verlicht2</text>
+<rect x="1685.0" y="470.0" width="100" height="50" class="component-box" rx="5"></rect>
+<text x="1735.0" y="495.0" class="component-label">Verlicht3</text>
+<rect x="1685.0" y="570.0" width="100" height="50" class="component-box" rx="5"></rect>
+<text x="1735.0" y="595.0" class="component-label">contaxop3004</text>
+<rect x="1685.0" y="670.0" width="100" height="50" class="component-box" rx="5"></rect>
+<text x="1735.0" y="695.0" class="component-label">lamp3004</text>
+<rect x="735.0" y="470.0" width="100" height="50" class="component-box" rx="5"></rect>
+<text x="785.0" y="495.0" class="component-label">vaatwas301 met een langenaam</text>
+<rect x="735.0" y="570.0" width="100" height="50" class="component-box" rx="5"></rect>
+<text x="785.0" y="595.0" class="component-label">centraal</text>
+<rect x="735.0" y="670.0" width="100" height="50" class="component-box" rx="5"></rect>
+<text x="785.0" y="695.0" class="component-label">inkom</text>
+<rect x="735.0" y="770.0" width="100" height="50" class="component-box" rx="5"></rect>
+<text x="785.0" y="795.0" class="component-label">prieze</text>
+<rect x="735.0" y="870.0" width="100" height="50" class="component-box" rx="5"></rect>
+<text x="785.0" y="895.0" class="component-label">priezedub</text>
+<rect x="1495.0" y="370.0" width="100" height="50" class="component-box" rx="5"></rect>
+<text x="1545.0" y="395.0" class="component-label">centraal</text>
+<rect x="1495.0" y="470.0" width="100" height="50" class="component-box" rx="5"></rect>
+<text x="1545.0" y="495.0" class="component-label">dressoir</text>
+<rect x="1495.0" y="570.0" width="100" height="50" class="component-box" rx="5"></rect>
+<text x="1545.0" y="595.0" class="component-label">kot</text>
+<rect x="1495.0" y="670.0" width="100" height="50" class="component-box" rx="5"></rect>
+<text x="1545.0" y="695.0" class="component-label">phaar</text>
+<rect x="1495.0" y="770.0" width="100" height="50" class="component-box" rx="5"></rect>
+<text x="1545.0" y="795.0" class="component-label">eettafel</text>
+<rect x="1780.0" y="570.0" width="100" height="50" class="component-box" rx="5"></rect>
+<text x="1830.0" y="595.0" class="component-label">contaxopcontax</text>
+<rect x="830.0" y="770.0" width="100" height="50" class="component-box" rx="5"></rect>
+<text x="880.0" y="795.0" class="component-label">dompelpomp</text>
+<rect x="1875.0" y="570.0" width="100" height="50" class="component-box" rx="5"></rect>
+<text x="1925.0" y="595.0" class="component-label">faaropcontax</text>
+</svg>

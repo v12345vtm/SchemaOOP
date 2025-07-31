@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     width="5010" height="730" viewBox="0 0 5010 730">
+<defs>
+</defs>
+<rect x="0" y="0" width="5010" height="730" fill="#f5f5f5" />
+<g id="kop">
+<rect x="10" y="10" width="240" height="70" fill="lightblue" stroke="black" rx="5" ry="5" />
+<text x="20" y="35" font-size="15" font-family="Arial" fill="black">kop</text>
+<text x="20" y="60" font-size="12" font-family="monospace" fill="#444">Grid (x,y): (0, 0)</text>
+</g>
+<g id="Teller_H">
+<rect x="260" y="10" width="240" height="70" fill="lightblue" stroke="black" rx="5" ry="5" />
+<text x="270" y="35" font-size="15" font-family="Arial" fill="black">Teller_H</text>
+<text x="270" y="60" font-size="12" font-family="monospace" fill="#444">Grid (x,y): (1, 0)</text>
+</g>
+<g id="Diff3_V">
+<rect x="510" y="90" width="240" height="70" fill="lightblue" stroke="black" rx="5" ry="5" />
+<text x="520" y="115" font-size="15" font-family="Arial" fill="black">Diff3_V</text>
+<text x="520" y="140" font-size="12" font-family="monospace" fill="#444">Grid (x,y): (2, 1)</text>
+</g>
+<g id="zonnepaneelopdif3_H">
+<rect x="760" y="170" width="240" height="70" fill="lightblue" stroke="black" rx="5" ry="5" />
+<text x="770" y="195" font-size="15" font-family="Arial" fill="black">zonnepaneelopdif3_H</text>
+<text x="770" y="220" font-size="12" font-family="monospace" fill="#444">Grid (x,y): (3, 2)</text>
+</g>
+<g id="Diff30_V">
+<rect x="1010" y="90" width="240" height="70" fill="lightblue" stroke="black" rx="5" ry="5" />
+<text x="1020" y="115" font-size="15" font-family="Arial" fill="black">Diff30_V</text>
+<text x="1020" y="140" font-size="12" font-family="monospace" fill="#444">Grid (x,y): (4, 1)</text>
+</g>
+<g id="reserve_H">
+<rect x="1260" y="170" width="240" height="70" fill="lightblue" stroke="black" rx="5" ry="5" />
+<text x="1270" y="195" font-size="15" font-family="Arial" fill="black">reserve_H</text>
+<text x="1270" y="220" font-size="12" font-family="monospace" fill="#444">Grid (x,y): (5, 2)</text>
+</g>
+<g id="Diff300_V">
+<rect x="1510" y="90" width="240" height="70" fill="lightblue" stroke="black" rx="5" ry="5" />
+<text x="1520" y="115" font-size="15" font-family="Arial" fill="black">Diff300_V</text>
+<text x="1520" y="140" font-size="12" font-family="monospace" fill="#444">Grid (x,y): (6, 1)</text>
+</g>
+<g id="Diff100_V">
+<rect x="1510" y="170" width="240" height="70" fill="lightblue" stroke="black" rx="5" ry="5" />
+<text x="1520" y="195" font-size="15" font-family="Arial" fill="black">Diff100_V</text>
+<text x="1520" y="220" font-size="12" font-family="monospace" fill="#444">Grid (x,y): (6, 2)</text>
+</g>
+<g id="zek1001_V">
+<rect x="1510" y="250" width="240" height="70" fill="lightblue" stroke="black" rx="5" ry="5" />
+<text x="1520" y="275" font-size="15" font-family="Arial" fill="black">zek1001_V</text>
+<text x="1520" y="300" font-size="12" font-family="monospace" fill="#444">Grid (x,y): (6, 3)</text>
+</g>
+<g id="vaatwas301_H met een langenaam">
+<rect x="1760" y="330" width="240" height="70" fill="lightblue" stroke="black" rx="5" ry="5" />
+<text x="1770" y="355" font-size="15" font-family="Arial" fill="black">vaatwas301_H met een langenaam</text>
+<text x="1770" y="380" font-size="12" font-family="monospace" fill="#444">Grid (x,y): (7, 4)</text>
+</g>
+<g id="centraal">
+<rect x="1760" y="410" width="240" height="70" fill="lightblue" stroke="black" rx="5" ry="5" />
+<text x="1770" y="435" font-size="15" font-family="Arial" fill="black">centraal</text>
+<text x="1770" y="460" font-size="12" font-family="monospace" fill="#444">Grid (x,y): (7, 5)</text>
+</g>
+<g id="inkom">
+<rect x="1760" y="490" width="240" height="70" fill="lightblue" stroke="black" rx="5" ry="5" />
+<text x="1770" y="515" font-size="15" font-family="Arial" fill="black">inkom</text>
+<text x="1770" y="540" font-size="12" font-family="monospace" fill="#444">Grid (x,y): (7, 6)</text>
+</g>
+<g id="prieze">
+<rect x="1760" y="570" width="240" height="70" fill="lightblue" stroke="black" rx="5" ry="5" />
+<text x="1770" y="595" font-size="15" font-family="Arial" fill="black">prieze</text>
+<text x="1770" y="620" font-size="12" font-family="monospace" fill="#444">Grid (x,y): (7, 7)</text>
+</g>
+<g id="dompelpomp_H">
+<rect x="2010" y="570" width="240" height="70" fill="lightblue" stroke="black" rx="5" ry="5" />
+<text x="2020" y="595" font-size="15" font-family="Arial" fill="black">dompelpomp_H</text>
+<text x="2020" y="620" font-size="12" font-family="monospace" fill="#444">Grid (x,y): (8, 7)</text>
+</g>
+<g id="priezedub">
+<rect x="1760" y="650" width="240" height="70" fill="lightblue" stroke="black" rx="5" ry="5" />
+<text x="1770" y="675" font-size="15" font-family="Arial" fill="black">priezedub</text>
+<text x="1770" y="700" font-size="12" font-family="monospace" fill="#444">Grid (x,y): (7, 8)</text>
+</g>
+<g id="zek3001_V">
+<rect x="2260" y="170" width="240" height="70" fill="lightblue" stroke="black" rx="5" ry="5" />
+<text x="2270" y="195" font-size="15" font-family="Arial" fill="black">zek3001_V</text>
+<text x="2270" y="220" font-size="12" font-family="monospace" fill="#444">Grid (x,y): (9, 2)</text>
+</g>
+<g id="droogkast3002_H">
+<rect x="2510" y="250" width="240" height="70" fill="lightblue" stroke="black" rx="5" ry="5" />
+<text x="2520" y="275" font-size="15" font-family="Arial" fill="black">droogkast3002_H</text>
+<text x="2520" y="300" font-size="12" font-family="monospace" fill="#444">Grid (x,y): (10, 3)</text>
+</g>
+<g id="zek3002_V">
+<rect x="2760" y="170" width="240" height="70" fill="lightblue" stroke="black" rx="5" ry="5" />
+<text x="2770" y="195" font-size="15" font-family="Arial" fill="black">zek3002_V</text>
+<text x="2770" y="220" font-size="12" font-family="monospace" fill="#444">Grid (x,y): (11, 2)</text>
+</g>
+<g id="microoven3002_H">
+<rect x="3010" y="250" width="240" height="70" fill="lightblue" stroke="black" rx="5" ry="5" />
+<text x="3020" y="275" font-size="15" font-family="Arial" fill="black">microoven3002_H</text>
+<text x="3020" y="300" font-size="12" font-family="monospace" fill="#444">Grid (x,y): (12, 3)</text>
+</g>
+<g id="oven3002_H">
+<rect x="3010" y="330" width="240" height="70" fill="lightblue" stroke="black" rx="5" ry="5" />
+<text x="3020" y="355" font-size="15" font-family="Arial" fill="black">oven3002_H</text>
+<text x="3020" y="380" font-size="12" font-family="monospace" fill="#444">Grid (x,y): (12, 4)</text>
+</g>
+<g id="zek3003_V">
+<rect x="3260" y="170" width="240" height="70" fill="lightblue" stroke="black" rx="5" ry="5" />
+<text x="3270" y="195" font-size="15" font-family="Arial" fill="black">zek3003_V</text>
+<text x="3270" y="220" font-size="12" font-family="monospace" fill="#444">Grid (x,y): (13, 2)</text>
+</g>
+<g id="domo2_H">
+<rect x="3510" y="250" width="240" height="70" fill="lightblue" stroke="black" rx="5" ry="5" />
+<text x="3520" y="275" font-size="15" font-family="Arial" fill="black">domo2_H</text>
+<text x="3520" y="300" font-size="12" font-family="monospace" fill="#444">Grid (x,y): (14, 3)</text>
+</g>
+<g id="centraal">
+<rect x="3760" y="250" width="240" height="70" fill="lightblue" stroke="black" rx="5" ry="5" />
+<text x="3770" y="275" font-size="15" font-family="Arial" fill="black">centraal</text>
+<text x="3770" y="300" font-size="12" font-family="monospace" fill="#444">Grid (x,y): (15, 3)</text>
+</g>
+<g id="dressoir">
+<rect x="3760" y="330" width="240" height="70" fill="lightblue" stroke="black" rx="5" ry="5" />
+<text x="3770" y="355" font-size="15" font-family="Arial" fill="black">dressoir</text>
+<text x="3770" y="380" font-size="12" font-family="monospace" fill="#444">Grid (x,y): (15, 4)</text>
+</g>
+<g id="kot">
+<rect x="3760" y="410" width="240" height="70" fill="lightblue" stroke="black" rx="5" ry="5" />
+<text x="3770" y="435" font-size="15" font-family="Arial" fill="black">kot</text>
+<text x="3770" y="460" font-size="12" font-family="monospace" fill="#444">Grid (x,y): (15, 5)</text>
+</g>
+<g id="phaar">
+<rect x="3760" y="490" width="240" height="70" fill="lightblue" stroke="black" rx="5" ry="5" />
+<text x="3770" y="515" font-size="15" font-family="Arial" fill="black">phaar</text>
+<text x="3770" y="540" font-size="12" font-family="monospace" fill="#444">Grid (x,y): (15, 6)</text>
+</g>
+<g id="Domomodule_H">
+<rect x="3510" y="570" width="240" height="70" fill="lightblue" stroke="black" rx="5" ry="5" />
+<text x="3520" y="595" font-size="15" font-family="Arial" fill="black">Domomodule_H</text>
+<text x="3520" y="620" font-size="12" font-family="monospace" fill="#444">Grid (x,y): (14, 7)</text>
+</g>
+<g id="eettafel">
+<rect x="3760" y="570" width="240" height="70" fill="lightblue" stroke="black" rx="5" ry="5" />
+<text x="3770" y="595" font-size="15" font-family="Arial" fill="black">eettafel</text>
+<text x="3770" y="620" font-size="12" font-family="monospace" fill="#444">Grid (x,y): (15, 7)</text>
+</g>
+<g id="tv_H">
+<rect x="3510" y="650" width="240" height="70" fill="lightblue" stroke="black" rx="5" ry="5" />
+<text x="3520" y="675" font-size="15" font-family="Arial" fill="black">tv_H</text>
+<text x="3520" y="700" font-size="12" font-family="monospace" fill="#444">Grid (x,y): (14, 8)</text>
+</g>
+<g id="zek3004verl_V">
+<rect x="4010" y="170" width="240" height="70" fill="lightblue" stroke="black" rx="5" ry="5" />
+<text x="4020" y="195" font-size="15" font-family="Arial" fill="black">zek3004verl_V</text>
+<text x="4020" y="220" font-size="12" font-family="monospace" fill="#444">Grid (x,y): (16, 2)</text>
+</g>
+<g id="Verlicht2_H">
+<rect x="4260" y="250" width="240" height="70" fill="lightblue" stroke="black" rx="5" ry="5" />
+<text x="4270" y="275" font-size="15" font-family="Arial" fill="black">Verlicht2_H</text>
+<text x="4270" y="300" font-size="12" font-family="monospace" fill="#444">Grid (x,y): (17, 3)</text>
+</g>
+<g id="Verlicht3_H">
+<rect x="4260" y="330" width="240" height="70" fill="lightblue" stroke="black" rx="5" ry="5" />
+<text x="4270" y="355" font-size="15" font-family="Arial" fill="black">Verlicht3_H</text>
+<text x="4270" y="380" font-size="12" font-family="monospace" fill="#444">Grid (x,y): (17, 4)</text>
+</g>
+<g id="contaxop3004_H">
+<rect x="4260" y="410" width="240" height="70" fill="lightblue" stroke="black" rx="5" ry="5" />
+<text x="4270" y="435" font-size="15" font-family="Arial" fill="black">contaxop3004_H</text>
+<text x="4270" y="460" font-size="12" font-family="monospace" fill="#444">Grid (x,y): (17, 5)</text>
+</g>
+<g id="contaxopcontax_H">
+<rect x="4510" y="410" width="240" height="70" fill="lightblue" stroke="black" rx="5" ry="5" />
+<text x="4520" y="435" font-size="15" font-family="Arial" fill="black">contaxopcontax_H</text>
+<text x="4520" y="460" font-size="12" font-family="monospace" fill="#444">Grid (x,y): (18, 5)</text>
+</g>
+<g id="faaropcontax_H">
+<rect x="4760" y="410" width="240" height="70" fill="lightblue" stroke="black" rx="5" ry="5" />
+<text x="4770" y="435" font-size="15" font-family="Arial" fill="black">faaropcontax_H</text>
+<text x="4770" y="460" font-size="12" font-family="monospace" fill="#444">Grid (x,y): (19, 5)</text>
+</g>
+<g id="lamp3004_H">
+<rect x="4260" y="490" width="240" height="70" fill="lightblue" stroke="black" rx="5" ry="5" />
+<text x="4270" y="515" font-size="15" font-family="Arial" fill="black">lamp3004_H</text>
+<text x="4270" y="540" font-size="12" font-family="monospace" fill="#444">Grid (x,y): (17, 6)</text>
+</g>
+</svg>

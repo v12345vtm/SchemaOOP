@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     width="2620" height="950" viewBox="0 0 2620 950">
+<defs>
+</defs>
+<text x="66" y="860" font-size="20" anchor="start">kop</text>
+<text x="66" y="860" font-size="10" anchor="start">appliance</text>
+<text x="0" y="800" font-size="20" anchor="start">hoi</text>
+<image x="0" y="800" width="50" height="50" xlink:href="symbolen\NoSymbol\default.svg" />
+<circle cx="0" cy="825" r="6" fill="brown" />
+<circle cx="50" cy="825" r="6" fill="brown" />
+<path d="M0,825 L-20,825" stroke="red" stroke-width="2" />
+<path d="M50,825 L70,825" stroke="green" stroke-width="2" />
+<circle cx="-20" cy="825" r="6" fill="red" />
+<circle cx="70" cy="825" r="6" fill="green" />
+<text x="0" y="825" font-size="20" anchor="start">IN</text>
+<text x="196" y="860" font-size="20" anchor="start">Teller_H</text>
+<text x="196" y="860" font-size="10" anchor="start">teller</text>
+<text x="130" y="800" font-size="20" anchor="start">hoi</text>
+<image x="130" y="800" width="50" height="50" xlink:href="symbolen\NoSymbol\default.svg" />
+<circle cx="130" cy="825" r="6" fill="brown" />
+<circle cx="180" cy="825" r="6" fill="brown" />
+<path d="M130,825 L110,825" stroke="red" stroke-width="2" />
+<path d="M180,825 L200,825" stroke="green" stroke-width="2" />
+<circle cx="110" cy="825" r="6" fill="red" />
+<circle cx="200" cy="825" r="6" fill="green" />
+<text x="130" y="825" font-size="20" anchor="start">IN</text>
+<text x="326" y="780" font-size="20" anchor="start">Diff3_V</text>
+<text x="326" y="780" font-size="10" anchor="start">differential</text>
+<text x="260" y="720" font-size="20" anchor="start">hoi</text>
+<image x="260" y="720" width="50" height="50" xlink:href="symbolen\NoSymbol\default.svg" />
+<circle cx="285" cy="770" r="6" fill="brown" />
+<circle cx="285" cy="720" r="6" fill="brown" />
+<path d="M285,770 L285,790" stroke="red" stroke-width="2" />
+<path d="M285,720 L285,700" stroke="green" stroke-width="2" />
+<circle cx="285" cy="790" r="6" fill="red" />
+<circle cx="285" cy="700" r="6" fill="green" />
+<text x="285" y="770" font-size="20" anchor="start">IN</text>
+<text x="456" y="700" font-size="20" anchor="start">zonnepaneelopdif3_H</text>
+<text x="456" y="700" font-size="10" anchor="start">appliance</text>
+<text x="390" y="640" font-size="20" anchor="start">hoi</text>
+<image x="390" y="640" width="50" height="50" xlink:href="symbolen\NoSymbol\default.svg" />
+<circle cx="390" cy="665" r="6" fill="brown" />
+<circle cx="440" cy="665" r="6" fill="brown" />
+<path d="M390,665 L370,665" stroke="red" stroke-width="2" />
+<path d="M440,665 L460,665" stroke="green" stroke-width="2" />
+<circle cx="370" cy="665" r="6" fill="red" />
+<circle cx="460" cy="665" r="6" fill="green" />
+<text x="390" y="665" font-size="20" anchor="start">IN</text>
+<text x="586" y="780" font-size="20" anchor="start">Diff30_V</text>
+<text x="586" y="780" font-size="10" anchor="start">differential</text>
+<text x="520" y="720" font-size="20" anchor="start">hoi</text>
+<image x="520" y="720" width="50" height="50" xlink:href="symbolen\NoSymbol\default.svg" />
+<circle cx="545" cy="770" r="6" fill="brown" />
+<circle cx="545" cy="720" r="6" fill="brown" />
+<path d="M545,770 L545,790" stroke="red" stroke-width="2" />
+<path d="M545,720 L545,700" stroke="green" stroke-width="2" />
+<circle cx="545" cy="790" r="6" fill="red" />
+<circle cx="545" cy="700" r="6" fill="green" />
+<text x="545" y="770" font-size="20" anchor="start">IN</text>
+<text x="716" y="700" font-size="20" anchor="start">reserve_H</text>
+<text x="716" y="700" font-size="10" anchor="start">geen</text>
+<text x="650" y="640" font-size="20" anchor="start">hoi</text>
+<image x="650" y="640" width="50" height="50" xlink:href="symbolen\NoSymbol\default.svg" />
+<circle cx="650" cy="665" r="6" fill="brown" />
+<circle cx="700" cy="665" r="6" fill="brown" />
+<path d="M650,665 L630,665" stroke="red" stroke-width="2" />
+<path d="M700,665 L720,665" stroke="green" stroke-width="2" />
+<circle cx="630" cy="665" r="6" fill="red" />
+<circle cx="720" cy="665" r="6" fill="green" />
+<text x="650" y="665" font-size="20" anchor="start">IN</text>
+<text x="846" y="780" font-size="20" anchor="start">Diff300_V</text>
+<text x="846" y="780" font-size="10" anchor="start">differential</text>
+<text x="780" y="720" font-size="20" anchor="start">hoi</text>
+<image x="780" y="720" width="50" height="50" xlink:href="symbolen\NoSymbol\default.svg" />
+<circle cx="805" cy="770" r="6" fill="brown" />
+<circle cx="805" cy="720" r="6" fill="brown" />
+<path d="M805,770 L805,790" stroke="red" stroke-width="2" />
+<path d="M805,720 L805,700" stroke="green" stroke-width="2" />
+<circle cx="805" cy="790" r="6" fill="red" />
+<circle cx="805" cy="700" r="6" fill="green" />
+<text x="805" y="770" font-size="20" anchor="start">IN</text>
+<text x="746" y="700" font-size="20" anchor="start">Diff100_V</text>
+<text x="746" y="700" font-size="10" anchor="start">differential</text>
+<text x="680" y="640" font-size="20" anchor="start">hoi</text>
+<image x="680" y="640" width="50" height="50" xlink:href="symbolen\NoSymbol\default.svg" />
+<circle cx="705" cy="690" r="6" fill="brown" />
+<circle cx="705" cy="640" r="6" fill="brown" />
+<path d="M705,690 L705,710" stroke="red" stroke-width="2" />
+<path d="M705,640 L705,620" stroke="green" stroke-width="2" />
+<circle cx="705" cy="710" r="6" fill="red" />
+<circle cx="705" cy="620" r="6" fill="green" />
+<text x="705" y="690" font-size="20" anchor="start">IN</text>
+<text x="846" y="620" font-size="20" anchor="start">zek1001_V</text>
+<text x="846" y="620" font-size="10" anchor="start">vb</text>
+<text x="780" y="560" font-size="20" anchor="start">hoi</text>
+<image x="780" y="560" width="50" height="50" xlink:href="symbolen\NoSymbol\default.svg" />
+<circle cx="805" cy="610" r="6" fill="brown" />
+<circle cx="805" cy="560" r="6" fill="brown" />
+<path d="M805,610 L805,630" stroke="red" stroke-width="2" />
+<path d="M805,560 L805,540" stroke="green" stroke-width="2" />
+<circle cx="805" cy="630" r="6" fill="red" />
+<circle cx="805" cy="540" r="6" fill="green" />
+<text x="805" y="610" font-size="20" anchor="start">IN</text>
+<text x="976" y="380" font-size="20" anchor="start">vaatwas301_H met een langenaam</text>
+<text x="976" y="380" font-size="10" anchor="start">keuken</text>
+<text x="910" y="320" font-size="20" anchor="start">hoi</text>
+<image x="910" y="320" width="50" height="50" xlink:href="symbolen\NoSymbol\default.svg" />
+<circle cx="910" cy="345" r="6" fill="brown" />
+<circle cx="960" cy="345" r="6" fill="brown" />
+<path d="M910,345 L890,345" stroke="red" stroke-width="2" />
+<path d="M960,345 L980,345" stroke="green" stroke-width="2" />
+<circle cx="890" cy="345" r="6" fill="red" />
+<circle cx="980" cy="345" r="6" fill="green" />
+<text x="910" y="345" font-size="20" anchor="start">IN</text>
+<text x="976" y="300" font-size="20" anchor="start">centraal</text>
+<text x="976" y="300" font-size="10" anchor="start">slpk2</text>
+<text x="910" y="240" font-size="20" anchor="start">hoi</text>
+<image x="910" y="240" width="50" height="50" xlink:href="symbolen\NoSymbol\default.svg" />
+<circle cx="910" cy="265" r="6" fill="brown" />
+<circle cx="960" cy="265" r="6" fill="brown" />
+<path d="M910,265 L890,265" stroke="red" stroke-width="2" />
+<path d="M960,265 L980,265" stroke="green" stroke-width="2" />
+<circle cx="890" cy="265" r="6" fill="red" />
+<circle cx="980" cy="265" r="6" fill="green" />
+<text x="910" y="265" font-size="20" anchor="start">IN</text>
+<text x="976" y="220" font-size="20" anchor="start">inkom</text>
+<text x="976" y="220" font-size="10" anchor="start">inkom</text>
+<text x="910" y="160" font-size="20" anchor="start">hoi</text>
+<image x="910" y="160" width="50" height="50" xlink:href="symbolen\NoSymbol\default.svg" />
+<circle cx="910" cy="185" r="6" fill="brown" />
+<circle cx="960" cy="185" r="6" fill="brown" />
+<path d="M910,185 L890,185" stroke="red" stroke-width="2" />
+<path d="M960,185 L980,185" stroke="green" stroke-width="2" />
+<circle cx="890" cy="185" r="6" fill="red" />
+<circle cx="980" cy="185" r="6" fill="green" />
+<text x="910" y="185" font-size="20" anchor="start">IN</text>
+<text x="976" y="140" font-size="20" anchor="start">prieze</text>
+<text x="976" y="140" font-size="10" anchor="start">prieze</text>
+<text x="910" y="80" font-size="20" anchor="start">hoi</text>
+<image x="910" y="80" width="50" height="50" xlink:href="symbolen\NoSymbol\default.svg" />
+<circle cx="910" cy="105" r="6" fill="brown" />
+<circle cx="960" cy="105" r="6" fill="brown" />
+<path d="M910,105 L890,105" stroke="red" stroke-width="2" />
+<path d="M960,105 L980,105" stroke="green" stroke-width="2" />
+<circle cx="890" cy="105" r="6" fill="red" />
+<circle cx="980" cy="105" r="6" fill="green" />
+<text x="910" y="105" font-size="20" anchor="start">IN</text>
+<text x="1106" y="140" font-size="20" anchor="start">dompelpomp_H</text>
+<text x="1106" y="140" font-size="10" anchor="start">appliance</text>
+<text x="1040" y="80" font-size="20" anchor="start">hoi</text>
+<image x="1040" y="80" width="50" height="50" xlink:href="symbolen\NoSymbol\default.svg" />
+<circle cx="1040" cy="105" r="6" fill="brown" />
+<circle cx="1090" cy="105" r="6" fill="brown" />
+<path d="M1040,105 L1020,105" stroke="red" stroke-width="2" />
+<path d="M1090,105 L1110,105" stroke="green" stroke-width="2" />
+<circle cx="1020" cy="105" r="6" fill="red" />
+<circle cx="1110" cy="105" r="6" fill="green" />
+<text x="1040" y="105" font-size="20" anchor="start">IN</text>
+<text x="976" y="60" font-size="20" anchor="start">priezedub</text>
+<text x="976" y="60" font-size="10" anchor="start">prieze</text>
+<text x="910" y="0" font-size="20" anchor="start">hoi</text>
+<image x="910" y="0" width="50" height="50" xlink:href="symbolen\NoSymbol\default.svg" />
+<circle cx="910" cy="25" r="6" fill="brown" />
+<circle cx="960" cy="25" r="6" fill="brown" />
+<path d="M910,25 L890,25" stroke="red" stroke-width="2" />
+<path d="M960,25 L980,25" stroke="green" stroke-width="2" />
+<circle cx="890" cy="25" r="6" fill="red" />
+<circle cx="980" cy="25" r="6" fill="green" />
+<text x="910" y="25" font-size="20" anchor="start">IN</text>
+<text x="1236" y="700" font-size="20" anchor="start">zek3001_V</text>
+<text x="1236" y="700" font-size="10" anchor="start">circuit_breaker</text>
+<text x="1170" y="640" font-size="20" anchor="start">hoi</text>
+<image x="1170" y="640" width="50" height="50" xlink:href="symbolen\NoSymbol\default.svg" />
+<circle cx="1195" cy="690" r="6" fill="brown" />
+<circle cx="1195" cy="640" r="6" fill="brown" />
+<path d="M1195,690 L1195,710" stroke="red" stroke-width="2" />
+<path d="M1195,640 L1195,620" stroke="green" stroke-width="2" />
+<circle cx="1195" cy="710" r="6" fill="red" />
+<circle cx="1195" cy="620" r="6" fill="green" />
+<text x="1195" y="690" font-size="20" anchor="start">IN</text>
+<text x="1366" y="460" font-size="20" anchor="start">droogkast3002_H</text>
+<text x="1366" y="460" font-size="10" anchor="start">appliance</text>
+<text x="1300" y="400" font-size="20" anchor="start">hoi</text>
+<image x="1300" y="400" width="50" height="50" xlink:href="symbolen\NoSymbol\default.svg" />
+<circle cx="1300" cy="425" r="6" fill="brown" />
+<circle cx="1350" cy="425" r="6" fill="brown" />
+<path d="M1300,425 L1280,425" stroke="red" stroke-width="2" />
+<path d="M1350,425 L1370,425" stroke="green" stroke-width="2" />
+<circle cx="1280" cy="425" r="6" fill="red" />
+<circle cx="1370" cy="425" r="6" fill="green" />
+<text x="1300" y="425" font-size="20" anchor="start">IN</text>
+<text x="1496" y="700" font-size="20" anchor="start">zek3002_V</text>
+<text x="1496" y="700" font-size="10" anchor="start">circuit_breaker</text>
+<text x="1430" y="640" font-size="20" anchor="start">hoi</text>
+<image x="1430" y="640" width="50" height="50" xlink:href="symbolen\NoSymbol\default.svg" />
+<circle cx="1455" cy="690" r="6" fill="brown" />
+<circle cx="1455" cy="640" r="6" fill="brown" />
+<path d="M1455,690 L1455,710" stroke="red" stroke-width="2" />
+<path d="M1455,640 L1455,620" stroke="green" stroke-width="2" />
+<circle cx="1455" cy="710" r="6" fill="red" />
+<circle cx="1455" cy="620" r="6" fill="green" />
+<text x="1455" y="690" font-size="20" anchor="start">IN</text>
+<text x="1626" y="460" font-size="20" anchor="start">microoven3002_H</text>
+<text x="1626" y="460" font-size="10" anchor="start">appliance</text>
+<text x="1560" y="400" font-size="20" anchor="start">hoi</text>
+<image x="1560" y="400" width="50" height="50" xlink:href="symbolen\NoSymbol\default.svg" />
+<circle cx="1560" cy="425" r="6" fill="brown" />
+<circle cx="1610" cy="425" r="6" fill="brown" />
+<path d="M1560,425 L1540,425" stroke="red" stroke-width="2" />
+<path d="M1610,425 L1630,425" stroke="green" stroke-width="2" />
+<circle cx="1540" cy="425" r="6" fill="red" />
+<circle cx="1630" cy="425" r="6" fill="green" />
+<text x="1560" y="425" font-size="20" anchor="start">IN</text>
+<text x="1626" y="380" font-size="20" anchor="start">oven3002_H</text>
+<text x="1626" y="380" font-size="10" anchor="start">keuken</text>
+<text x="1560" y="320" font-size="20" anchor="start">hoi</text>
+<image x="1560" y="320" width="50" height="50" xlink:href="symbolen\NoSymbol\default.svg" />
+<circle cx="1560" cy="345" r="6" fill="brown" />
+<circle cx="1610" cy="345" r="6" fill="brown" />
+<path d="M1560,345 L1540,345" stroke="red" stroke-width="2" />
+<path d="M1610,345 L1630,345" stroke="green" stroke-width="2" />
+<circle cx="1540" cy="345" r="6" fill="red" />
+<circle cx="1630" cy="345" r="6" fill="green" />
+<text x="1560" y="345" font-size="20" anchor="start">IN</text>
+<text x="1756" y="700" font-size="20" anchor="start">zek3003_V</text>
+<text x="1756" y="700" font-size="10" anchor="start">circuit_breaker</text>
+<text x="1690" y="640" font-size="20" anchor="start">hoi</text>
+<image x="1690" y="640" width="50" height="50" xlink:href="symbolen\NoSymbol\default.svg" />
+<circle cx="1715" cy="690" r="6" fill="brown" />
+<circle cx="1715" cy="640" r="6" fill="brown" />
+<path d="M1715,690 L1715,710" stroke="red" stroke-width="2" />
+<path d="M1715,640 L1715,620" stroke="green" stroke-width="2" />
+<circle cx="1715" cy="710" r="6" fill="red" />
+<circle cx="1715" cy="620" r="6" fill="green" />
+<text x="1715" y="690" font-size="20" anchor="start">IN</text>
+<text x="1886" y="460" font-size="20" anchor="start">domo2_H</text>
+<text x="1886" y="460" font-size="10" anchor="start">appliance</text>
+<text x="1820" y="400" font-size="20" anchor="start">hoi</text>
+<image x="1820" y="400" width="50" height="50" xlink:href="symbolen\NoSymbol\default.svg" />
+<circle cx="1820" cy="425" r="6" fill="brown" />
+<circle cx="1870" cy="425" r="6" fill="brown" />
+<path d="M1820,425 L1800,425" stroke="red" stroke-width="2" />
+<path d="M1870,425 L1890,425" stroke="green" stroke-width="2" />
+<circle cx="1800" cy="425" r="6" fill="red" />
+<circle cx="1890" cy="425" r="6" fill="green" />
+<text x="1820" y="425" font-size="20" anchor="start">IN</text>
+<text x="2016" y="460" font-size="20" anchor="start">centraal</text>
+<text x="2016" y="460" font-size="10" anchor="start">garage</text>
+<text x="1950" y="400" font-size="20" anchor="start">hoi</text>
+<image x="1950" y="400" width="50" height="50" xlink:href="symbolen\NoSymbol\default.svg" />
+<circle cx="1950" cy="425" r="6" fill="brown" />
+<circle cx="2000" cy="425" r="6" fill="brown" />
+<path d="M1950,425 L1930,425" stroke="red" stroke-width="2" />
+<path d="M2000,425 L2020,425" stroke="green" stroke-width="2" />
+<circle cx="1930" cy="425" r="6" fill="red" />
+<circle cx="2020" cy="425" r="6" fill="green" />
+<text x="1950" y="425" font-size="20" anchor="start">IN</text>
+<text x="2016" y="380" font-size="20" anchor="start">dressoir</text>
+<text x="2016" y="380" font-size="10" anchor="start">living</text>
+<text x="1950" y="320" font-size="20" anchor="start">hoi</text>
+<image x="1950" y="320" width="50" height="50" xlink:href="symbolen\NoSymbol\default.svg" />
+<circle cx="1950" cy="345" r="6" fill="brown" />
+<circle cx="2000" cy="345" r="6" fill="brown" />
+<path d="M1950,345 L1930,345" stroke="red" stroke-width="2" />
+<path d="M2000,345 L2020,345" stroke="green" stroke-width="2" />
+<circle cx="1930" cy="345" r="6" fill="red" />
+<circle cx="2020" cy="345" r="6" fill="green" />
+<text x="1950" y="345" font-size="20" anchor="start">IN</text>
+<text x="2016" y="300" font-size="20" anchor="start">kot</text>
+<text x="2016" y="300" font-size="10" anchor="start">kot</text>
+<text x="1950" y="240" font-size="20" anchor="start">hoi</text>
+<image x="1950" y="240" width="50" height="50" xlink:href="symbolen\NoSymbol\default.svg" />
+<circle cx="1950" cy="265" r="6" fill="brown" />
+<circle cx="2000" cy="265" r="6" fill="brown" />
+<path d="M1950,265 L1930,265" stroke="red" stroke-width="2" />
+<path d="M2000,265 L2020,265" stroke="green" stroke-width="2" />
+<circle cx="1930" cy="265" r="6" fill="red" />
+<circle cx="2020" cy="265" r="6" fill="green" />
+<text x="1950" y="265" font-size="20" anchor="start">IN</text>
+<text x="2016" y="220" font-size="20" anchor="start">phaar</text>
+<text x="2016" y="220" font-size="10" anchor="start">tuin</text>
+<text x="1950" y="160" font-size="20" anchor="start">hoi</text>
+<image x="1950" y="160" width="50" height="50" xlink:href="symbolen\NoSymbol\default.svg" />
+<circle cx="1950" cy="185" r="6" fill="brown" />
+<circle cx="2000" cy="185" r="6" fill="brown" />
+<path d="M1950,185 L1930,185" stroke="red" stroke-width="2" />
+<path d="M2000,185 L2020,185" stroke="green" stroke-width="2" />
+<circle cx="1930" cy="185" r="6" fill="red" />
+<circle cx="2020" cy="185" r="6" fill="green" />
+<text x="1950" y="185" font-size="20" anchor="start">IN</text>
+<text x="1886" y="140" font-size="20" anchor="start">Domomodule_H</text>
+<text x="1886" y="140" font-size="10" anchor="start">domomodule</text>
+<text x="1820" y="80" font-size="20" anchor="start">hoi</text>
+<image x="1820" y="80" width="50" height="50" xlink:href="symbolen\NoSymbol\default.svg" />
+<circle cx="1820" cy="105" r="6" fill="brown" />
+<circle cx="1870" cy="105" r="6" fill="brown" />
+<path d="M1820,105 L1800,105" stroke="red" stroke-width="2" />
+<path d="M1870,105 L1890,105" stroke="green" stroke-width="2" />
+<circle cx="1800" cy="105" r="6" fill="red" />
+<circle cx="1890" cy="105" r="6" fill="green" />
+<text x="1820" y="105" font-size="20" anchor="start">IN</text>
+<text x="2016" y="140" font-size="20" anchor="start">eettafel</text>
+<text x="2016" y="140" font-size="10" anchor="start">living</text>
+<text x="1950" y="80" font-size="20" anchor="start">hoi</text>
+<image x="1950" y="80" width="50" height="50" xlink:href="symbolen\NoSymbol\default.svg" />
+<circle cx="1950" cy="105" r="6" fill="brown" />
+<circle cx="2000" cy="105" r="6" fill="brown" />
+<path d="M1950,105 L1930,105" stroke="red" stroke-width="2" />
+<path d="M2000,105 L2020,105" stroke="green" stroke-width="2" />
+<circle cx="1930" cy="105" r="6" fill="red" />
+<circle cx="2020" cy="105" r="6" fill="green" />
+<text x="1950" y="105" font-size="20" anchor="start">IN</text>
+<text x="1886" y="60" font-size="20" anchor="start">tv_H</text>
+<text x="1886" y="60" font-size="10" anchor="start">appliance</text>
+<text x="1820" y="0" font-size="20" anchor="start">hoi</text>
+<image x="1820" y="0" width="50" height="50" xlink:href="symbolen\NoSymbol\default.svg" />
+<circle cx="1820" cy="25" r="6" fill="brown" />
+<circle cx="1870" cy="25" r="6" fill="brown" />
+<path d="M1820,25 L1800,25" stroke="red" stroke-width="2" />
+<path d="M1870,25 L1890,25" stroke="green" stroke-width="2" />
+<circle cx="1800" cy="25" r="6" fill="red" />
+<circle cx="1890" cy="25" r="6" fill="green" />
+<text x="1820" y="25" font-size="20" anchor="start">IN</text>
+<text x="2146" y="700" font-size="20" anchor="start">zek3004verl_V</text>
+<text x="2146" y="700" font-size="10" anchor="start">circuit_breaker</text>
+<text x="2080" y="640" font-size="20" anchor="start">hoi</text>
+<image x="2080" y="640" width="50" height="50" xlink:href="symbolen\NoSymbol\default.svg" />
+<circle cx="2105" cy="690" r="6" fill="brown" />
+<circle cx="2105" cy="640" r="6" fill="brown" />
+<path d="M2105,690 L2105,710" stroke="red" stroke-width="2" />
+<path d="M2105,640 L2105,620" stroke="green" stroke-width="2" />
+<circle cx="2105" cy="710" r="6" fill="red" />
+<circle cx="2105" cy="620" r="6" fill="green" />
+<text x="2105" y="690" font-size="20" anchor="start">IN</text>
+<text x="2276" y="460" font-size="20" anchor="start">Verlicht2_H</text>
+<text x="2276" y="460" font-size="10" anchor="start">verlichting</text>
+<text x="2210" y="400" font-size="20" anchor="start">hoi</text>
+<image x="2210" y="400" width="50" height="50" xlink:href="symbolen\NoSymbol\default.svg" />
+<circle cx="2210" cy="425" r="6" fill="brown" />
+<circle cx="2260" cy="425" r="6" fill="brown" />
+<path d="M2210,425 L2190,425" stroke="red" stroke-width="2" />
+<path d="M2260,425 L2280,425" stroke="green" stroke-width="2" />
+<circle cx="2190" cy="425" r="6" fill="red" />
+<circle cx="2280" cy="425" r="6" fill="green" />
+<text x="2210" y="425" font-size="20" anchor="start">IN</text>
+<text x="2276" y="380" font-size="20" anchor="start">Verlicht3_H</text>
+<text x="2276" y="380" font-size="10" anchor="start">verlichting</text>
+<text x="2210" y="320" font-size="20" anchor="start">hoi</text>
+<image x="2210" y="320" width="50" height="50" xlink:href="symbolen\NoSymbol\default.svg" />
+<circle cx="2210" cy="345" r="6" fill="brown" />
+<circle cx="2260" cy="345" r="6" fill="brown" />
+<path d="M2210,345 L2190,345" stroke="red" stroke-width="2" />
+<path d="M2260,345 L2280,345" stroke="green" stroke-width="2" />
+<circle cx="2190" cy="345" r="6" fill="red" />
+<circle cx="2280" cy="345" r="6" fill="green" />
+<text x="2210" y="345" font-size="20" anchor="start">IN</text>
+<text x="2276" y="300" font-size="20" anchor="start">contaxop3004_H</text>
+<text x="2276" y="300" font-size="10" anchor="start">appliance</text>
+<text x="2210" y="240" font-size="20" anchor="start">hoi</text>
+<image x="2210" y="240" width="50" height="50" xlink:href="symbolen\NoSymbol\default.svg" />
+<circle cx="2210" cy="265" r="6" fill="brown" />
+<circle cx="2260" cy="265" r="6" fill="brown" />
+<path d="M2210,265 L2190,265" stroke="red" stroke-width="2" />
+<path d="M2260,265 L2280,265" stroke="green" stroke-width="2" />
+<circle cx="2190" cy="265" r="6" fill="red" />
+<circle cx="2280" cy="265" r="6" fill="green" />
+<text x="2210" y="265" font-size="20" anchor="start">IN</text>
+<text x="2406" y="300" font-size="20" anchor="start">contaxopcontax_H</text>
+<text x="2406" y="300" font-size="10" anchor="start">appliance</text>
+<text x="2340" y="240" font-size="20" anchor="start">hoi</text>
+<image x="2340" y="240" width="50" height="50" xlink:href="symbolen\NoSymbol\default.svg" />
+<circle cx="2340" cy="265" r="6" fill="brown" />
+<circle cx="2390" cy="265" r="6" fill="brown" />
+<path d="M2340,265 L2320,265" stroke="red" stroke-width="2" />
+<path d="M2390,265 L2410,265" stroke="green" stroke-width="2" />
+<circle cx="2320" cy="265" r="6" fill="red" />
+<circle cx="2410" cy="265" r="6" fill="green" />
+<text x="2340" y="265" font-size="20" anchor="start">IN</text>
+<text x="2536" y="300" font-size="20" anchor="start">faaropcontax_H</text>
+<text x="2536" y="300" font-size="10" anchor="start">verlichting</text>
+<text x="2470" y="240" font-size="20" anchor="start">hoi</text>
+<image x="2470" y="240" width="50" height="50" xlink:href="symbolen\NoSymbol\default.svg" />
+<circle cx="2470" cy="265" r="6" fill="brown" />
+<circle cx="2520" cy="265" r="6" fill="brown" />
+<path d="M2470,265 L2450,265" stroke="red" stroke-width="2" />
+<path d="M2520,265 L2540,265" stroke="green" stroke-width="2" />
+<circle cx="2450" cy="265" r="6" fill="red" />
+<circle cx="2540" cy="265" r="6" fill="green" />
+<text x="2470" y="265" font-size="20" anchor="start">IN</text>
+<text x="2276" y="220" font-size="20" anchor="start">lamp3004_H</text>
+<text x="2276" y="220" font-size="10" anchor="start">appliance</text>
+<text x="2210" y="160" font-size="20" anchor="start">hoi</text>
+<image x="2210" y="160" width="50" height="50" xlink:href="symbolen\NoSymbol\default.svg" />
+<circle cx="2210" cy="185" r="6" fill="brown" />
+<circle cx="2260" cy="185" r="6" fill="brown" />
+<path d="M2210,185 L2190,185" stroke="red" stroke-width="2" />
+<path d="M2260,185 L2280,185" stroke="green" stroke-width="2" />
+<circle cx="2190" cy="185" r="6" fill="red" />
+<circle cx="2280" cy="185" r="6" fill="green" />
+<text x="2210" y="185" font-size="20" anchor="start">IN</text>
+</svg>

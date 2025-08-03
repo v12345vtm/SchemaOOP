@@ -642,7 +642,7 @@ def geenPrieze_build_tree_from_excel(file_path):
 
 # ==== Main execution ====
 if __name__ == "__main__":
-    file_path = "input.xlsx"
+    file_path = "input.xlsm"
 
     nodes, roots = build_tree_from_excel(file_path)
 

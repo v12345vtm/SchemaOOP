@@ -83,12 +83,114 @@ class Toestel(Component):
     def __init__(self, name, aansluitpunt=None, opmerking=None, **kwargs):
         super().__init__(name, "Toestel", aansluitpunt=aansluitpunt, opmerking=opmerking, **kwargs)
 
+
+class Prieze(Component):
+    def __init__(self, name, locatie=None, enk_dubb=None, hydro=None, schak=None, aarding=None, kinder=None, parent=None, **kwargs):
+        super().__init__(name, "Prieze",
+                         locatie=locatie, enk_dubb=enk_dubb, hydro=hydro,
+                         schak=schak, aarding=aarding, kinder=kinder,
+                         parent_name=parent, **kwargs)  # keep raw parent for now
+
+
+
+class ContaxContact(Component):
+    def __init__(self, name, part_type, parent_name, opmerking=None, **kwargs):
+        # part_type: "spoel" or "contact"
+        comp_name = f"{name}_{part_type}"
+        node_type = f"ContaxContact_{part_type}"
+        # Save original name for potential use
+        super().__init__(comp_name, node_type=node_type, opmerking=opmerking, **kwargs)
+        self.original = name
+        self.part_type = part_type
+        self.parent_name = parent_name  # Used for delayed assignment
+
+    def summarize(self):
+        return f"{self.name}: {self.node_type} | parent={self.parent_name} | opmerking={getattr(self, 'opmerking', '')}"
+
+
 class Zekering(Component):
     def __init__(self, name, polen=None, amp=None, kiloamp=None, tiepe=None, opmerking=None, **kwargs):
         super().__init__(name, "Zekering", polen=polen, amp=amp, kiloamp=kiloamp, tiepe=tiepe, opmerking=opmerking, **kwargs)
 
-
     def create_zekeringenoverzicht(self):
+        polen = getattr(self, 'polen', None)
+        amp = getattr(self, 'amp', None)
+
+        # INLINE integer conversion for float or int (and blank if missing)
+        polen_str = ""
+        if polen is not None and not (isinstance(polen, float) and pd.isna(polen)):
+            try:
+                polen_str = str(int(float(polen)))
+            except Exception:
+                polen_str = str(polen)
+        amp_str = ""
+        if amp is not None and not (isinstance(amp, float) and pd.isna(amp)):
+            try:
+                amp_str = str(int(float(amp)))
+            except Exception:
+                amp_str = str(amp)
+
+        prefix = ""
+        if polen_str and amp_str:
+            prefix = f"= {polen_str}P {amp_str}A "
+        elif polen_str:
+            prefix = f"({polen_str}P) "
+        elif amp_str:
+            prefix = f"({amp_str}A) "
+
+        pairs = self._collect_kabel_pairs(self)
+        if not pairs:
+            return f"{self.name} {prefix}= _"
+        concatenated = " / ".join(pairs)
+        return f"{self.name} {prefix}= {concatenated}"
+
+
+
+    def _collect_kabel_pairs(self, node):
+        """Recursively collect all wat/naar pairs from Kabel descendants."""
+        pairs = []
+        for child in node.children:
+            # If it's a Kabel, collect its wat/naar
+            if isinstance(child, Kabel):
+                van = getattr(child, 'wat', None)
+                naar = getattr(child, 'naar', None)
+                van_str = str(van).strip() if van and not (isinstance(van, float) and pd.isna(van)) else ""
+                naar_str = str(naar).strip() if naar and not (isinstance(naar, float) and pd.isna(naar)) else ""
+                if van_str or naar_str:
+                    pairs.append(f"{van_str} {naar_str}".strip())
+            # Regardless of type, continue recursively!
+            pairs.extend(self._collect_kabel_pairs(child))
+        return pairs
+
+    def oudfloeat_create_zekeringenoverzicht(self):
+        # Prepare polen and amp strings if available
+        polen = getattr(self, 'polen', None)
+        amp = getattr(self, 'amp', None)
+        polen_str = str(polen).strip() if polen is not None and not (
+                    isinstance(polen, float) and pd.isna(polen)) else ""
+        amp_str = str(amp).strip() if amp is not None and not (isinstance(amp, float) and pd.isna(amp)) else ""
+
+        prefix = ""
+        if polen_str and amp_str:
+            prefix = f"= {polen_str}P {amp_str}A "
+        elif polen_str:
+            prefix = f"({polen_str}P) "
+        elif amp_str:
+            prefix = f"({amp_str}A) "
+
+        # Use the recursive function to gather all pairs
+        pairs = self._collect_kabel_pairs(self)
+
+        # If pairs is empty (no Kabels with wat/naar found), underscore line with prefix
+        if not pairs:
+            return f"{self.name} {prefix}= _"
+
+        concatenated = " / ".join(pairs)
+        return f"{self.name} {prefix}= {concatenated}"
+
+
+
+    def oudcreate_zekeringenoverzicht(self):
         # Prepare polen and amp strings if available
         polen = getattr(self, 'polen', None)
         amp = getattr(self, 'amp', None)
@@ -130,8 +232,9 @@ class Zekering(Component):
 
 
 class Kabel(Component):
-    def __init__(self, name, puntje=None, aders=None, type=None, van=None, wat=None, naar=None, lengte=None, opmerk=None, **kwargs):
-        super().__init__(name, "Kabel", puntje=puntje, aders=aders, type=type, van=van, wat=wat, naar=naar, lengte=lengte, opmerk=opmerk, **kwargs)
+    def __init__(self, name, puntje=None, aders=None, tiepe=None, van=None, wat=None, naar=None, lengte=None, opmerk=None, **kwargs):
+        super().__init__(name, "Kabel", puntje=puntje, aders=aders, tiepe=tiepe, van=van, wat=wat, naar=naar, lengte=lengte, opmerk=opmerk, **kwargs)
+
 
 class Differentieel(Component):
     def __init__(self, name, polen=None, amp=None, millies=None, kiloamp=None, kiloamp_1=None, diftype=None, opmerking=None, **kwargs):
@@ -139,7 +242,147 @@ class Differentieel(Component):
 
 
 
+    def oudfloat_create_automatelijst(self):
+        # Prepare polen, amp, millies strings for the differentieel itself
+        polen = getattr(self, 'polen', None)
+        amp = getattr(self, 'amp', None)
+        millies = getattr(self, 'millies', None)
+
+        polen_str = str(polen).strip() if polen and not (isinstance(polen, float) and pd.isna(polen)) else ""
+        amp_str = str(amp).strip() if amp and not (isinstance(amp, float) and pd.isna(amp)) else ""
+        millies_str = str(millies).strip() if millies and not (isinstance(millies, float) and pd.isna(millies)) else ""
+
+        diff_line_parts = []
+        if polen_str:
+            diff_line_parts.append(f"{polen_str}p")
+        if amp_str:
+            diff_line_parts.append(f"{amp_str}A")
+        if millies_str:
+            diff_line_parts.append(f"{millies_str}ma")
+
+        diff_line = f"{self.name} = {' '.join(diff_line_parts)}"
+        lines = [diff_line]
+
+        for child in sorted(self.children, key=lambda x: natural_key(x.name)):
+            if isinstance(child, Zekering):
+                # Prepare Zekering prefix for polen and amp
+                zk_polen = getattr(child, 'polen', None)
+                zk_amp = getattr(child, 'amp', None)
+                zk_polen_str = str(zk_polen).strip() if zk_polen and not (isinstance(zk_polen, float) and pd.isna(zk_polen)) else ""
+                zk_amp_str = str(zk_amp).strip() if zk_amp and not (isinstance(zk_amp, float) and pd.isna(zk_amp)) else ""
+
+                zk_prefix = ""
+                if zk_polen_str and zk_amp_str:
+                    zk_prefix = f"{zk_polen_str}P {zk_amp_str}A"
+                elif zk_polen_str:
+                    zk_prefix = f"{zk_polen_str}P"
+                elif zk_amp_str:
+                    zk_prefix = f"{zk_amp_str}A"
+
+                # Use recursive Kabel collector here:
+                pairs = child._collect_kabel_pairs(child)
+
+                if not pairs:
+                    line = f"{child.name} = {zk_prefix} = _"
+                else:
+                    concatenated = " / ".join(pairs)
+                    line = f"{child.name} = {zk_prefix} = {concatenated}"
+
+                lines.append(line)
+
+        return "\n".join(lines)
+
+
+
     def create_automatelijst(self):
+        polen = getattr(self, 'polen', None)
+        amp = getattr(self, 'amp', None)
+        millies = getattr(self, 'millies', None)
+
+        # Inline int conversion for main differentieel line
+        def intify_val(val):
+            if val is None or (isinstance(val, float) and pd.isna(val)):
+                return ""
+            try:
+                f = float(val)
+                if f.is_integer():
+                    return str(int(f))
+                return str(f)
+            except Exception:
+                return str(val)
+
+        polen_str = intify_val(polen)
+        amp_str = intify_val(amp)
+        millies_str = intify_val(millies)
+
+        diff_line_parts = []
+        if polen_str:
+            diff_line_parts.append(f"{polen_str}p")
+        if amp_str:
+            diff_line_parts.append(f"{amp_str}A")
+        if millies_str:
+            diff_line_parts.append(f"{millies_str}ma")
+
+        diff_line = f"{self.name} = {' '.join(diff_line_parts)}"
+        lines = [diff_line]
+
+        # Recursive kabel collector (inline)
+        def collect_kabel_pairs(node):
+            pairs = []
+            for child in node.children:
+                if isinstance(child, Kabel):
+                    van = getattr(child, 'wat', None)
+                    naar = getattr(child, 'naar', None)
+                    van_str = str(van).strip() if van and not (isinstance(van, float) and pd.isna(van)) else ""
+                    naar_str = str(naar).strip() if naar and not (isinstance(naar, float) and pd.isna(naar)) else ""
+                    if van_str or naar_str:
+                        pairs.append(f"{van_str} {naar_str}".strip())
+                pairs.extend(collect_kabel_pairs(child))
+            return pairs
+
+        for child in sorted(self.children, key=lambda x: natural_key(x.name)):
+            if isinstance(child, Zekering):
+                zk_polen = getattr(child, 'polen', None)
+                zk_amp = getattr(child, 'amp', None)
+
+                # Inline int conversion for Zekering polen and amp
+                zk_polen_str = ""
+                if zk_polen is not None and not (isinstance(zk_polen, float) and pd.isna(zk_polen)):
+                    try:
+                        f = float(zk_polen)
+                        zk_polen_str = str(int(f)) if f.is_integer() else str(f)
+                    except Exception:
+                        zk_polen_str = str(zk_polen)
+
+                zk_amp_str = ""
+                if zk_amp is not None and not (isinstance(zk_amp, float) and pd.isna(zk_amp)):
+                    try:
+                        f = float(zk_amp)
+                        zk_amp_str = str(int(f)) if f.is_integer() else str(f)
+                    except Exception:
+                        zk_amp_str = str(zk_amp)
+
+                zk_prefix = ""
+                if zk_polen_str and zk_amp_str:
+                    zk_prefix = f"{zk_polen_str}P {zk_amp_str}A"
+                elif zk_polen_str:
+                    zk_prefix = f"{zk_polen_str}P"
+                elif zk_amp_str:
+                    zk_prefix = f"{zk_amp_str}A"
+
+                pairs = collect_kabel_pairs(child)
+
+                if not pairs:
+                    line = f"{child.name} = {zk_prefix} = _"
+                else:
+                    concatenated = " / ".join(pairs)
+                    line = f"{child.name} = {zk_prefix} = {concatenated}"
+
+                lines.append(line)
+
+        return "\n".join(lines)
+
+    def oudcreate_automatelijst(self):
         # Prepare polen, amp, millies strings for the differentieel itself
         polen = getattr(self, 'polen', None)
         amp = getattr(self, 'amp', None)
@@ -217,11 +460,14 @@ SHEET_TO_CLASS = {
     "Zekering": Zekering,
     "Kabel": Kabel,
     "Differentieel": Differentieel,
-    "Differntieel": Differentieel, # Handle typo
+    "Domomodule": Component, # Handle typo
+    "ContaxContact": ContaxContact,
+    "Prieze": Prieze,
+    "Component": Component,
 }
 
 
-def build_tree_from_excel(file_path):
+def oudbuild_tree_from_excel(file_path):
     # This function remains the same
     xls = pd.ExcelFile(file_path)
     all_nodes = {}
@@ -259,6 +505,137 @@ def build_tree_from_excel(file_path):
                 print(f"WARNING: Parent '{parent_name_str}' not found for node '{node.name}'")
         delattr(node, "_parent_tmp")
 
+    roots = [node for node in all_nodes.values() if node.parent is None and len(node.children) > 0]
+    return all_nodes, roots
+
+
+def build_tree_from_excel(file_path):
+    xls = pd.ExcelFile(file_path)
+    all_nodes = {}
+
+    for sheet in xls.sheet_names:
+        if sheet not in SHEET_TO_CLASS:
+            print(f"Skipping unknown sheet: {sheet}")
+            continue
+
+        Cls = SHEET_TO_CLASS[sheet]
+        df = pd.read_excel(xls, sheet)
+        df.columns = df.columns.str.strip()
+
+        # Handle ContaxContact separately if needed (from your earlier code)
+        if sheet == "ContaxContact":
+            # Special case: each row becomes two nodes!
+            for idx, row in df.iterrows():
+                name = row.get('naam')
+                if pd.isna(name) or str(name).strip() == "":
+                    continue
+                name = str(name).strip()
+                opmerking = row.get('opmerking')
+                # 1. spoel node
+                spoel_parent = row.get('spoel_parent')
+                spoel_node = Cls(name, part_type="spoel", parent_name=spoel_parent, opmerking=opmerking)
+                spoel_node._parent_tmp = spoel_parent
+                all_nodes[f"{name}_spoel"] = spoel_node
+                # 2. contact node
+                contact_parent = row.get('parent')
+                contact_node = Cls(name, part_type="contact", parent_name=contact_parent, opmerking=opmerking)
+                contact_node._parent_tmp = contact_parent
+                all_nodes[f"{name}_contact"] = contact_node
+        else:
+            for idx, row in df.iterrows():
+                name = row.get('naam')
+                if pd.isna(name) or str(name).strip() == "":
+                    continue
+                name = str(name).strip()
+                kwargs = {col: row.get(col) for col in df.columns if col not in ['naam', 'parent']}
+                parent_val = row.get('parent')
+                # Sentinel logic for parent splitting:
+                parent_str = None
+                if isinstance(parent_val, str):
+                    parent_str = parent_val.strip()
+                    if '.' in parent_str:
+                        parent_str = parent_str.split('.', 1)[0]  # get part before '.'
+
+                # Create the node instance with all other kwargs
+                node = Cls(name, **kwargs)
+                node._parent_tmp = parent_str
+                node.parent_name = parent_val  # raw for summary
+                all_nodes[name] = node
+
+    # After creating nodes, assign their parents
+    for node in all_nodes.values():
+        parent_name = getattr(node, "_parent_tmp", None)
+        if parent_name is not None and not (isinstance(parent_name, float) and pd.isna(parent_name)) and str(parent_name).strip() != "":
+            parent_name_str = str(parent_name).strip()
+            if parent_name_str in all_nodes:
+                node.parent = all_nodes[parent_name_str]
+            else:
+                print(f"WARNING: Parent '{parent_name_str}' not found for node '{node.name}'")
+        delattr(node, "_parent_tmp")
+
+    roots = [node for node in all_nodes.values() if node.parent is None and len(node.children) > 0]
+    return all_nodes, roots
+
+
+def geenPrieze_build_tree_from_excel(file_path):
+    xls = pd.ExcelFile(file_path)
+    all_nodes = {}
+
+    for sheet in xls.sheet_names:
+        if sheet not in SHEET_TO_CLASS:
+            print(f"Skipping unknown sheet: {sheet}")
+            continue
+        Cls = SHEET_TO_CLASS[sheet]
+        df = pd.read_excel(xls, sheet)
+        df.columns = df.columns.str.strip()
+
+        if sheet == "ContaxContact":
+            # Special case: each row becomes two nodes!
+            for idx, row in df.iterrows():
+                name = row.get('naam')
+                if pd.isna(name) or str(name).strip() == "":
+                    continue
+                name = str(name).strip()
+                opmerking = row.get('opmerking')
+                # 1. spoel node
+                spoel_parent = row.get('spoel_parent')
+                spoel_node = Cls(name, part_type="spoel", parent_name=spoel_parent, opmerking=opmerking)
+                spoel_node._parent_tmp = spoel_parent
+                all_nodes[f"{name}_spoel"] = spoel_node
+                # 2. contact node
+                contact_parent = row.get('parent')
+                contact_node = Cls(name, part_type="contact", parent_name=contact_parent, opmerking=opmerking)
+                contact_node._parent_tmp = contact_parent
+                all_nodes[f"{name}_contact"] = contact_node
+        else:
+            # Normal single-node handling
+            for idx, row in df.iterrows():
+                name = row.get('naam')
+                if pd.isna(name) or str(name).strip() == "":
+                    continue
+                name = str(name).strip()
+                kwargs = {col: row.get(col) for col in df.columns if col not in ['naam', 'parent']}
+                node = Cls(name, **kwargs)
+                parent_val = row.get('parent')
+                node._parent_tmp = parent_val
+                node.parent_name = parent_val
+                all_nodes[name] = node
+
+    # Fix up parents for ALL nodes (including ContaxContact)
+    for node in all_nodes.values():
+        parent_name = getattr(node, "_parent_tmp", None)
+        if parent_name is not None and not (isinstance(parent_name, float) and pd.isna(parent_name)) and str(parent_name).strip() != "":
+            parent_name_str = str(parent_name).strip()
+            # The parent might be either a "main" name or a ..._contact or ..._spoel; always try both
+            if parent_name_str in all_nodes:
+                node.parent = all_nodes[parent_name_str]
+            elif f"{parent_name_str}_spoel" in all_nodes:
+                node.parent = all_nodes[f"{parent_name_str}_spoel"]
+            elif f"{parent_name_str}_contact" in all_nodes:
+                node.parent = all_nodes[f"{parent_name_str}_contact"]
+            else:
+                print(f"WARNING: Parent '{parent_name_str}' not found for node '{node.name}'")
+        delattr(node, "_parent_tmp")
     roots = [node for node in all_nodes.values() if node.parent is None and len(node.children) > 0]
     return all_nodes, roots
 
